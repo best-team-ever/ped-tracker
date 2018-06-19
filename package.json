@@ -1,16 +1,32 @@
 {
   "name": "ped-tracker",
   "version": "0.1.0",
-  "private": true,
+  "description": "",
+  "main": "index.js",
   "dependencies": {
+    "pg": "^7.4.3",
+    "sequelize": "^4.37.10",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "1.1.4"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/best-team-ever/ped-tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/best-team-ever/ped-tracker/issues"
+  },
+  "homepage": "https://github.com/best-team-ever/ped-tracker#readme"
 }
