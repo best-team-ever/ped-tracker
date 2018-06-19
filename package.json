@@ -4,18 +4,19 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.16.3",
     "pg": "^7.4.3",
-    "sequelize": "^4.37.10",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "sequelize": "^4.37.10"
   },
   "devDependencies": {
     "sequelize-cli": "^4.0.0"
   },
   "scripts": {
     "dev": "react-scripts start",
-    "prestart": "npm run build",
+    "heroku-postbuild": "npm run build",
     "start": "node index.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
