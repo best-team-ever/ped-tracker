@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
 
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import indexRoutes from "routes/index.jsx";
 
@@ -14,13 +14,13 @@ import "./assets/css/pe-icon-7-stroke.css";
 import "./index.css";
 
 ReactDOM.render(
-  <HashRouter>
+  <BrowserRouter>
     <Switch>
       {indexRoutes.map((prop, key) => {
         return <Route to={prop.path} component={prop.component} key={key} />;
       })}
     </Switch>
-  </HashRouter>,
+  </BrowserRouter>,
   document.getElementById("root")
 );
 registerServiceWorker();
