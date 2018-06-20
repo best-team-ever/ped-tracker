@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "path": "^0.12.7",
     "pg": "^7.4.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -30,5 +33,6 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/best-team-ever/ped-tracker/issues"
-  }
+  },
+  "proxy": "http://localhost:8000"
 }

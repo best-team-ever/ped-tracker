@@ -11,7 +11,7 @@ module.exports = {
       contact_position: "Operations Manager",
       contact_phone: "44115 938 2020",
       contact_email: "nick.connell@decathlon.com",
-      status: "",
+      status: "active",
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});
