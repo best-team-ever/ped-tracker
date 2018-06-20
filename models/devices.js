@@ -13,6 +13,18 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   devices.associate = function(models) {
     // associations can be defined here
+    devices.hasOne(models.locations, {
+      foreignKey: {
+        name: 'id',
+        allowNull: false
+      }
+    })
+    devices.Many(models.events, {
+      foreignKey: {
+        name: 'id',
+        allowNull: false
+      }
+    })
   };
   return devices;
 };
