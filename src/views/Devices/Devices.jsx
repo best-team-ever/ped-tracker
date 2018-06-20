@@ -45,6 +45,18 @@ class Devices extends Component {
                     defaultSorted={[{ id: "name", desc: true}]}
                     filterable
                     defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value}
+                    getTdProps={(state, rowInfo, column, instance) => {
+                      return {
+                        onMouseEnter: e =>
+                          console.log("Cell - onMouseEnter", {
+                            state,
+                            rowInfo,
+                            column,
+                            instance,
+                            event: e
+                          })
+                      };
+                    }}
                   />
                 }
               />
