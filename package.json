@@ -5,14 +5,14 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "bootstrap": "^3.3.7",
+    "chartist": "0.10.1",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
-    "path": "^0.12.7",
-    "bootstrap": "3.3.7",
-    "chartist": "0.10.1",
     "node-sass": "^4.9.0",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "4.1.2",
+    "path": "^0.12.7",
     "pg": "^7.4.3",
     "react": "^16.2.0",
     "react-bootstrap": "0.32.1",
@@ -37,7 +37,6 @@
     "start-js": "react-scripts start",
     "eject": "react-scripts eject"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/best-team-ever/ped-tracker.git"
