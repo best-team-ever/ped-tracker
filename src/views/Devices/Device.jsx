@@ -7,11 +7,18 @@ import {
   ControlLabel,
   FormControl
 } from "react-bootstrap";
-
+import Button from 'components/CustomButton/CustomButton';
 import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 
 class Device extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      new: props.match.params.id === undefined
+    }
+  }
+
   render() {
     return (
       <div className="content">
@@ -19,19 +26,18 @@ class Device extends Component {
           <Row>
             <Col md={8}>
               <Card
-                title="Edit Device"
+                title={(this.state.new ? "New" : "Edit") + " Device"}
                 content={
                   <form>
                     <FormInputs
-                      ncols={["col-md-5", "col-md-3", "col-md-4"]}
+                      ncols={["col-md-3", "col-md-3", "col-md-4"]}
                       proprieties={[
                         {
-                          label: "Company (disabled)",
+                          label: "Serial number",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Company",
-                          defaultValue: "Creative Code Inc.",
-                          disabled: true
+                          placeholder: "000-000-000",
+                          disabled: !this.state.new
                         },
                         {
                           label: "Username",

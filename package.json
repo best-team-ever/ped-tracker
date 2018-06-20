@@ -31,12 +31,13 @@
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "dev": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "prestart": "npm run build",
-    "start": "node server.js",
+    "start": "npm-run-all -p watch-css start-js",
+    "start-js": "react-scripts start",
     "eject": "react-scripts eject"
   },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/best-team-ever/ped-tracker.git"
