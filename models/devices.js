@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       }
     })
-    devices.Many(models.events, {
+    devices.hasMany(models.events, {
       foreignKey: {
         name: 'id',
         allowNull: false
