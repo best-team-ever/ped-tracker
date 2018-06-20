@@ -1,5 +1,6 @@
 import Dashboard from "views/Dashboard/Dashboard";
 import Devices from "views/Devices/Devices";
+import Device from "views/Devices/Device";
 import Locations from "views/Locations/Locations";
 import Users from "views/Users/Users";
 import Help from "views/Help/Help";
@@ -15,6 +16,16 @@ const dashboardRoutes = [
     name: "Dashboard",
     icon: "pe-7s-graph",
     component: Dashboard
+  },
+  {
+    path: "/devices/new",
+    component: Device,
+    invisible: true
+  },
+  {
+    path: "/devices/:id",
+    component: Device,
+    invisible: true
   },
   {
     path: "/devices",
