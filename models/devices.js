@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     brand: DataTypes.STRING,
     model: DataTypes.STRING,
     serial_nr: DataTypes.STRING,
-    tid: DataTypes.STING,
+    tid: DataTypes.STRING,
     location_id: DataTypes.INTEGER,
     till_label: DataTypes.STRING,
     status: DataTypes.STRING,

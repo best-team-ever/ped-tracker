@@ -1,14 +1,4 @@
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
-- [Mockup for admin](#mockup-for-admin)
-- [PostgreSQL Database](#postgresql-database)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# Mockup for admin
+[TOC]#Mockup for admin
 
 >1.First page for <span style="color:red; font-family:Georgia; font-size:2em;">admin user</span>.
 
@@ -42,23 +32,6 @@
 
 ![avatar](public/mockup/Help.png)
 
-# PostgreSQL Database
-
->1.Modify config/config.json
-
->2.Create database
-```
-./node_modules/.bin/sequelize db:create   
-```
->3.Create tables
-```
-./node_modules/.bin/sequelize db:migrate       
-```
-
->4.Run seed
-```
-./node_modules/.bin/sequelize db:seed:all
-```
 
 
 
