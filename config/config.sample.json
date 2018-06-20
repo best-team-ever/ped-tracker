@@ -21,6 +21,12 @@
     "database": "ped-tracker",
     "host": "127.0.0.1",
     "dialect": "postgres",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "ssl":true,
+    "dialectOptions":{
+      "ssl":{
+         "require":true
+      }
+    }
   }
 }

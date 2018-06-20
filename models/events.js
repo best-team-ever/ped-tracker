@@ -7,6 +7,24 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   events.associate = function(models) {
     // associations can be defined here
+    events.hasOne(models.locations, {
+      foreignKey: {
+        name: 'id',
+        allowNull: false
+      }
+    })
+    events.hasOne(models.users, {
+      foreignKey: {
+        name: 'id',
+        allowNull: false
+      }
+    })
+    events.hasOne(models.devices, {
+      foreignKey: {
+        name: 'id',
+        allowNull: false
+      }
+    })
   };
   return events;
 };

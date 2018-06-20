@@ -4,7 +4,7 @@ module.exports = {
     return queryInterface.sequelize
       .query('CREATE EXTENSION IF NOT EXISTS "pgcrypto";')
       .then(() =>
-        queryInterface.createTable('users', {
+        queryInterface.createTable('locations', {
           id: {
             allowNull: false,
             autoIncrement: false,
@@ -12,27 +12,35 @@ module.exports = {
             type: Sequelize.UUID,
             defaultValue: Sequelize.literal("gen_random_uuid()")
           },
-          first_name: {
+          location_type: {
             type: Sequelize.STRING
           },
-          last_name: {
+          name: {
             type: Sequelize.STRING
           },
-          email: {
+          site_id: {
             type: Sequelize.STRING
           },
-          p2pe_agreement: {
-            type: Sequelize.INTEGER
-          },
-          language: {
+          address: {
             type: Sequelize.STRING
           },
-          role: {
+          country: {
             type: Sequelize.STRING
           },
-          location_id: {
-            type: Sequelize.UUID,
-            references: { model: 'locations', key: 'id' }
+          contact_name: {
+            type: Sequelize.STRING
+          },
+          contact_position: {
+            type: Sequelize.STRING
+          },
+          contact_phone: {
+            type: Sequelize.STRING
+          },
+          contact_email: {
+            type: Sequelize.STRING
+          },
+          status: {
+            type: Sequelize.STRING
           },
           createdAt: {
             allowNull: false,
@@ -46,6 +54,6 @@ module.exports = {
       );
     },
     down: (queryInterface, Sequelize) => {
-      return queryInterface.dropTable('users');
+    return queryInterface.dropTable('locations');
     }
 };
