@@ -1,5 +1,6 @@
 const express = require("express");
 const locationController = require("./controllers/locationController");
+const deviceController = require("./controllers/deviceController");
 const userController = require("./controllers/userController");
 const path = require("path");
 // if (process.env.NODE_ENV !== "production") {
@@ -10,10 +11,19 @@ const path = require("path");
 const app = express();
 
 app.use(require("body-parser").urlencoded({ extended: false }));
-
 app.use(require("body-parser").json());
 
 app.use("/static", express.static("./build/static"));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 // app.get("*", (request, result) => {
 //   result.sendFile(path.resolve("./build/index.html"));
 // });
@@ -62,6 +72,35 @@ app.put("/api/users/:id/events", (request, result) => {
 });
 
 
+
+/**
+ * API: retrieve list of devices
+ */
+app.get("/api/devices", (request, result) => {
+  deviceController.getAllDevices(request, result);
+});
+
+/**
+ * API: create new device
+ */
+app.post("/api/devices", (request, result) => {
+  deviceController.createDevice(request, result)
+});
+
+
+/**
+ * API: retrieve one device by id
+ */
+app.get("/api/devices/:id", (request, result) => {
+  deviceController.findDeviceById(request, result)
+})
+
+/**
+ * API: update one location by id
+ */
+app.put("/api/devices/:id", (request, result) => {
+  locationController.updateDevice(request, result)
+})
 
 
 const port = process.env.PORT || 8000
