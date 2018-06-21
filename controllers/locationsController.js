@@ -1,7 +1,7 @@
-const locations = require("../models").locations;
+const db = require("../models/index")
 
 async function getAllLocations(request, result){
-  return await locations
+  return await db.locations
     .findAll()
     .then(row => result.status(200).send(row))
     .catch(
@@ -10,7 +10,7 @@ async function getAllLocations(request, result){
 }
 
 async function createLocation(request, result){
-  return await locations
+  return await db.locations
     .create({
       location_type: request.body.location_type,
       name: request.body.name,
@@ -27,7 +27,7 @@ async function createLocation(request, result){
 }
 
 async function updateLocation(request, result){
-  return await locations
+  return await db.locations
     .findById(request.params.id)
     .then(data => {
       if (!data) {
@@ -54,7 +54,7 @@ async function updateLocation(request, result){
 }
 
 async function findLocationById(request, result){
-  return await locations
+  return await db.locations
     .findById(request.params.id)
     .then(data => {
       if (!data){

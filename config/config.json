@@ -4,20 +4,23 @@
     "password": null,
     "database": "ped-tracker",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "port": "5436"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "ped-tracker",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "pedtracker",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "port": "5436"
   },
   "production": {
-    "username": "root",
-    "password": null,
+    "username": "postgres",
+    "password": "postgres",
     "database": "ped-tracker",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "port": "5436"
   }
 }
