@@ -20,12 +20,12 @@ module.exports = {
             type: Sequelize.UUID,
             references: { model: 'devices', key: 'id' }
           },
-          message: {
-            type: Sequelize.STRING
-          },
           location_id: {
             type: Sequelize.UUID,
             references: { model: 'locations', key: 'id' }
+          },
+          message: {
+            type: Sequelize.STRING
           },
           createdAt: {
             allowNull: false,
@@ -42,4 +42,3 @@ module.exports = {
     return queryInterface.dropTable('events');
   }
 };
-

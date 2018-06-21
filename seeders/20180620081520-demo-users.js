@@ -36,7 +36,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
       },
-      {id:"66defb1c-241d-4337-a835-3d388c78e8bf",
+      {id:"1d72faa0-318a-44c1-a15a-87f583094d7f",
       first_name:"frederic",
       last_name: "delimeux",
       email: "frederic.delimeux@decathlon.com",
