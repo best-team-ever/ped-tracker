@@ -21,7 +21,7 @@ module.exports = {
       model: "Vx 820",
       serial_nr: "900-168-981",
       tid: "30790116",
-      location_id: "1d72faa0-318a-44c1-a15a-87f583094d7f",
+      location_id: "6f76b910-912a-4c92-bf18-e742aff30737",
       till_label: "",
       status: "Active",
       security_bag_sn: "4567",

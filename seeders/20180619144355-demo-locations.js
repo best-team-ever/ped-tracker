@@ -17,7 +17,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
       },
-      {id: "1d72faa0-318a-44c1-a15a-87f583094d7f",
+      {id: "6f76b910-912a-4c92-bf18-e742aff30737",
       location_type: "store",
       name: "SURREY QUAYS",
       site_id: 240,

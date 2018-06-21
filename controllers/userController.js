@@ -1,8 +1,15 @@
 const users = require("../models").users;
+const db = require("../models/index");
+
 
 async function getAllUsers(request, result){
   return await users
-    .findAll()
+    .findAll({
+        include: [{
+          model: db.locations,
+          attributes: ["name"],
+        }]
+      })
     .then(row => result.status(200).send(row))
     .catch(
       error => result.status(400).send(error)
