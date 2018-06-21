@@ -1,21 +1,12 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
-import { fetchDevices } from "../../store/actions/deviceAction";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import 'react-table/react-table.css'
 import TableCard from "components/TableCard/TableCard.jsx";
+import { fetchDevices } from "../../store/actions/deviceAction";
 
 class Devices extends Component {
-  getDevices(){
-    let { error, loading, devices } = this.props;
-    return {
-      items: devices,
-      error: error,
-      loading: loading
-    };
-  }
-
   componentDidMount() {
     this.props.dispatch(fetchDevices());
   }
@@ -42,7 +33,7 @@ class Devices extends Component {
       },
     ];
 
-    const rtdArray = this.getDevices().items;
+    const rtdArray = this.props.devices;
 
     return (
       <div className="content">
