@@ -1,6 +1,6 @@
 const express = require("express");
 const eventsController = require("./controllers/eventsController");
-const locationController = require("./controllers/locationController");
+const locationsController = require("./controllers/locationsController");
 const deviceController = require("./controllers/deviceController");
 const userController = require("./controllers/userController");
 
@@ -71,6 +71,8 @@ app.get("/api/users/:id/events", (request, result) => {
  */
 app.put("/api/locations/:id", (request, result) => {
   locationsController.updateLocation(request, result)
+});
+
 app.put("/api/users/:id/events", (request, result) => {
   userController.updateUser(request, result)
 });
