@@ -1,4 +1,6 @@
 'use strict';
+// const events = require("./events").events;
+
 module.exports = (sequelize, DataTypes) => {
   var devices = sequelize.define('devices', {
     brand: DataTypes.STRING,
@@ -19,12 +21,21 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       }
     })
-    devices.Many(models.events, {
+    devices.hasMany(models.events, {
       foreignKey: {
-        name: 'id',
+        name: 'device_id',
         allowNull: false
-      }
+      },
+      sourceKey: "id"
     })
   };
+
+  // devices.hasMany(events, {
+  //   foreignKey: {
+  //     name: 'device_id',
+  //     allowNull: false
+  //   },
+  //   sourceKey: "id"
+  // })
   return devices;
 };

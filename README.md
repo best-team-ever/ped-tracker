@@ -10,6 +10,7 @@
   - [create new location:](#create-new-location)
   - [retrieve one location by id](#retrieve-one-location-by-id)
   - [update one location by id](#update-one-location-by-id)
+  - [retreive events depends on one location](#retreive-events-depends-on-one-location)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -106,7 +107,7 @@ status:fefefef
 ![avatar](public/images/readme/createLocation.png)
 
 ## retrieve one location by id
-[get] /api/locations/:id/events
+[get] /api/locations/:id
 > Response example:
 ```
 {
@@ -126,7 +127,10 @@ status:fefefef
 ```
 
 ## update one location by id
-[put] /api/locations/:id/events
+[put] /api/locations/:id
 > Request & Response example:
 
 ![avatar](public/images/readme/updateLocation.png)
+
+## retreive events depends on one location
+[get] /api/locations/:id/events

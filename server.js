@@ -1,6 +1,7 @@
 const express = require("express");
-const locationController = require("./controllers/locationController");
-const path = require("path");
+const locationsController = require("./controllers/locationsController");
+const eventsController = require("./controllers/eventsController");
+// const path = require("path");
 // if (process.env.NODE_ENV !== "production") {
 //   const path = require("path");
 //   require("dotenv").config({ path: path.resolve(process.cwd(), "config/.env.local") });
@@ -20,32 +21,36 @@ app.use("/static", express.static("./build/static"));
 // app.use("/public/images", express.static(path.join(__dirname, "public/images")));
 
 /**
- * API: retrieve list of locations
+ * API: retrieve list
  */
 app.get("/api/locations", (request, result) => {
-  locationController.getAllLocations(request, result);
+  locationsController.getAllLocations(request, result);
 });
 
-/**
- * API: create new location
- */
-app.post("/api/locations", (request, result) => {
-  locationController.createLocation(request, result)
-});
-
-
-/**
- * API: retrieve one location by id
- */
 app.get("/api/locations/:id/events", (request, result) => {
-  locationController.findLocationById(request, result)
+  eventsController.getAllEventsByLocationId(request, result)
 })
 
 /**
- * API: update one location by id
+ * API: create new data
  */
-app.put("/api/locations/:id/events", (request, result) => {
-  locationController.updateLocation(request, result)
+app.post("/api/locations", (request, result) => {
+  locationsController.createLocation(request, result)
+});
+
+
+/**
+ * API: retrieve one data by id
+ */
+app.get("/api/locations/:id", (request, result) => {
+  locationsController.findLocationById(request, result)
+})
+
+/**
+ * API: update one data by id
+ */
+app.put("/api/locations/:id", (request, result) => {
+  locationsController.updateLocation(request, result)
 })
 
 

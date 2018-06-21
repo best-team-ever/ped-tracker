@@ -37,7 +37,6 @@
     "start-js": "react-scripts start",
     "eject": "react-scripts eject"
   },
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/best-team-ever/ped-tracker.git"
