@@ -1,32 +1,43 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
+import { fetchDevices } from "../../store/actions/deviceAction";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import 'react-table/react-table.css'
-
 import TableCard from "components/TableCard/TableCard.jsx";
 
-const rtdArray = [
-  {id: "1", name: "Dakota Rice", salary: "$36,738", country: "Niger", city: "Oud-Turnhout"},
-  {id: "2", name: "Minerva Hooper", salary: "$23,789", country: "Curaçao", city: "Sinaai-Waas"},
-  {id: "3", name: "Sage Rodriguez", salary: "$56,142", country: "Netherlands", city: "Baileux"},
-  {id: "4", name: "Philip Chaney", salary: "$38,735", country: "Korea, South", city: "Overland Park"},
-  {id: "5", name: "Doris Greene", salary: "$63,542", country: "Malawi", city: "Feldkirchen in Kärnten"},
-  {id: "6", name: "Mason Porter", salary: "$78,615", country: "Chile", city: "Gloucester"},
-];
+// const rtdArray = [
+//   {id: "1", name: "Dakota Rice", salary: "$36,738", country: "Niger", city: "Oud-Turnhout"},
+//   {id: "2", name: "Minerva Hooper", salary: "$23,789", country: "Curaçao", city: "Sinaai-Waas"},
+//   {id: "3", name: "Sage Rodriguez", salary: "$56,142", country: "Netherlands", city: "Baileux"},
+//   {id: "4", name: "Philip Chaney", salary: "$38,735", country: "Korea, South", city: "Overland Park"},
+//   {id: "5", name: "Doris Greene", salary: "$63,542", country: "Malawi", city: "Feldkirchen in Kärnten"},
+//   {id: "6", name: "Mason Porter", salary: "$78,615", country: "Chile", city: "Gloucester"},
+// ];
 
 class Devices extends Component {
+  getDevices(){
+    let { error, loading, devices } = this.props;
+    return {
+      items: devices,
+      error: error,
+      loading: loading
+    };
+  }
 
-  onClick = (event) => {
-    console.log(event);
+  componentDidMount() {
+    this.props.dispatch(fetchDevices());
   }
 
   render() {
     const rthArray = [
-      { Header: 'ID', accessor: 'id', maxWidth: 100},
-      { Header: 'Name', accessor: 'name'},
-      { Header: 'Salary', accessor: 'salary'},
-      { Header: 'Country', accessor: 'country'},
-      { Header: 'City', accessor: 'city'},
+      { Header: 'SerialNr', accessor: 'serial_nr', maxWidth: 100},
+      { Header: 'Brand', accessor: 'brand'},
+      { Header: 'Model', accessor: 'model'},
+      { Header: 'TID', accessor: 'tid'},
+      { Header: 'Till', accessor: 'till_label'},
+      { Header: 'Status', accessor: 'status'},
+      { Header: 'Security bag', accessor: 'security_bag_sn'},
       { Header: 'Action',
         Cell: (row)=>(
           <div className="action-right">
@@ -38,6 +49,8 @@ class Devices extends Component {
         filterable: false, maxWidth: 100
       },
     ];
+
+    const rtdArray = this.getDevices().items;
 
     return (
       <div className="content">
@@ -65,4 +78,10 @@ class Devices extends Component {
   }
 }
 
-export default Devices;
+const mapStateToProps = state => ({
+  devices: state.devices.items,
+  loading: state.devices.loading,
+  error: state.devices.error
+});
+
+export default connect(mapStateToProps)(Devices);

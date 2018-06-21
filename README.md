@@ -66,8 +66,15 @@
 ./node_modules/.bin/sequelize db:seed:all
 ```
 
+>5.if needed
+```
+./node_modules/.bin/sequelize db:migrate:undo
+./node_modules/.bin/sequelize db:seed:undo
+```
+
+
 # API backend
-*Test with [Postman](https://www.getpostman.com/)* 
+*Test with [Postman](https://www.getpostman.com/)*
 ## list of locations:
 [get] /api/locations
 > response example:
