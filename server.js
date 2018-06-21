@@ -1,6 +1,7 @@
 const express = require("express");
 const locationController = require("./controllers/locationController");
 const deviceController = require("./controllers/deviceController");
+const userController = require("./controllers/userController");
 const path = require("path");
 // if (process.env.NODE_ENV !== "production") {
 //   const path = require("path");
@@ -35,12 +36,18 @@ app.use(function(req, res, next) {
 app.get("/api/locations", (request, result) => {
   locationController.getAllLocations(request, result);
 });
+app.get("/api/users", (request, result) => {
+  userController.getAllUsers(request, result);
+});
 
 /**
  * API: create new location
  */
 app.post("/api/locations", (request, result) => {
   locationController.createLocation(request, result)
+});
+app.post("/api/users", (request, result) => {
+  userController.createUser(request, result)
 });
 
 
@@ -49,14 +56,22 @@ app.post("/api/locations", (request, result) => {
  */
 app.get("/api/locations/:id/events", (request, result) => {
   locationController.findLocationById(request, result)
-})
+});
+app.get("/api/users/:id/events", (request, result) => {
+  userController.findUserById(request, result)
+});
 
 /**
  * API: update one location by id
  */
 app.put("/api/locations/:id/events", (request, result) => {
   locationController.updateLocation(request, result)
-})
+});
+app.put("/api/users/:id/events", (request, result) => {
+  userController.updateUser(request, result)
+});
+
+
 
 /**
  * API: retrieve list of devices
