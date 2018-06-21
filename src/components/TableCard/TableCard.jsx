@@ -7,7 +7,7 @@ export class TableCard extends Component {
     return (
       <div className={"card" + (this.props.plain ? " card-plain" : "")}>
         <div className="header">
-          <Link to={`/devices/new`}>
+          <Link to={`/${this.props.elementToShow}/new`}>
             <Button bsStyle="primary" pullRight>{this.props.addButton}</Button>
           </Link>
           <div>

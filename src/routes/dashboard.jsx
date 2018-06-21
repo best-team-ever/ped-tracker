@@ -1,6 +1,7 @@
 import Dashboard from "views/Dashboard/Dashboard";
 import Devices from "views/Devices/Devices";
 import Device from "views/Devices/Device";
+import Location from "../views/Locations/Location";
 import Locations from "views/Locations/Locations";
 import Users from "views/Users/Users";
 import Help from "views/Help/Help";
@@ -32,6 +33,16 @@ const dashboardRoutes = [
     name: "Devices",
     icon: "pe-7s-calculator",
     component: Devices
+  },
+  {
+    path: "/locations/new",
+    component: Location,
+    invisible: true
+  },
+  {
+    path: "/locations/:id",
+    component: Location,
+    invisible: true
   },
   {
     path: "/locations",

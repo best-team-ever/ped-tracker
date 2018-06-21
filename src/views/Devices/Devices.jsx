@@ -55,6 +55,7 @@ class Devices extends Component {
     return (
       <div className="content">
         <TableCard
+          elementToShow="devices"
           title="Devices"
           category="list of devices"
           ctTableFullWidth
