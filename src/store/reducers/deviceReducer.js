@@ -37,14 +37,14 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload.error,
-        item: []
+        item: initialState.item
       };
 
     case FETCH_DEVICE_SUCCESS:
       return {
         ...state,
         loading: false,
-        item: action.payload.result
+        item: action.payload.device
       };
 
     default:
