@@ -11,12 +11,19 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   users.associate = function(models) {
     // associations can be defined here user as one location
-    users.hasOne(models.locations, {
-      foreignKey: {
-        name: 'id',
-        allowNull: false
-      }
+    users.belongsTo(models.locations, {
+      foreignKey: "location_id",
+      targetKey: "id"
     })
+
+    // users.hasOne(models.locations, {
+    //   foreignKey: {
+    //     name: 'id',
+    //     allowNull: false
+    //   },
+    //   targetKey: "location_id"
+    // })
+
     users.hasMany(models.events, {
       foreignKey: {
         name: 'id',

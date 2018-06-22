@@ -28,6 +28,7 @@ class Users extends Component {
   // }
 
   render() {
+    console.log("eeee ",this.props);
     const rthArray = [
       { Header: 'First name', accessor: 'first_name'},
       { Header: 'Last name', accessor: 'last_name'},
@@ -45,7 +46,7 @@ class Users extends Component {
         filterable: false, maxWidth: 100
       },
       { Header: 'Role', accessor: 'role'},
-      { Header: 'Location', accessor: 'location_id'},
+      { Header: 'Location', accessor: 'location.name'},
       { Header: 'Action',
         Cell: (row)=>(
           <div className="action-right">

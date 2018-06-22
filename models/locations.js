@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     locations.hasMany(models.events, {
       foreignKey: {
-        name: 'location_id',
+        name: 'id',
         allowNull: false
       },
       sourceKey: "id"
@@ -31,7 +31,8 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: {
         name: 'id',
         allowNull: false
-      }
+      },
+      sourceKey: "id"
     })
   };
   return locations;
