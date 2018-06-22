@@ -56,7 +56,7 @@ export function fetchLocations() {
 export function fetchLocation(id) {
   return dispatch => {
     dispatch(fetchLocationBegin());
-    return fetch(`${BASE_API}/locations/${id}`)
+    return fetch(`${BASE_API}locations/${id}`)
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {
