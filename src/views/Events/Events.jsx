@@ -3,14 +3,14 @@ import ReactTable from "react-table";
 import { Grid, Row, Col, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import 'react-table/react-table.css'
 import TableCard from "components/TableCard/TableCard.jsx";
+import 'react-table/react-table.css'
 
-import { fetchDevices } from "../../store/actions/deviceAction";
+import { fetchEvents } from "../../store/actions/eventAction";
 
-class Devices extends Component {
+class Events extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchDevices());
+    this.props.dispatch(fetchEvents());
   }
 
   alert = (error) => {
@@ -25,28 +25,15 @@ class Devices extends Component {
   }
 
   render() {
-    const rthArray = [
-      { Header: 'SerialNr', accessor: 'serial_nr', maxWidth: 100},
-      { Header: 'Brand', accessor: 'brand'},
-      { Header: 'Model', accessor: 'model'},
-      { Header: 'TID', accessor: 'tid'},
-      { Header: 'Till', accessor: 'till_label'},
-      { Header: 'Status', accessor: 'status'},
-      { Header: 'Security bag', accessor: 'security_bag_sn'},
-      { Header: 'Action',
-        Cell: (row)=>(
-          <div className="action-right">
-            <Link to={`/devices/${row.original.id}`} className="btn-simple btn-icon btn btn-warning">
-              <i className="fa fa-edit"></i>
-            </Link>
-          </div>
-        ),
-        filterable: false,
-        maxWidth: 100
-      },
+    const thArray = [
+      { Header: 'PED', accessor: 'device.serial_nr'},
+      { Header: 'Location', accessor: 'location.name'},
+      { Header: 'User', Cell: (row)=>(`${row.original.user.first_name} ${row.original.user.last_name}`)},
+      { Header: 'Log', accessor: 'message'},
+      { Header: 'timestamp', accessor: 'createdAt'},
     ];
 
-    const rtdArray = this.props.devices;
+    const tdArray = this.props.events;
 
     return (
       <div className="content">
@@ -59,20 +46,19 @@ class Devices extends Component {
           <Row>
             <Col>
               <TableCard
-                elementToShow="devices"
-                title="Devices"
-                category="list of devices"
+                elementToShow="events"
+                title="Events"
+                category="list of events"
                 ctTableFullWidth
                 ctTableResponsive
-                addButton="New device"
                 content={
                   <ReactTable
                     noDataText="Empty list!"
-                    columns={rthArray}
-                    data={rtdArray}
+                    columns={thArray}
+                    data={tdArray}
                     defaultPageSize={10}
                     className="-striped -highlight"
-                    defaultSorted={[{ id: "name", desc: true}]}
+                    defaultSorted={[{ id: "createdAt", desc: true}]}
                     filterable
                     defaultFilterMethod={(filter, row) => row[filter.id].startsWith(filter.value)}
                   />
@@ -87,9 +73,9 @@ class Devices extends Component {
 }
 
 const mapStateToProps = state => ({
-  devices: state.devices.items,
-  loading: state.devices.loading,
-  error: state.devices.error
+  events: state.events.items,
+  loading: state.events.loading,
+  error: state.events.error
 });
 
-export default connect(mapStateToProps)(Devices);
+export default connect(mapStateToProps)(Events);

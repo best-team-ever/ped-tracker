@@ -20,7 +20,6 @@ async function createUser(request, result){
   return await users
     .create({
       first_name: request.body.first_name,
-      name: request.body.name,
       last_name: request.body.last_name,
       email: request.body.email,
       p2pe_agreement: request.body.p2pe_agreement,

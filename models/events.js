@@ -10,40 +10,18 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   events.associate = function(models) {
     // associations can be defined here
-    // events.hasOne(models.locations, {
-    //   foreignKey: {
-    //     name: 'location_id',
-    //     allowNull: false
-    //   },
-    //   sourceKey: {
-    //     name: "id"
-    //   }
-    // })
     events.belongsTo(models.locations, {
       foreignKey: "location_id",
       targetKey: "id"
     })
-    events.hasOne(models.users, {
-      foreignKey: {
-        name: 'id',
-        allowNull: false
-      }
+    events.belongsTo(models.users, {
+      foreignKey: "user_id",
+      targetKey: "id"
     })
     events.belongsTo(models.devices, {
-      foreignKey: {
-        name: 'device_id',
-        allowNull: false
-      },
+      foreignKey: "device_id",
       targetKey: "id"
     })
   };
-
-  // events.belongsTo(devices, {
-  //   foreignKey: {
-  //     name: 'device_id',
-  //     allowNull: false
-  //   },
-  //   targetKey: "id"
-  // })
   return events;
 };

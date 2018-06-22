@@ -1,12 +1,11 @@
 import {
+  BASE_API,
   FETCH_DEVICE_BEGIN,
   FETCH_DEVICE_FAILURE,
   FETCH_DEVICE_SUCCESS,
   FETCH_DEVICES_SUCCESS,
   FETCH_DEVICE_NEW,
 } from "./actionTypes";
-
-const urlApi = "http://localhost:8000/api/";
 
 const fetchDeviceBegin = () => ({
   type: FETCH_DEVICE_BEGIN
@@ -35,8 +34,7 @@ export const newDevice = (device) => ({
 export function fetchDevice(id) {
   return dispatch => {
     dispatch(fetchDeviceBegin);
-    return fetch(`${urlApi}devices/${id}`)
-      .then(handleErrors)
+    return fetch(`${BASE_API}devices/${id}`)
       .then(res => res.json())
       .then(json => dispatch(fetchDeviceSuccess(json)))
       .catch(error => dispatch(fetchDeviceError(error)));
@@ -46,8 +44,7 @@ export function fetchDevice(id) {
 export function fetchDevices() {
   return dispatch => {
     dispatch(fetchDeviceBegin);
-    return fetch(`${urlApi}devices`)
-      .then(handleErrors)
+    return fetch(`${BASE_API}devices`)
       .then(res => res.json())
       .then(json => {
         const sorted = json.sort( (a, b) => (a.serial_nr.localeCompare(b.serial_nr)));
@@ -76,11 +73,4 @@ export function fetchDeviceDelete() {
     console.log("fetchDeviceDelete");
     return null;
   };
-}
-
-function handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
 }

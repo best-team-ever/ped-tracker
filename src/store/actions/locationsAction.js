@@ -22,7 +22,7 @@ export const fetchLocationsError = error => ({
 export function fetchLocations() {
   return dispatch => {
     dispatch(fetchLocationsBegin());
-    return fetch(`${BASE_API}/locations`)
+    return fetch(`${BASE_API}locations`)
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {
