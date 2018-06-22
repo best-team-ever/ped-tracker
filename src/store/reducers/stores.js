@@ -8,7 +8,7 @@ import locationsReducer from "./locationsReducer";
 
 let rootReducers = combineReducers({
   device: deviceReducer,
-  devices: deviceReducer,
+  devices: devicesReducer,
   users: userReducer,
   locations: locationsReducer
 });
