@@ -1,30 +1,12 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
-import { fetchDevices } from "../../store/actions/deviceAction";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import 'react-table/react-table.css'
 import TableCard from "components/TableCard/TableCard.jsx";
-
-// const rtdArray = [
-//   {id: "1", name: "Dakota Rice", salary: "$36,738", country: "Niger", city: "Oud-Turnhout"},
-//   {id: "2", name: "Minerva Hooper", salary: "$23,789", country: "Curaçao", city: "Sinaai-Waas"},
-//   {id: "3", name: "Sage Rodriguez", salary: "$56,142", country: "Netherlands", city: "Baileux"},
-//   {id: "4", name: "Philip Chaney", salary: "$38,735", country: "Korea, South", city: "Overland Park"},
-//   {id: "5", name: "Doris Greene", salary: "$63,542", country: "Malawi", city: "Feldkirchen in Kärnten"},
-//   {id: "6", name: "Mason Porter", salary: "$78,615", country: "Chile", city: "Gloucester"},
-// ];
+import { fetchDevices } from "../../store/actions/deviceAction";
 
 class Devices extends Component {
-  getDevices(){
-    let { error, loading, devices } = this.props;
-    return {
-      items: devices,
-      error: error,
-      loading: loading
-    };
-  }
-
   componentDidMount() {
     this.props.dispatch(fetchDevices());
   }
@@ -41,16 +23,17 @@ class Devices extends Component {
       { Header: 'Action',
         Cell: (row)=>(
           <div className="action-right">
-            <Link to={`/devices/${row.row.id}`} className="btn-simple btn-icon btn btn-warning">
+            <Link to={`/devices/${row.original.id}`} className="btn-simple btn-icon btn btn-warning">
               <i className="fa fa-edit"></i>
             </Link>
           </div>
         ),
-        filterable: false, maxWidth: 100
+        filterable: false,
+        maxWidth: 100
       },
     ];
 
-    const rtdArray = this.getDevices().items;
+    const rtdArray = this.props.devices;
 
     return (
       <div className="content">
