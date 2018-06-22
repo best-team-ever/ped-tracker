@@ -3,19 +3,25 @@ import {
   Grid,
   Row,
   Col,
-  FormGroup,
-  ControlLabel,
-  FormControl
 } from "react-bootstrap";
+import { connect } from "react-redux";
 import Button from 'components/CustomButton/CustomButton';
 import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
+import { fetchDevice } from "../../store/actions/deviceAction";
 
 class Device extends Component {
   constructor(props){
     super(props);
     this.state = {
-      new: props.match.params.id === undefined
+      new: props.match.params.id === undefined,
+    }
+  }
+
+  componentDidMount() {
+    const id = this.props.match.params.id;
+    if (id !== undefined) {
+      this.props.dispatch(fetchDevice(id));
     }
   }
 
@@ -24,108 +30,89 @@ class Device extends Component {
       <div className="content">
         <Grid fluid>
           <Row>
-            <Col md={8}>
+            <Col>
               <Card
                 title={(this.state.new ? "New" : "Edit") + " Device"}
                 content={
                   <form>
                     <FormInputs
-                      ncols={["col-md-3", "col-md-3", "col-md-4"]}
+                      ncols={["col-md-6", "col-md-6"]}
                       proprieties={[
                         {
                           label: "Serial number",
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "000-000-000",
-                          disabled: !this.state.new
+                          disabled: !this.state.new,
+                          value: this.props.device.serial_nr
                         },
                         {
-                          label: "Username",
+                          label: "Brand",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Username",
-                          defaultValue: "michael23"
+                          placeholder: "Brand",
+                          value: this.props.device.brand
                         },
-                        {
-                          label: "Email address",
-                          type: "email",
-                          bsClass: "form-control",
-                          placeholder: "Email"
-                        }
                       ]}
                     />
                     <FormInputs
                       ncols={["col-md-6", "col-md-6"]}
                       proprieties={[
                         {
-                          label: "First name",
+                          label: "Model",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "First name",
-                          defaultValue: "Mike"
+                          placeholder: "000-000-000",
+                          value: this.props.device.model
                         },
                         {
-                          label: "Last name",
+                          label: "TID",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Last name",
-                          defaultValue: "Andrew"
-                        }
+                          placeholder: "TID",
+                          value: this.props.device.tid
+                        },
                       ]}
                     />
                     <FormInputs
-                      ncols={["col-md-12"]}
+                      ncols={["col-md-6", "col-md-6"]}
                       proprieties={[
                         {
-                          label: "Adress",
+                          label: "Location",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Home Adress",
-                          defaultValue:
-                            "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                        }
+                          placeholder: "location",
+                          value: "location"
+                        },
+                        {
+                          label: "Till label",
+                          type: "text",
+                          bsClass: "form-control",
+                          placeholder: "Till label",
+                          value: this.props.device.till_label
+                        },
                       ]}
                     />
                     <FormInputs
-                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
+                      ncols={["col-md-6", "col-md-6"]}
                       proprieties={[
                         {
-                          label: "City",
+                          label: "Status",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "City",
-                          defaultValue: "Mike"
+                          placeholder: "Status",
+                          value: this.props.device.status
                         },
                         {
-                          label: "Country",
+                          label: "Security bag SN",
                           type: "text",
                           bsClass: "form-control",
-                          placeholder: "Country",
-                          defaultValue: "Andrew"
+                          placeholder: "security bag sn",
+                          value: this.props.device.security_bag_sn
                         },
-                        {
-                          label: "Postal Code",
-                          type: "number",
-                          bsClass: "form-control",
-                          placeholder: "ZIP Code"
-                        }
                       ]}
                     />
 
-                    <Row>
-                      <Col md={12}>
-                        <FormGroup controlId="formControlsTextarea">
-                          <ControlLabel>About Me</ControlLabel>
-                          <FormControl
-                            rows="5"
-                            componentClass="textarea"
-                            bsClass="form-control"
-                            placeholder="Here can be your description"
-                            defaultValue="empty until now..."
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
                     <Button bsStyle="info" pullRight fill type="submit">
                       Update
                     </Button>
@@ -134,13 +121,17 @@ class Device extends Component {
                 }
               />
             </Col>
-            <Col md={4}>
-            </Col>
           </Row>
-        </Grid>>
+        </Grid>
       </div>
     );
   }
 }
 
-export default Device;
+const mapStateToProps = state => ({
+  device: state.device.item,
+  loading: state.device.loading,
+  error: state.device.error
+});
+
+export default connect(mapStateToProps)(Device);

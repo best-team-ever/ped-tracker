@@ -1,26 +1,13 @@
 import {
   FETCH_DEVICE_FAILURE,
   FETCH_DEVICE_BEGIN,
-  FETCH_DEVICE_SUCCESS,
+  FETCH_DEVICES_SUCCESS,
 } from "../actions/actionTypes";
 
 const initialState = {
+  items: [],
   loading: false,
-  error: null,
-  item: {
-    "id": null,
-    "brand": "",
-    "model": "",
-    "serial_nr": "000-000-000",
-    "tid": "",
-    "location_id": null,
-    "till_label": "",
-    "status": "",
-    "security_bag_sn": "",
-    "last_inspection_date": null,
-    "createdAt": null,
-    "updatedAt": null
-  },
+  error: null
 };
 
 export default (state = initialState, action) => {
@@ -37,14 +24,14 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload.error,
-        item: initialState.item
+        items: []
       };
 
-    case FETCH_DEVICE_SUCCESS:
+    case FETCH_DEVICES_SUCCESS:
       return {
         ...state,
         loading: false,
-        item: action.payload.device
+        items: action.payload.devices
       };
 
     default:
