@@ -4,20 +4,29 @@
     "password": null,
     "database": "ped-tracker",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "operatorsAliases": false
   },
   "test": {
     "username": "root",
     "password": null,
     "database": "ped-tracker",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "operatorsAliases": false
   },
   "production": {
     "username": "root",
     "password": null,
     "database": "ped-tracker",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "operatorsAliases": false,
+    "ssl":true,
+    "dialectOptions":{
+      "ssl":{
+         "require":true
+      }
+    }
   }
 }
