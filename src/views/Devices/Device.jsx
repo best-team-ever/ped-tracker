@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import Button from 'components/CustomButton/CustomButton';
 import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import { fetchDevice } from "../../store/actions/deviceAction";
+import { fetchDevice, newDevice } from "../../store/actions/deviceAction";
 
 class Device extends Component {
   constructor(props){
@@ -22,6 +22,8 @@ class Device extends Component {
     const id = this.props.match.params.id;
     if (id !== undefined) {
       this.props.dispatch(fetchDevice(id));
+    } else {
+      this.props.dispatch(newDevice());
     }
   }
 

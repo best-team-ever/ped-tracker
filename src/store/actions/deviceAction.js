@@ -3,6 +3,7 @@ import {
   FETCH_DEVICE_FAILURE,
   FETCH_DEVICE_SUCCESS,
   FETCH_DEVICES_SUCCESS,
+  FETCH_DEVICE_NEW,
 } from "./actionTypes";
 
 const urlApi = "http://localhost:8000/api/";
@@ -24,6 +25,11 @@ const fetchDeviceSuccess = device => ({
 const fetchDevicesSuccess = devices => ({
   type: FETCH_DEVICES_SUCCESS,
   payload: { devices }
+});
+
+export const newDevice = (device) => ({
+  type: FETCH_DEVICE_NEW,
+  payload: { device }
 });
 
 export function fetchDevice(id) {
