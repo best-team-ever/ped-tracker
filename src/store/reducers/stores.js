@@ -5,6 +5,7 @@ import deviceReducer from "./deviceReducer";
 import devicesReducer from "./devicesReducer";
 import userReducer from "./userReducer";
 import locationsReducer from "./locationsReducer";
+import eventsReducer from "./eventsReducer";
 import locationReducer from "./locationReducer";
 
 let rootReducers = combineReducers({
@@ -12,7 +13,8 @@ let rootReducers = combineReducers({
   devices: devicesReducer,
   users: userReducer,
   location: locationReducer,
-  locations: locationsReducer
+  locations: locationsReducer,
+  events: eventsReducer
 });
 
 let store;

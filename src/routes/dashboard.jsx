@@ -5,6 +5,7 @@ import Location from "../views/Locations/Location";
 import Locations from "views/Locations/Locations";
 import Users from "views/Users/Users";
 import User from "views/Users/User";
+import Events from "views/Events/Events";
 import Help from "views/Help/Help";
 
 import UserProfile from "views/UserProfile/UserProfile";
@@ -66,6 +67,12 @@ const dashboardRoutes = [
     name: "Users",
     icon: "pe-7s-users",
     component: Users
+  },
+  {
+    path: "/events",
+    name: "Events",
+    icon: "pe-7s-clock",
+    component: Events
   },
   {
     path: "/help",

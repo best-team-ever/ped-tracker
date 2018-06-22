@@ -1,4 +1,5 @@
 import {
+  BASE_API,
   FETCH_USER_BEGIN,
   FETCH_USER_SUCCESS,
   FETCH_USER_FAILURE,
@@ -6,8 +7,6 @@ import {
   FETCH_USER_UPDATE,
   FETCH_USER_DELETE,
 } from "./actionTypes";
-
-const urlApi = "http://localhost:8000/api/";
 
 export const fetchUsersBegin = () => ({
   type: FETCH_USER_BEGIN
@@ -27,7 +26,7 @@ export function fetchUsers() {
   console.log("fetchUsers");
   return dispatch => {
     dispatch(fetchUsersBegin);
-    return fetch(`${urlApi}users`)
+    return fetch(`${BASE_API}users`)
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {

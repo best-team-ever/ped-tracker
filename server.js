@@ -43,6 +43,9 @@ app.get("/api/users", (request, result) => {
   userController.getAllUsers(request, result);
 });
 
+app.get("/api/events", (request, result) => {
+  eventsController.getAllEvents(request, result)
+})
 app.get("/api/locations/:id/events", (request, result) => {
   eventsController.getAllEventsByLocationId(request, result)
 })
@@ -78,8 +81,6 @@ app.put("/api/locations/:id", (request, result) => {
 app.put("/api/users/:id/events", (request, result) => {
   userController.updateUser(request, result)
 });
-
-
 
 /**
  * API: retrieve list of devices
