@@ -9,6 +9,7 @@ import Sidebar from "components/Sidebar/Sidebar";
 import { style } from "variables/Variables.jsx";
 
 import dashboardRoutes from "routes/dashboard.jsx";
+import { GoogleLogin } from 'react-google-login';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -16,9 +17,16 @@ class Dashboard extends Component {
     this.componentDidMount = this.componentDidMount.bind(this);
     this.handleNotificationClick = this.handleNotificationClick.bind(this);
     this.state = {
-      _notificationSystem: null
+      _notificationSystem: null,
+      signed: false
     };
   }
+
+  responseGoogle = (response) => {
+    console.log("signed true");
+    this.setState({signed: true});
+  }
+
   handleNotificationClick(position) {
     var color = Math.floor(Math.random() * 4 + 1);
     var level;
@@ -100,37 +108,52 @@ class Dashboard extends Component {
     }
   }
   render() {
-    return (
-      <div className="wrapper">
-        <NotificationSystem ref="notificationSystem" style={style} />
-        <Sidebar {...this.props} />
-        <div id="main-panel" className="main-panel" ref="mainPanel">
-          <Header {...this.props} />
-          <Switch>
-            {dashboardRoutes.map((prop, key) => {
-              if (prop.name === "Notifications")
+    return (this.state.signed
+      ? <div className="wrapper">
+          <NotificationSystem ref="notificationSystem" style={style} />
+          <Sidebar {...this.props} />
+          <div id="main-panel" className="main-panel" ref="mainPanel">
+            <Header {...this.props} />
+            <Switch>
+              {dashboardRoutes.map((prop, key) => {
+                if (prop.name === "Notifications")
+                  return (
+                    <Route
+                      path={prop.path}
+                      key={key}
+                      render={routeProps => (
+                        <prop.component
+                          {...routeProps}
+                          handleClick={this.handleNotificationClick}
+                        />
+                      )}
+                    />
+                  );
+                if (prop.redirect)
+                  return <Redirect from={prop.path} to={prop.to} key={key} />;
                 return (
-                  <Route
-                    path={prop.path}
-                    key={key}
-                    render={routeProps => (
-                      <prop.component
-                        {...routeProps}
-                        handleClick={this.handleNotificationClick}
-                      />
-                    )}
-                  />
+                  <Route path={prop.path} component={prop.component} key={key} />
                 );
-              if (prop.redirect)
-                return <Redirect from={prop.path} to={prop.to} key={key} />;
-              return (
-                <Route path={prop.path} component={prop.component} key={key} />
-              );
-            })}
-          </Switch>
-          <Footer />
+              })}
+            </Switch>
+            <Footer />
+          </div>
         </div>
-      </div>
+      : (
+          <div className="text-center">
+            <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
+              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+              <GoogleLogin
+              className="btn btn-primary"
+              clientId="522866054012-3rk0smi2ss0fqn3irb0onpjj3to9g0e8.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+              />
+
+              <p className="mt-5 mb-3 text-muted">© 2018</p>
+          </div>
+        )
     );
   }
 }
