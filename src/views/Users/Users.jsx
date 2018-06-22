@@ -9,6 +9,7 @@ import TableCard from "components/TableCard/TableCard.jsx";
 
 
 class Users extends Component {
+
   getUsers(){
     let { error, loading, users } = this.props;
     return {
@@ -23,9 +24,6 @@ class Users extends Component {
     // console.log("les props : ",this.props);
   }
 
-  onClick = (event) => {
-    console.log(event);
-  }
 
   render() {
     const rthArray = [
