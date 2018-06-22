@@ -9,6 +9,7 @@ import TableCard from "components/TableCard/TableCard.jsx";
 
 
 class Users extends Component {
+
   getUsers(){
     let { error, loading, users } = this.props;
     return {
@@ -23,39 +24,53 @@ class Users extends Component {
     // console.log("les props : ",this.props);
   }
 
-  // onClick = (event) => {
-  //   console.log(event);
-  // }
 
   render() {
-    console.log("eeee ",this.props);
     const rthArray = [
       { Header: 'First name', accessor: 'first_name'},
       { Header: 'Last name', accessor: 'last_name'},
       { Header: 'Email', accessor: 'email'},
       { Header: 'P2PE Agreement', accessor: 'p2pe_agreement',
-        Cell: (row)=>(
+        Cell: ({value})=>(
           <div className="action-right">
-            <Link to={`/users/${row.row.id}`} className="btn-simple btn-icon btn btn-warning" >
-              {row.row.p2pe_agreement === 0
-                ? <i className="fa fa-square-o" ></i>
-                : <i className="fa fa-check-square-o" color="blue"></i>}
-            </Link>
+              {value === 0
+                ? <i className="fa fa-close"/>
+                : <i className="fa fa-check"/>
+              }
           </div>
         ),
-        filterable: false, maxWidth: 100
+        filterMethod: (filter, row) => {
+                    if (filter.value === "all") {
+                      return true;
+                    }
+                    if (filter.value === "true") {
+                      return row[filter.id] === 1;
+                    }
+                    return row[filter.id] === 0;
+                  },
+        Filter: ({ filter, onChange }) =>
+          <select
+            onChange={event => onChange(event.target.value)}
+            style={{ width: "100%" }}
+            value={filter ? filter.value : "all"}
+          >
+            <option value="all">All</option>
+            <option value="true">Validated</option>
+            <option value="false">Not validated</option>
+          </select>,
+        filterable: true, maxWidth: 120
       },
       { Header: 'Role', accessor: 'role'},
       { Header: 'Location', accessor: 'location.name'},
       { Header: 'Action',
         Cell: (row)=>(
           <div className="action-right">
-            <Link to={`/users/${row.row.id}`} className="btn-simple btn-icon btn btn-warning">
+            <Link to={`/users/${row.original.id}`} className="btn-simple btn-icon btn btn-warning">
               <i className="fa fa-edit"></i>
             </Link>
           </div>
         ),
-        filterable: false, maxWidth: 80
+        filterable: false, maxWidth: 55
       },
     ];
 
