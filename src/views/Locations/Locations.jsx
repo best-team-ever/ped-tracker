@@ -12,7 +12,6 @@ import { thArray, tdArray } from "variables/Variables.jsx";
 class Locations extends Component {
   getLocations(){
     let { error, loading, locations } = this.props;
-    console.log("locations: ", this.props.locations);
     return {
       locations: locations,
       error: error,
@@ -33,13 +32,12 @@ class Locations extends Component {
       { Header: 'Contact name', accessor: 'contact_name'},
       { Header: 'Contact position', accessor: 'contact_position'},
       { Header: 'Contact phone', accessor: 'contact_phone'},
-      { Header: 'Contact phone', accessor: 'contact_phone'},
       { Header: 'Contact email', accessor: 'contact_email'},
       { Header: 'Status', accessor: 'status'},
       { Header: 'Action',
         Cell: (row)=>(
           <div className="action-right">
-            <Link to={`/locations/${row.row.id}`} className="btn-simple btn-icon btn btn-warning">
+            <Link to={`/locations/${row.original.id}`} className="btn-simple btn-icon btn btn-warning">
               <i className="fa fa-edit"></i>
             </Link>
           </div>

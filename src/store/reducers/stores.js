@@ -5,11 +5,13 @@ import deviceReducer from "./deviceReducer";
 import devicesReducer from "./devicesReducer";
 import userReducer from "./userReducer";
 import locationsReducer from "./locationsReducer";
+import locationReducer from "./locationReducer";
 
 let rootReducers = combineReducers({
   device: deviceReducer,
   devices: devicesReducer,
   users: userReducer,
+  location: locationReducer,
   locations: locationsReducer
 });
 
