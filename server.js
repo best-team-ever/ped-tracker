@@ -17,7 +17,9 @@ app.use(require("body-parser").json());
 app.use("/static", express.static("./build/static"));
 
 app.use(function(req, res, next) {
+  //Put an origin here, * means everything which is bad.
   res.header("Access-Control-Allow-Origin", "*");
+  //Needed by ExpressJS
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
