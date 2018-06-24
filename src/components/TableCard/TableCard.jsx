@@ -3,17 +3,37 @@ import { Link } from "react-router-dom";
 import Button from 'components/CustomButton/CustomButton';
 
 export class TableCard extends Component {
+  addButton = () => {
+    if (this.props.addButton) {
+      return (
+        <Link to={`/${this.props.elementToShow}/new`}>
+          <Button bsStyle="primary" pullRight>{this.props.addButton}</Button>
+        </Link>
+      );
+    } else {
+      return null;
+    }
+  }
+
+  header = () => {
+    if (this.props.title) {
+      return (
+        <div>
+          <h4 className="title">{this.props.title}</h4>
+          <p className="category">{this.props.category}</p>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <div className={"card" + (this.props.plain ? " card-plain" : "")}>
         <div className="header">
-          <Link to={`/${this.props.elementToShow}/new`}>
-            <Button bsStyle="primary" pullRight>{this.props.addButton}</Button>
-          </Link>
-          <div>
-            <h4 className="title">{this.props.title}</h4>
-            <p className="category">{this.props.category}</p>
-          </div>
+          {this.addButton()}
+          {this.header()}
         </div>
         <div
           className={

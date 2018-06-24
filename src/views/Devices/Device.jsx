@@ -9,6 +9,7 @@ import Button from 'components/CustomButton/CustomButton';
 import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { fetchDevice, newDevice } from "../../store/actions/deviceAction";
+import Events from "../Events/Events";
 
 class Device extends Component {
   constructor(props){
@@ -122,6 +123,11 @@ class Device extends Component {
                   </form>
                 }
               />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Events device_id={this.props.match.params.id}/>
             </Col>
           </Row>
         </Grid>

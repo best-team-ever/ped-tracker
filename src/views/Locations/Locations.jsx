@@ -7,7 +7,6 @@ import { fetchLocations } from "../../store/actions/locationsAction";
 
 import 'react-table/react-table.css'
 import TableCard from "components/TableCard/TableCard.jsx";
-import { thArray, tdArray } from "variables/Variables.jsx";
 
 class Locations extends Component {
   getLocations(){

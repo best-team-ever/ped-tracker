@@ -10,7 +10,12 @@ import { fetchEvents } from "../../store/actions/eventAction";
 
 class Events extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchEvents());
+    const {location_id, device_id, user_id} = this.props;
+    this.props.dispatch(fetchEvents({
+      location_id: location_id,
+      device_id: device_id,
+      user_id: user_id
+    }));
   }
 
   alert = (error) => {
