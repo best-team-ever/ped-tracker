@@ -1,15 +1,13 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import NotificationSystem from "react-notification-system";
-
-import Header from "components/Header/Header";
-import Footer from "components/Footer/Footer";
-import Sidebar from "components/Sidebar/Sidebar";
-
-import { style } from "variables/Variables.jsx";
-
-import dashboardRoutes from "routes/dashboard.jsx";
 import { GoogleLogin } from 'react-google-login';
+
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import { style } from "../../variables/Variables.jsx";
+import dashboardRoutes from "../../routes/dashboard.jsx";
 
 // import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -114,6 +112,7 @@ class Dashboard extends Component {
     //   autoDismiss: 15
     // });
   }
+
   componentDidUpdate(e) {
     if (
       window.innerWidth < 993 &&
@@ -130,10 +129,11 @@ class Dashboard extends Component {
       }
     }
   }
+
   render() {
     console.log("hhh: ",this.props.message.msg);
-    return (this.props.signedState.signed
-      ? <div className="wrapper">
+    return (//this.props.signedState.signed ?
+      <div className="wrapper">
           <NotificationSystem ref="notificationSystem" style={style} />
           <Sidebar {...this.props} />
           <div id="main-panel" className="main-panel" ref={this.mainPanel}>
@@ -163,25 +163,25 @@ class Dashboard extends Component {
             <Footer />
           </div>
         </div>
-      : (
-          <div className="backgroundPicture">
-          <div className="text-center backgroundWhite" >
-            <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
-              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-              <GoogleLogin
-              className="btn btn-primary"
-              clientId={this.clientId}
-              buttonText="Login"
-              onSuccess={this.responseGoogle}
-              onFailure={this.responseGoogle}
-              />
-
-              <p className="mt-5 mb-3 text-muted">© 2018</p>
-              <br/>
-              <p className="mt-5 mb-3 text-muted">{this.props.message.msg}</p>
-          </div>
-          </div>
-        )
+      // : (
+      //     <div className="backgroundPicture">
+      //     <div className="text-center backgroundWhite" >
+      //       <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
+      //         <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+      //         <GoogleLogin
+      //         className="btn btn-primary"
+      //         clientId={this.clientId}
+      //         buttonText="Login"
+      //         onSuccess={this.responseGoogle}
+      //         onFailure={this.responseGoogle}
+      //         />
+      //
+      //         <p className="mt-5 mb-3 text-muted">© 2018</p>
+      //         <br/>
+      //         <p className="mt-5 mb-3 text-muted">{this.props.message.msg}</p>
+      //     </div>
+      //     </div>
+      //   )
     );
   }
 }

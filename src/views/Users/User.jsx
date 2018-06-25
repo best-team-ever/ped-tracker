@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
-import Button from 'components/CustomButton/CustomButton';
-import { Card } from "components/Card/Card.jsx";
-import { FormInputs } from "components/FormInputs/FormInputs.jsx";
+import Button from '../../components/CustomButton/CustomButton';
+import { Card } from "../../components/Card/Card.jsx";
+import { FormInputs } from "../../components/FormInputs/FormInputs.jsx";
 import { handleUserChange, fetchUser, newUser} from "../../store/actions/userAction";
 import { fetchLocations } from "../../store/actions/locationsAction";
 import Events from "../Events/Events";
@@ -118,8 +118,9 @@ class User extends Component {
             </Col>
           </Row>
           <Row>
-            <Col>
-              <Events user_id={this.props.match.params.id} category={`Events of user: ${this.props.user.first_name} ${this.props.user.last_name}`}/>
+            <Col>{this.props.match.params.id
+              ? <Events user_id={this.props.match.params.id} category={`Events of user: ${this.props.user.first_name} ${this.props.user.last_name}`}/>
+              : null}
             </Col>
           </Row>
         </Grid>

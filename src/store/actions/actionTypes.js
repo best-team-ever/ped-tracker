@@ -43,3 +43,4 @@ export const FETCH_SIGNIN = "FETCH_SIGNIN";
 export const FETCH_SIGNOUT = "FETCH_SIGNOUT";
 
 export const USER_ONCHANGE = "USER_ONCHANGE";
+export const DEVICE_ONCHANGE = "DEVICE_ONCHANGE";

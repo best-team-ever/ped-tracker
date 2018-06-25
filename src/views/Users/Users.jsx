@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import 'react-table/react-table.css';
 import './users.css';
-import TableCard from "components/TableCard/TableCard.jsx";
+import TableCard from "../../components/TableCard/TableCard.jsx";
 
 
 class Users extends Component {
@@ -79,6 +79,7 @@ class Users extends Component {
     return (
       <div className="content">
         <TableCard
+          elementToShow="users"
           title="Users"
           category="list of users"
           ctTableFullWidth

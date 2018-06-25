@@ -8,9 +8,9 @@ import {
 } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import Button from 'components/CustomButton/CustomButton';
-import { Card } from "components/Card/Card.jsx";
-import { FormInputs } from "components/FormInputs/FormInputs.jsx";
+import Button from '../../components/CustomButton/CustomButton';
+import { Card } from "../../components/Card/Card.jsx";
+import { FormInputs } from "../../components/FormInputs/FormInputs.jsx";
 import { fetchLocation } from "../../store/actions/locationsAction";
 import { handleFetchAddLocation } from "../../store/handlers/locationHandlers";
 

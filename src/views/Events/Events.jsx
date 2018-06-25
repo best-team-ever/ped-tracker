@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import { Grid, Row, Col, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
-import TableCard from "components/TableCard/TableCard.jsx";
+import TableCard from "../../components/TableCard/TableCard.jsx";
 import 'react-table/react-table.css'
 
 import { fetchEvents } from "../../store/actions/eventAction";

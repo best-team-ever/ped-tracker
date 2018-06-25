@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Button from 'components/CustomButton/CustomButton';
+import Button from "../../components/CustomButton/CustomButton";
 
 export class TableCard extends Component {
 

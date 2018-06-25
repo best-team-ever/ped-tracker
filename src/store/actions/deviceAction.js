@@ -5,7 +5,12 @@ import {
   FETCH_DEVICE_SUCCESS,
   FETCH_DEVICES_SUCCESS,
   FETCH_DEVICE_NEW,
+  DEVICE_ONCHANGE
 } from "./actionTypes";
+
+export function handleDeviceChange(id, value) {
+  return dispatch => {dispatch({type: DEVICE_ONCHANGE, payload: {key: id, value: value}})};
+}
 
 const fetchDeviceBegin = () => ({
   type: FETCH_DEVICE_BEGIN
