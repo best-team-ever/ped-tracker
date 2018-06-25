@@ -1,11 +1,11 @@
 import {
   BASE_API,
-  FETCH_LOCATIONS_ADD,
+  FETCH_LOCATION_ADD,
   FETCH_LOCATIONS_BEGIN,
-  FETCH_LOCATIONS_DELETE,
+  FETCH_LOCATION_DELETE,
   FETCH_LOCATIONS_FAILURE,
   FETCH_LOCATIONS_SUCCESS,
-  FETCH_LOCATIONS_UPDATE,
+  FETCH_LOCATION_UPDATE,
   FETCH_LOCATION_BEGIN,
   FETCH_LOCATION_SUCCESS,
   FETCH_LOCATION_FAILURE
@@ -38,6 +38,22 @@ export const fetchLocationError = error => ({
   type: FETCH_LOCATION_FAILURE,
   payload: { error }
 });
+
+export const addLocation = ( newLocation ) => ({
+  type: FETCH_LOCATION_ADD,
+  payload: { newLocation }
+});
+
+export const updateLocation = ( updatedLocation ) => ({
+  type: FETCH_LOCATION_UPDATE,
+  payload: { updatedLocation }
+});
+
+export const deleteLocation = ( id ) => ({
+  type: FETCH_LOCATION_DELETE,
+  payload: { id }
+})
+
 
 export function fetchLocations(conditions) {
   let query = "";
@@ -80,18 +96,3 @@ function handleErrors(response) {
   }
   return response;
 }
-
-export const addLocation = (newLocation) => ({
-  type: FETCH_LOCATIONS_ADD,
-  payload: newLocation
-});
-
-export const updateLocation = (updatedLocation) => ({
-  type: FETCH_LOCATIONS_UPDATE,
-  payload: updatedLocation
-});
-
-export const deleteLocation = (id) => ({
-  type: FETCH_LOCATIONS_DELETE,
-  payload: id
-})

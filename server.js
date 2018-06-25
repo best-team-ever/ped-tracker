@@ -38,6 +38,12 @@ const ROOT_API = "/api/"
  */
 app.get(`${ROOT_API}locations/:id/events`, (request, result) => {
   eventsController.getAllEventsByLocationId(request, result)
+
+/**
+ * API: create new data
+ */
+app.post("/api/location", (request, result) => {
+  locationsController.createLocation(request, result)
 });
 app.get(`${ROOT_API}users/:id/events`, (request, result) => {
   eventsController.getAllEventsByUserId(request, result)

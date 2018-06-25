@@ -24,15 +24,16 @@ class Locations extends Component {
 
   render() {
     const rthArray = [
-      { Header: 'Type', accessor: 'location_type', maxWidth: 100},
-      { Header: 'Name', accessor: 'name'},
-      { Header: 'Address', accessor: 'address'},
-      { Header: 'Country', accessor: 'country'},
-      { Header: 'Contact name', accessor: 'contact_name'},
-      { Header: 'Contact position', accessor: 'contact_position'},
-      { Header: 'Contact phone', accessor: 'contact_phone'},
-      { Header: 'Contact email', accessor: 'contact_email'},
-      { Header: 'Status', accessor: 'status'},
+      { Header: 'Type', accessor: 'location_type', maxWidth: 50, className: "center"},
+      { Header: 'Name', accessor: 'name', style: { 'white-space': 'unset' }},
+      { Header: 'Site id', accessor: 'site_id', style: { 'white-space': 'unset' }},
+      { Header: 'Address', accessor: 'address', style: { 'white-space': 'unset' }},
+      { Header: 'Country', accessor: 'country', style: { 'white-space': 'unset' }, className: "center"},
+      { Header: 'Contact name', accessor: 'contact_name', style: { 'white-space': 'unset' }},
+      { Header: 'Contact position', accessor: 'contact_position', style: { 'white-space': 'unset' }},
+      { Header: 'Contact phone', accessor: 'contact_phone', style: { 'white-space': 'unset' }},
+      { Header: 'Contact email', accessor: 'contact_email', style: { 'white-space': 'unset' }},
+      { Header: 'Status', accessor: 'status', style: { 'white-space': 'unset' }, className: "center"},
       { Header: 'Action',
         Cell: (row)=>(
           <div className="action-right">
