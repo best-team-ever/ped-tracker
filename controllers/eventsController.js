@@ -1,16 +1,15 @@
 const db = require("../models/index")
 
 async function getAllEvents(request, result){
-  console.log(request.query);
   let where = {};
-  if (request.query.location) {
-    where = {...where, location_id: request.query.location}
+  if (request.query.location_id) {
+    where = {...where, location_id: request.query.location_id}
   }
-  if (request.query.device) {
-    where = {...where, device_id: request.query.device}
+  if (request.query.device_id) {
+    where = {...where, device_id: request.query.device_id}
   }
-  if (request.query.user) {
-    where = {...where, user_id: request.query.user}
+  if (request.query.user_id) {
+    where = {...where, user_id: request.query.user_id}
   }
   return await db.events
     .findAll({

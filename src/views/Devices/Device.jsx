@@ -9,6 +9,7 @@ import Button from 'components/CustomButton/CustomButton';
 import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { fetchDevice, newDevice } from "../../store/actions/deviceAction";
+import Events from "../Events/Events";
 
 class Device extends Component {
   constructor(props){
@@ -39,7 +40,7 @@ class Device extends Component {
                   <form>
                     <FormInputs
                       ncols={["col-md-6", "col-md-6"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "Serial number",
                           type: "text",
@@ -59,7 +60,7 @@ class Device extends Component {
                     />
                     <FormInputs
                       ncols={["col-md-6", "col-md-6"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "Model",
                           type: "text",
@@ -78,7 +79,7 @@ class Device extends Component {
                     />
                     <FormInputs
                       ncols={["col-md-6", "col-md-6"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "Location",
                           type: "text",
@@ -97,7 +98,7 @@ class Device extends Component {
                     />
                     <FormInputs
                       ncols={["col-md-6", "col-md-6"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "Status",
                           type: "text",
@@ -122,6 +123,11 @@ class Device extends Component {
                   </form>
                 }
               />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Events device_id={this.props.match.params.id} category={`Events of device sn: ${this.props.device.serial_nr}`}/>
             </Col>
           </Row>
         </Grid>

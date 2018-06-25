@@ -54,10 +54,19 @@ export const deleteLocation = ( id ) => ({
   payload: { id }
 })
 
-export function fetchLocations() {
+
+export function fetchLocations(conditions) {
+  let query = "";
+  if (conditions) {
+    query = "?";
+    if (conditions.fields) {
+      query += `fields=${conditions.fields}`;
+    }
+  }
+
   return dispatch => {
     dispatch(fetchLocationsBegin());
-    return fetch(`${BASE_API}locations`)
+    return fetch(`${BASE_API}locations${query}`)
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {

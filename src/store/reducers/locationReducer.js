@@ -8,9 +8,18 @@ import {
 } from "../actions/actionTypes";
 
 const initialState = {
-  items: [],
   loading: false,
-  error: null
+  error: null,
+  item: {
+    name: "",
+    address: "",
+    country: "",
+    contact_name: "",
+    contact_position: "",
+    contact_phone: "",
+    contact_email: "",
+    status: ""
+  }
 };
 
 export default (state=initialState, action) => {
@@ -21,18 +30,19 @@ export default (state=initialState, action) => {
         loading: true,
         error: null
       };
-    case FETCH_LOCATION_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        items: action.payload.location
-      };
     case FETCH_LOCATION_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
-        items: []
+        item: initialState.item
+      };
+    case FETCH_LOCATION_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        item: action.payload.location
       };
     case FETCH_LOCATION_ADD:
       return {

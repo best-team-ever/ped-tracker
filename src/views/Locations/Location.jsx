@@ -4,8 +4,7 @@ import {
   Row,
   Col,
   ControlLabel,
-  FormControl,
-  Table
+  FormControl
 } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -14,6 +13,8 @@ import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { fetchLocation } from "../../store/actions/locationsAction";
 import { handleFetchAddLocation } from "../../store/handlers/locationHandlers";
+
+import Events from "../Events/Events";
 
 class Location extends Component {
   constructor(props){
@@ -173,7 +174,7 @@ class Location extends Component {
                             <div className="col-md-6">
                               <FormInputs
                                 ncols={["col-md-8"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Name",
                                     type: "text",
@@ -187,7 +188,7 @@ class Location extends Component {
 
                               <FormInputs
                                 ncols={["col-md-8"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Site id",
                                     type: "text",
@@ -215,7 +216,7 @@ class Location extends Component {
 
                               <FormInputs
                                 ncols={["col-md-12"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Address",
                                     type: "text",
@@ -253,7 +254,7 @@ class Location extends Component {
                             <div className="col-md-6">
                               <FormInputs
                                 ncols={["col-md-8"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Contact name",
                                     type: "text",
@@ -266,7 +267,7 @@ class Location extends Component {
                               />
                               <FormInputs
                                 ncols={["col-md-8"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Contact position",
                                     type: "text",
@@ -279,7 +280,7 @@ class Location extends Component {
                               />
                               <FormInputs
                                 ncols={["col-md-12"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Contact phone",
                                     type: "text",
@@ -293,7 +294,7 @@ class Location extends Component {
 
                               <FormInputs
                                 ncols={["col-md-12"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Contact email",
                                     type: "text",
@@ -323,7 +324,7 @@ class Location extends Component {
                               <div className="col-md-6">
                                 <FormInputs
                                   ncols={["col-md-8"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Name",
                                       type: "text",
@@ -337,7 +338,7 @@ class Location extends Component {
 
                                 <FormInputs
                                   ncols={["col-md-8"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Site id",
                                       type: "text",
@@ -366,7 +367,7 @@ class Location extends Component {
 
                                 <FormInputs
                                   ncols={["col-md-12"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Address",
                                       type: "text",
@@ -380,7 +381,7 @@ class Location extends Component {
 
                                 <FormInputs
                                   ncols={["col-md-12"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Type",
                                       type: "text",
@@ -412,7 +413,7 @@ class Location extends Component {
                               <div className="col-md-6">
                                 <FormInputs
                                   ncols={["col-md-8"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Contact name",
                                       type: "text",
@@ -425,7 +426,7 @@ class Location extends Component {
                                 />
                                 <FormInputs
                                   ncols={["col-md-8"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Contact position",
                                       type: "text",
@@ -438,7 +439,7 @@ class Location extends Component {
                                 />
                                 <FormInputs
                                   ncols={["col-md-12"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Contact phone",
                                       type: "text",
@@ -452,7 +453,7 @@ class Location extends Component {
 
                                 <FormInputs
                                   ncols={["col-md-12"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Contact email",
                                       type: "text",
@@ -469,62 +470,18 @@ class Location extends Component {
                                 Update
                               </Button>
                             </div>
-
                             <div className="clearfix" />
-
                           </form>
-
-                          <Table responsive>
-                            <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>Table heading</th>
-                              <th>Table heading</th>
-                              <th>Table heading</th>
-                              <th>Table heading</th>
-                              <th>Table heading</th>
-                              <th>Table heading</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                              <td>1</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                            </tr>
-                            <tr>
-                              <td>2</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                            </tr>
-                            <tr>
-                              <td>3</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                            </tr>
-                            </tbody>
-                          </Table>
                         </div>
-
-
                       )
                   )
                 }
               />
             </Col>
-            <Col md={4}>
+          </Row>
+          <Row>
+            <Col>
+              <Events location_id={this.props.match.params.id} category={`Events of location: ${location.name}`}/>
             </Col>
           </Row>
         </Grid>>
