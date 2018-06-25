@@ -1,24 +1,33 @@
 import {
-  FETCH_SIGNIN,
-  FETCH_SIGNOUT,
+  SIGNIN,
+  SIGNOUT,
+  SET_MSG,
 } from "../actions/actionTypes";
 
 const initialState = {
-  signed: false
+  signed: false,
+  msg: ""
 };
 
 export default (state = initialState, action) => {
   switch(action.type) {
-    case FETCH_SIGNIN:
+    case SIGNIN:
       return {
         ...state,
-        signed: true
+        signed: true,
+        msg: ""
       };
 
-    case FETCH_SIGNOUT:
+    case SIGNOUT:
       return {
         ...state,
         signed: false
+      };
+
+    case SET_MSG:
+      return {
+        ...state,
+        msg: action.msg
       };
 
 
