@@ -39,12 +39,6 @@ const ROOT_API = "/api/"
  */
 app.get(`${ROOT_API}locations/:id/events`, (request, result) => {
   eventsController.getAllEventsByLocationId(request, result)
-
-/**
- * API: create new data
- */
-app.post("/api/location", (request, result) => {
-  locationsController.createLocation(request, result)
 });
 app.get(`${ROOT_API}users/:id/events`, (request, result) => {
   eventsController.getAllEventsByUserId(request, result)
@@ -92,16 +86,8 @@ app.put("/api/users/:id", (request, result) => {
   userController.updateUser(request, result)
 });
 app.put("/api/devices/:id", (request, result) => {
-  userController.updateDevice(request, result)
+  deviceController.updateDevice(request, result)
 });
-
-/**
- * API: create new data
- */
-
-app.put("/api/devices/:id", (request, result) => {
-  locationController.updateDevice(request, result)
-})
 
 /////// GOOGLE Connect back ////////
 app.post('/googleConnectBack', (request, result) => {
@@ -121,21 +107,23 @@ app.post('/googleConnectBack', (request, result) => {
 );
 /////// GOOGLE Connect back end ////////
 
-
+/**
+ * API: create new data
+ */
 app.post("/api/locations", (request, result) => {
   locationsController.createLocation(request, result)
 });
-app.post("/api/users", (request, result) => {
+app.post("/api/user", (request, result) => {
   userController.createUser(request, result)
 });
-app.post("/api/devices", (request, result) => {
+app.post("/api/device", (request, result) => {
   userController.createDevice(request, result)
 });
-app.post("/api/events", (request, result) => {
+app.post("/api/event", (request, result) => {
   userController.createEvent(request, result)
 });
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8000;
 
 app.listen(port, function() {
   console.log(`Server listening on port ${port}`);
