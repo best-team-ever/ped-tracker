@@ -9,11 +9,11 @@ import {
 } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import Button from 'components/CustomButton/CustomButton';
 import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import {addLocation, fetchLocation} from "../../store/actions/locationsAction";
+import { fetchLocation } from "../../store/actions/locationsAction";
+import { handleFetchAddLocation } from "../../store/handlers/locationHandlers";
 
 class Location extends Component {
   constructor(props){
@@ -22,7 +22,14 @@ class Location extends Component {
       new: props.match.params.id === undefined,
       newNameLocation: "",
       newCountryLocation: "",
-      newAddressLocation: ""
+      newAddressLocation: "",
+      newTypeLocation: "",
+      newSiteIdLocation: "",
+      newStatus: "",
+      newContactName: "",
+      newContactPosition: "",
+      newContactPhone: "",
+      newContactEmail: ""
     }
   }
 
@@ -62,6 +69,12 @@ class Location extends Component {
     })
   };
 
+  handleNewSiteIdLocationChange = (e) => {
+    this.setState({
+      newSiteIdLocation: e.target.value
+    })
+  }
+
   handleNewCountryLocationChange = (e) => {
     this.setState({
       newCountryLocation: e.target.value
@@ -74,9 +87,71 @@ class Location extends Component {
     })
   }
 
-  handleStatusChange = (e) => {
-    console.log("status of location: ", e.target.value);
+  handleNewTypeLocationChange = (e) => {
+    this.setState({
+      newTypeLocation: e.target.value
+    })
   };
+
+  handleNewStatusLocationChange = (e) => {
+    this.setState({
+      newStatus: e.target.value
+    })
+  };
+
+  handleNewContactNameLocationChange = (e) => {
+    this.setState({
+      newContactName: e.target.value
+    })
+  };
+
+  handleNewContactPositionLocationChange = (e) => {
+    this.setState({
+      newContactPosition: e.target.value
+    })
+  };
+
+  handleNewContactPhoneLocationChange = (e) => {
+    this.setState({
+      newContactPhone: e.target.value
+    })
+  };
+
+  handleNewContactEmailLocationChange = (e) => {
+    this.setState({
+      newContactEmail: e.target.value
+    })
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    // this.props.fetchAddLocation({
+    //   location_type: this.state.newTypeLocation,
+    //   name: this.state.newNameLocation,
+    //   site_id: parseInt(this.state.newSiteIdLocation),
+    //   address: this.state.newAddressLocation,
+    //   country: this.state.newCountryLocation,
+    //   status: this.state.newStatus,
+    //   contact_name: this.state.newContactName,
+    //   contact_position: this.state.newContactPosition,
+    //   contact_phone: this.state.newContactPhone,
+    //   contact_email: this.state.newContactEmail
+    // });
+    this.props.addLocationFromState({
+      location_type: this.state.newTypeLocation,
+      name: this.state.newNameLocation,
+      site_id: parseInt(this.state.newSiteIdLocation),
+      address: this.state.newAddressLocation,
+      country: this.state.newCountryLocation,
+      status: this.state.newStatus,
+      contact_name: this.state.newContactName,
+      contact_position: this.state.newContactPosition,
+      contact_phone: this.state.newContactPhone,
+      contact_email: this.state.newContactEmail
+    });
+
+    this.props.history.push("/locations");
+  }
   /******************Fin: Handle all new elements******************/
 
   render() {
@@ -92,7 +167,8 @@ class Location extends Component {
                   (
                     this.state.new ?
                       (
-                        <form>
+
+                        <form onSubmit={this.handleSubmit.bind(this)}>
                           <div className="form-group col-md-12">
                             <div className="col-md-6">
                               <FormInputs
@@ -105,6 +181,20 @@ class Location extends Component {
                                     placeholder: "name",
                                     defaultValue: "",
                                     onChange: this.handleNewNameLocationChange.bind(this)
+                                  }
+                                ]}
+                              />
+
+                              <FormInputs
+                                ncols={["col-md-8"]}
+                                proprieties={[
+                                  {
+                                    label: "Site id",
+                                    type: "text",
+                                    bsClass: "form-control",
+                                    placeholder: "site_id",
+                                    defaultValue: "",
+                                    onChange: this.handleNewSiteIdLocationChange.bind(this)
                                   }
                                 ]}
                               />
@@ -139,8 +229,7 @@ class Location extends Component {
 
                               <ControlLabel>Type</ControlLabel>
                               <FormControl
-                                onChange={this.handleStatusChange.bind(this)}
-                                // inputRef={ el => this.inputEl=el }
+                                onChange={this.handleNewTypeLocationChange.bind(this)}
                                 componentClass="select"
                                 placeholder="select one type"
                               >
@@ -148,17 +237,16 @@ class Location extends Component {
                                 <option value="store">store</option>
                                 <option value="supplier">supplier</option>
                               </FormControl>
-                              <br/>
+
                               <ControlLabel>Location status</ControlLabel>
                               <FormControl
-                                onChange={this.handleStatusChange.bind(this)}
-                                // inputRef={ el => this.inputEl=el }
+                                onChange={this.handleNewStatusLocationChange.bind(this)}
                                 componentClass="select"
                                 placeholder="select one type"
                               >
                                 <option value="">select one status</option>
-                                <option value="open">open</option>
-                                <option value="closed">closed</option>
+                                <option value="1">open</option>
+                                <option value="0">closed</option>
                               </FormControl>
                             </div>
 
@@ -171,7 +259,8 @@ class Location extends Component {
                                     type: "text",
                                     bsClass: "form-control",
                                     placeholder: "Name",
-                                    defaultValue: ""
+                                    defaultValue: "",
+                                    onChange: this.handleNewContactNameLocationChange.bind(this)
                                   }
                                 ]}
                               />
@@ -183,7 +272,8 @@ class Location extends Component {
                                     type: "text",
                                     bsClass: "form-control",
                                     placeholder: "position",
-                                    defaultValue: "France"
+                                    defaultValue: "",
+                                    onChange: this.handleNewContactPositionLocationChange.bind(this)
                                   }
                                 ]}
                               />
@@ -195,7 +285,8 @@ class Location extends Component {
                                     type: "text",
                                     bsClass: "form-control",
                                     placeholder: "phone",
-                                    defaultValue: ""
+                                    defaultValue: "",
+                                    onChange: this.handleNewContactPhoneLocationChange.bind(this)
                                   }
                                 ]}
                               />
@@ -208,7 +299,8 @@ class Location extends Component {
                                     type: "text",
                                     bsClass: "form-control",
                                     placeholder: "email",
-                                    defaultValue: ""
+                                    defaultValue: "",
+                                    onChange: this.handleNewContactEmailLocationChange.bind(this)
                                   }
                                 ]}
                               />
@@ -221,7 +313,6 @@ class Location extends Component {
 
 
                           <div className="clearfix" />
-
                         </form>
                       )
                       :
@@ -240,6 +331,21 @@ class Location extends Component {
                                       placeholder: "name",
                                       defaultValue: "",
                                       value: location.name
+                                    }
+                                  ]}
+                                />
+
+                                <FormInputs
+                                  ncols={["col-md-8"]}
+                                  proprieties={[
+                                    {
+                                      label: "Site id",
+                                      type: "text",
+                                      bsClass: "form-control",
+                                      placeholder: "site_id",
+                                      defaultValue: "",
+                                      value: location.site_id,
+                                      onChange: this.handleNewSiteIdLocationChange.bind(this)
                                     }
                                   ]}
                                 />
@@ -434,10 +540,11 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  let actions = bindActionCreators({ addLocation }, dispatch);
+  // let actions = bindActionCreators({ addLocation }, dispatch);
   return {
-    ...actions,
-    dispatch
+    // ...actions,
+    dispatch,
+    addLocationFromState: (newLocation) => handleFetchAddLocation(newLocation, dispatch)
   }
 };
 

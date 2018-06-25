@@ -53,7 +53,7 @@ app.get("/api/locations/:id/events", (request, result) => {
 /**
  * API: create new data
  */
-app.post("/api/locations", (request, result) => {
+app.post("/api/location", (request, result) => {
   locationsController.createLocation(request, result)
 });
 app.post("/api/users", (request, result) => {

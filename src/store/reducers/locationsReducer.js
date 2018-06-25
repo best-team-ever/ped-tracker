@@ -35,33 +35,6 @@ export default (state = initialState, action) => {
         items: []
       };
 
-    case FETCH_LOCATIONS_ADD:
-      return {
-        ...state,
-        items: [ action.payload.newLocation, ...state.locations ]
-      };
-
-    case FETCH_LOCATIONS_UPDATE:
-      const newArray = state.items.map((item) => {
-        if (item.id === action.payload.updatedLocation.id){
-          return {
-            item: action.payload.updatedLocation
-          }
-        }
-        return item;
-      })
-
-      return {
-        ...state,
-        items: [...newArray]
-      }
-
-    case FETCH_LOCATIONS_DELETE:
-      return {
-        ...state,
-        items: state.items.filter(({id}) => action.payload.id !== id)
-      }
-
     default:
       return state;
   }
