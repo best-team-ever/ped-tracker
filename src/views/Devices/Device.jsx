@@ -127,7 +127,7 @@ class Device extends Component {
           </Row>
           <Row>
             <Col>
-              <Events device_id={this.props.match.params.id}/>
+              <Events device_id={this.props.match.params.id} category={`Events of device sn: ${this.props.device.serial_nr}`}/>
             </Col>
           </Row>
         </Grid>

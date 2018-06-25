@@ -1,25 +1,13 @@
 import {
   FETCH_USER_FAILURE,
-  FETCH_USER_SUCCESS,
   FETCH_USER_BEGIN,
-  FETCH_USER_NEW,
+  FETCH_USERS_SUCCESS,
 } from "../actions/actionTypes";
 
 const initialState = {
+  items: [],
   loading: false,
-  error: null,
-  item: {
-    "id": null,
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "p2pe_agreement": 0,
-    "language": "",
-    "role": "",
-    "location_id": null,
-    "createdAt": null,
-    "updatedAt": null
-  },
+  error: null
 };
 
 export default (state = initialState, action) => {
@@ -36,20 +24,14 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload.error,
-        item: initialState.item
+        items: []
       };
 
-    case FETCH_USER_SUCCESS:
+    case FETCH_USERS_SUCCESS:
       return {
         ...state,
         loading: false,
-        item: action.payload.user
-      };
-
-    case FETCH_USER_NEW:
-      return {
-        ...state,
-        item: initialState.item
+        items: action.payload.users
       };
 
     default:

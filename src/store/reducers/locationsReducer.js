@@ -1,8 +1,10 @@
 import {
   FETCH_LOCATIONS_ADD,
-  FETCH_LOCATIONS_BEGIN, FETCH_LOCATIONS_DELETE,
+  FETCH_LOCATIONS_BEGIN,
+  FETCH_LOCATIONS_DELETE,
   FETCH_LOCATIONS_FAILURE,
-  FETCH_LOCATIONS_SUCCESS, FETCH_LOCATIONS_UPDATE
+  FETCH_LOCATIONS_SUCCESS,
+  FETCH_LOCATIONS_UPDATE
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -20,19 +22,20 @@ export default (state = initialState, action) => {
         error: null
       };
 
-    case FETCH_LOCATIONS_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        items: action.payload.locations
-      };
-
     case FETCH_LOCATIONS_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
         items: []
+      };
+
+    case FETCH_LOCATIONS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        items: action.payload.locations
       };
 
     case FETCH_LOCATIONS_ADD:

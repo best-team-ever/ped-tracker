@@ -1,10 +1,10 @@
 import Dashboard from "views/Dashboard/Dashboard";
-import Devices from "views/Devices/Devices";
 import Device from "views/Devices/Device";
-import Location from "../views/Locations/Location";
+import Devices from "views/Devices/Devices";
+import Location from "views/Locations/Location";
 import Locations from "views/Locations/Locations";
-import Users from "views/Users/Users";
 import User from "views/Users/User";
+import Users from "views/Users/Users";
 import Events from "views/Events/Events";
 import Help from "views/Help/Help";
 

@@ -37,7 +37,7 @@ async function updateUser(request, result){
     .then(data => {
       if (!data) {
         return result.status(404).send({
-          message: "no location"
+          message: "no user"
         })
       }
       return data
@@ -62,7 +62,7 @@ async function findUserById(request, result){
     .then(data => {
       if (!data){
         return result.status(404).send({
-          message: "location not found"
+          message: "user not found"
         })
       }
       return result.status(200).send(data)

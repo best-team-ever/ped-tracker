@@ -31,7 +31,30 @@ app.use(function(req, res, next) {
 //   result.sendFile(path.resolve("./build/index.html"));
 // });
 
-// app.use("/public/images", express.static(path.join(__dirname, "public/images")));
+const ROOT_API = "/api/"
+
+app.get(`${ROOT_API}locations/:id/events`, (request, result) => {
+  eventsController.getAllEventsByLocationId(request, result)
+});
+app.get(`${ROOT_API}users/:id/events`, (request, result) => {
+  eventsController.getAllEventsByUserId(request, result)
+});
+app.get(`${ROOT_API}devices/:id/events`, (request, result) => {
+  eventsController.getAllEventsByDeviceId(request, result)
+});
+
+/**
+ * API: retrieve one data by id
+ */
+app.get("/api/locations/:id", (request, result) => {
+  locationsController.findLocationById(request, result)
+});
+app.get("/api/users/:id", (request, result) => {
+  userController.findUserById(request, result)
+});
+app.get("/api/devices/:id", (request, result) => {
+  deviceController.findDeviceById(request, result)
+});
 
 /**
  * API: retrieve list
@@ -42,13 +65,25 @@ app.get("/api/locations", (request, result) => {
 app.get("/api/users", (request, result) => {
   userController.getAllUsers(request, result);
 });
-
+app.get("/api/devices", (request, result) => {
+  deviceController.getAllDevices(request, result);
+});
 app.get("/api/events", (request, result) => {
   eventsController.getAllEvents(request, result)
-})
-app.get("/api/locations/:id/events", (request, result) => {
-  eventsController.getAllEventsByLocationId(request, result)
-})
+});
+
+/**
+ * API: update one data by id
+ */
+app.put("/api/locations/:id", (request, result) => {
+  locationsController.updateLocation(request, result)
+});
+app.put("/api/users/:id", (request, result) => {
+  userController.updateUser(request, result)
+});
+app.put("/api/devices/:id", (request, result) => {
+  userController.updateDevice(request, result)
+});
 
 /**
  * API: create new data
@@ -59,58 +94,12 @@ app.post("/api/locations", (request, result) => {
 app.post("/api/users", (request, result) => {
   userController.createUser(request, result)
 });
-
-
-/**
- * API: retrieve one data by id
- */
-app.get("/api/locations/:id", (request, result) => {
-  locationsController.findLocationById(request, result)
-})
-app.get("/api/users/:id/events", (request, result) => {
-  userController.findUserById(request, result)
-});
-
-/**
- * API: update one data by id
- */
-app.put("/api/locations/:id", (request, result) => {
-  locationsController.updateLocation(request, result)
-});
-
-app.put("/api/users/:id/events", (request, result) => {
-  userController.updateUser(request, result)
-});
-
-/**
- * API: retrieve list of devices
- */
-app.get("/api/devices", (request, result) => {
-  deviceController.getAllDevices(request, result);
-});
-
-/**
- * API: create new device
- */
 app.post("/api/devices", (request, result) => {
-  deviceController.createDevice(request, result)
+  userController.createDevice(request, result)
 });
-
-
-/**
- * API: retrieve one device by id
- */
-app.get("/api/devices/:id", (request, result) => {
-  deviceController.findDeviceById(request, result)
-})
-
-/**
- * API: update one location by id
- */
-app.put("/api/devices/:id", (request, result) => {
-  locationController.updateDevice(request, result)
-})
-
+app.post("/api/events", (request, result) => {
+  userController.createEvent(request, result)
+});
 
 const port = process.env.PORT || 8000
 
