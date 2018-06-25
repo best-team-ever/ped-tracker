@@ -1,21 +1,18 @@
 import {
-  fetchUserAdd,
-  fetchUserUpdate,
-  fetchUserDelete,
-} from "../actions/userAction";
+  loginAction,
+  logoutAction,
+  setMsgAction
+} from "../actions/loginAction";
 
 
-export function fetchUserAdd(user, dispatch) {
-  console.log("fetchUserAdd");
-  dispatch(fetchUserAdd(user));
+export function loginHandler(dispatch) {
+  dispatch(loginAction());
 }
 
-export function fetchUserUpdate(user, dispatch) {
-  console.log("fetchUserUpdate");
-  dispatch(fetchUserUpdate(user));
+export function logoutHandler(dispatch) {
+  dispatch(logoutAction());
 }
 
-export function fetchUserDelete(user, dispatch) {
-  console.log("fetchUserDelete");
-  dispatch(fetchUserDelete(user));
+export function setMsgHandler(dispatch, msg) {
+  dispatch(setMsgAction(msg));
 }

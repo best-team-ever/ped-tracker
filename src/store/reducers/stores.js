@@ -7,11 +7,17 @@ import userReducer from "./userReducer";
 import usersReducer from "./usersReducer";
 import locationReducer from "./locationReducer";
 import locationsReducer from "./locationsReducer";
+import loginReducer from "./loginReducer";
 import eventsReducer from "./eventsReducer";
+
 
 let rootReducers = combineReducers({
   device: deviceReducer,
   devices: devicesReducer,
+  users: userReducer,
+  locations: locationsReducer,
+  login: loginReducer,
+  msg: loginReducer,
   user: userReducer,
   users: usersReducer,
   location: locationReducer,

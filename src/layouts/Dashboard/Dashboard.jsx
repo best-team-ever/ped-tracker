@@ -11,7 +11,13 @@ import { style } from "variables/Variables.jsx";
 import dashboardRoutes from "routes/dashboard.jsx";
 import { GoogleLogin } from 'react-google-login';
 
+// import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { loginHandler, setMsgHandler } from "../../store/handlers/loginHandlers";
+import './dashboard.css';
+
 class Dashboard extends Component {
+
   constructor(props) {
     super(props);
     this.componentDidMount = this.componentDidMount.bind(this);
@@ -20,11 +26,26 @@ class Dashboard extends Component {
       _notificationSystem: null,
       signed: true
     };
+    this.mainPanel = React.createRef();
+    this.clientId = process.env.REACT_APP_API_USER
   }
 
   responseGoogle = (response) => {
-    console.log("signed true");
-    this.setState({signed: true});
+    fetch(`http://localhost:8000/googleConnectBack`, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': response.tokenObj.id_token
+      }
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        result.message === "Not allowed"
+          ? this.props.setMsg("Not authorized")
+          : this.props.login()
+        })
+      .catch((error) => this.props.setMsg("User not found", error))
   }
 
   handleNotificationClick(position) {
@@ -104,15 +125,18 @@ class Dashboard extends Component {
     if (e.history.action === "PUSH") {
       document.documentElement.scrollTop = 0;
       document.scrollingElement.scrollTop = 0;
-      this.refs.mainPanel.scrollTop = 0;
+      if (this.mainPanel.current) {
+        this.mainPanel.current.scrollTop = 0;
+      }
     }
   }
   render() {
-    return (this.state.signed
+    console.log("hhh: ",this.props.message.msg);
+    return (this.props.signedState.signed
       ? <div className="wrapper">
           <NotificationSystem ref="notificationSystem" style={style} />
           <Sidebar {...this.props} />
-          <div id="main-panel" className="main-panel" ref="mainPanel">
+          <div id="main-panel" className="main-panel" ref={this.mainPanel}>
             <Header {...this.props} />
             <Switch>
               {dashboardRoutes.map((prop, key) => {
@@ -140,22 +164,40 @@ class Dashboard extends Component {
           </div>
         </div>
       : (
-          <div className="text-center">
+          <div className="backgroundPicture">
+          <div className="text-center backgroundWhite" >
             <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
               <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
               <GoogleLogin
               className="btn btn-primary"
-              clientId="522866054012-3rk0smi2ss0fqn3irb0onpjj3to9g0e8.apps.googleusercontent.com"
+              clientId={this.clientId}
               buttonText="Login"
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
               />
 
               <p className="mt-5 mb-3 text-muted">© 2018</p>
+              <br/>
+              <p className="mt-5 mb-3 text-muted">{this.props.message.msg}</p>
+          </div>
           </div>
         )
     );
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  signedState: state.login,
+  message : state.msg
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: () => loginHandler(dispatch),
+    setMsg: (msg) => setMsgHandler(dispatch, msg)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+
+// export default Dashboard;
