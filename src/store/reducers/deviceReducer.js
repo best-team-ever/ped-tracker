@@ -2,6 +2,7 @@ import {
   FETCH_DEVICE_FAILURE,
   FETCH_DEVICE_BEGIN,
   FETCH_DEVICE_SUCCESS,
+  FETCH_DEVICE_NEW,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -46,6 +47,12 @@ export default (state = initialState, action) => {
         loading: false,
         item: action.payload.device
       };
+
+      case FETCH_DEVICE_NEW:
+        return {
+          ...state,
+          item: initialState.item
+        };
 
     default:
       return state;

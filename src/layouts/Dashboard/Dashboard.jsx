@@ -24,7 +24,7 @@ class Dashboard extends Component {
     this.handleNotificationClick = this.handleNotificationClick.bind(this);
     this.state = {
       _notificationSystem: null,
-      signed: false
+      signed: true
     };
     this.mainPanel = React.createRef();
     this.clientId = process.env.REACT_APP_API_USER

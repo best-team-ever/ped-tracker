@@ -1,14 +1,27 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
+import { Grid, Row, Col, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import 'react-table/react-table.css'
 import TableCard from "components/TableCard/TableCard.jsx";
+
 import { fetchDevices } from "../../store/actions/deviceAction";
 
 class Devices extends Component {
   componentDidMount() {
     this.props.dispatch(fetchDevices());
+  }
+
+  alert = (error) => {
+    if (error) {
+      return (
+        <Alert bsStyle="danger">
+          <button type="button" aria-hidden="true" className="close">&#x2715;</button>
+          <span><b>ERROR: </b>{error.toString()}</span>
+        </Alert>
+      );
+    }
   }
 
   render() {
@@ -37,26 +50,37 @@ class Devices extends Component {
 
     return (
       <div className="content">
-        <TableCard
-          elementToShow="devices"
-          title="Devices"
-          category="list of devices"
-          ctTableFullWidth
-          ctTableResponsive
-          addButton="New device"
-          content={
-            <ReactTable
-              noDataText="Empty list!"
-              columns={rthArray}
-              data={rtdArray}
-              defaultPageSize={10}
-              className="-striped -highlight"
-              defaultSorted={[{ id: "name", desc: true}]}
-              filterable
-              defaultFilterMethod={(filter, row) => row[filter.id].startsWith(filter.value)}
-            />
-          }
-        />
+        <Grid fluid>
+          <Row>
+            <Col>
+              {this.alert(this.props.error)}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <TableCard
+                elementToShow="devices"
+                title="Devices"
+                category="list of devices"
+                ctTableFullWidth
+                ctTableResponsive
+                addButton="New device"
+                content={
+                  <ReactTable
+                    noDataText="Empty list!"
+                    columns={rthArray}
+                    data={rtdArray}
+                    defaultPageSize={10}
+                    className="-striped -highlight"
+                    defaultSorted={[{ id: "name", desc: true}]}
+                    filterable
+                    defaultFilterMethod={(filter, row) => row[filter.id].startsWith(filter.value)}
+                  />
+                }
+              />
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }

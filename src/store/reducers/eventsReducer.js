@@ -1,10 +1,7 @@
 import {
-  FETCH_LOCATIONS_ADD,
-  FETCH_LOCATIONS_BEGIN,
-  FETCH_LOCATIONS_DELETE,
-  FETCH_LOCATIONS_FAILURE,
-  FETCH_LOCATIONS_SUCCESS,
-  FETCH_LOCATIONS_UPDATE
+  FETCH_EVENTS_FAILURE,
+  FETCH_EVENTS_BEGIN,
+  FETCH_EVENTS_SUCCESS,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -14,15 +11,15 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  switch (action.type) {
-    case FETCH_LOCATIONS_BEGIN:
+  switch(action.type) {
+    case FETCH_EVENTS_BEGIN:
       return {
         ...state,
         loading: true,
         error: null
       };
 
-    case FETCH_LOCATIONS_FAILURE:
+    case FETCH_EVENTS_FAILURE:
       return {
         ...state,
         loading: false,
@@ -30,12 +27,12 @@ export default (state = initialState, action) => {
         items: []
       };
 
-    case FETCH_LOCATIONS_SUCCESS:
+    case FETCH_EVENTS_SUCCESS:
       return {
         ...state,
         loading: false,
         error: null,
-        items: action.payload.locations
+        items: action.payload.events
       };
 
     default:

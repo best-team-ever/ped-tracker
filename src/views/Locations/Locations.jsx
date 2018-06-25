@@ -7,12 +7,10 @@ import { fetchLocations } from "../../store/actions/locationsAction";
 
 import 'react-table/react-table.css'
 import TableCard from "components/TableCard/TableCard.jsx";
-import { thArray, tdArray } from "variables/Variables.jsx";
 
 class Locations extends Component {
   getLocations(){
     let { error, loading, locations } = this.props;
-    console.log("locations: ", this.props.locations);
     return {
       locations: locations,
       error: error,
@@ -26,20 +24,20 @@ class Locations extends Component {
 
   render() {
     const rthArray = [
-      { Header: 'Type', accessor: 'location_type', maxWidth: 100},
-      { Header: 'Name', accessor: 'name'},
-      { Header: 'Address', accessor: 'address'},
-      { Header: 'Country', accessor: 'country'},
-      { Header: 'Contact name', accessor: 'contact_name'},
-      { Header: 'Contact position', accessor: 'contact_position'},
-      { Header: 'Contact phone', accessor: 'contact_phone'},
-      { Header: 'Contact phone', accessor: 'contact_phone'},
-      { Header: 'Contact email', accessor: 'contact_email'},
-      { Header: 'Status', accessor: 'status'},
+      { Header: 'Type', accessor: 'location_type', maxWidth: 50, className: "center"},
+      { Header: 'Name', accessor: 'name', style: { 'white-space': 'unset' }},
+      { Header: 'Site id', accessor: 'site_id', style: { 'white-space': 'unset' }},
+      { Header: 'Address', accessor: 'address', style: { 'white-space': 'unset' }},
+      { Header: 'Country', accessor: 'country', style: { 'white-space': 'unset' }, className: "center"},
+      { Header: 'Contact name', accessor: 'contact_name', style: { 'white-space': 'unset' }},
+      { Header: 'Contact position', accessor: 'contact_position', style: { 'white-space': 'unset' }},
+      { Header: 'Contact phone', accessor: 'contact_phone', style: { 'white-space': 'unset' }},
+      { Header: 'Contact email', accessor: 'contact_email', style: { 'white-space': 'unset' }},
+      { Header: 'Status', accessor: 'status', style: { 'white-space': 'unset' }, className: "center"},
       { Header: 'Action',
         Cell: (row)=>(
           <div className="action-right">
-            <Link to={`/locations/${row.row.id}`} className="btn-simple btn-icon btn btn-warning">
+            <Link to={`/locations/${row.original.id}`} className="btn-simple btn-icon btn btn-warning">
               <i className="fa fa-edit"></i>
             </Link>
           </div>
