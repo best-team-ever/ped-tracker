@@ -2,7 +2,9 @@ import {
   BASE_API,
   FETCH_USER_BEGIN,
   FETCH_USER_SUCCESS,
+  FETCH_USERS_SUCCESS,
   FETCH_USER_FAILURE,
+  FETCH_USER_NEW,
   FETCH_USER_ADD,
   FETCH_USER_UPDATE,
   FETCH_USER_DELETE,
@@ -12,18 +14,37 @@ export const fetchUsersBegin = () => ({
   type: FETCH_USER_BEGIN
 });
 
-export const fetchUsersSuccess = users => ({
-  type: FETCH_USER_SUCCESS,
-  payload: { users }
-});
-
 export const fetchUsersError = error => ({
   type: FETCH_USER_FAILURE,
   payload: { error }
 });
 
+export const fetchUserSuccess = user => ({
+  type: FETCH_USER_SUCCESS,
+  payload: { user }
+});
+
+export const fetchUsersSuccess = users => ({
+  type: FETCH_USERS_SUCCESS,
+  payload: { users }
+});
+
+export const newUser = (user) => ({
+  type: FETCH_USER_NEW,
+  payload: { user }
+});
+
+export function fetchUser(id) {
+  return dispatch => {
+    dispatch(fetchUsersBegin);
+    return fetch(`${BASE_API}users/${id}`)
+      .then(res => res.json())
+      .then(json => dispatch(fetchUserSuccess(json)))
+      .catch(error => dispatch(fetchUsersError(error)));
+  };
+}
+
 export function fetchUsers() {
-  console.log("fetchUsers");
   return dispatch => {
     dispatch(fetchUsersBegin);
     return fetch(`${BASE_API}users`)

@@ -4,8 +4,7 @@ import {
   Row,
   Col,
   ControlLabel,
-  FormControl,
-  Table
+  FormControl
 } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -14,6 +13,7 @@ import Button from 'components/CustomButton/CustomButton';
 import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import {addLocation, fetchLocation} from "../../store/actions/locationsAction";
+import Events from "../Events/Events";
 
 class Location extends Component {
   constructor(props){
@@ -363,62 +363,18 @@ class Location extends Component {
                                 Update
                               </Button>
                             </div>
-
                             <div className="clearfix" />
-
                           </form>
-
-                          <Table responsive>
-                            <thead>
-                            <tr>
-                              <th>#</th>
-                              <th>Table heading</th>
-                              <th>Table heading</th>
-                              <th>Table heading</th>
-                              <th>Table heading</th>
-                              <th>Table heading</th>
-                              <th>Table heading</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                              <td>1</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                            </tr>
-                            <tr>
-                              <td>2</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                            </tr>
-                            <tr>
-                              <td>3</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                              <td>Table cell</td>
-                            </tr>
-                            </tbody>
-                          </Table>
                         </div>
-
-
                       )
                   )
                 }
               />
             </Col>
-            <Col md={4}>
+          </Row>
+          <Row>
+            <Col>
+              <Events location_id={this.props.match.params.id} category={`Events of location: ${location.name}`}/>
             </Col>
           </Row>
         </Grid>>
