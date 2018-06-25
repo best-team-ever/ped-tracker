@@ -97,7 +97,7 @@ class Location extends Component {
                             <div className="col-md-6">
                               <FormInputs
                                 ncols={["col-md-8"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Name",
                                     type: "text",
@@ -111,7 +111,7 @@ class Location extends Component {
 
                               <FormInputs
                                 ncols={["col-md-8"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Country",
                                     type: "text",
@@ -125,7 +125,7 @@ class Location extends Component {
 
                               <FormInputs
                                 ncols={["col-md-12"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Address",
                                     type: "text",
@@ -165,7 +165,7 @@ class Location extends Component {
                             <div className="col-md-6">
                               <FormInputs
                                 ncols={["col-md-8"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Contact name",
                                     type: "text",
@@ -177,7 +177,7 @@ class Location extends Component {
                               />
                               <FormInputs
                                 ncols={["col-md-8"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Contact position",
                                     type: "text",
@@ -189,7 +189,7 @@ class Location extends Component {
                               />
                               <FormInputs
                                 ncols={["col-md-12"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Contact phone",
                                     type: "text",
@@ -202,7 +202,7 @@ class Location extends Component {
 
                               <FormInputs
                                 ncols={["col-md-12"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Contact email",
                                     type: "text",
@@ -232,7 +232,7 @@ class Location extends Component {
                               <div className="col-md-6">
                                 <FormInputs
                                   ncols={["col-md-8"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Name",
                                       type: "text",
@@ -246,7 +246,7 @@ class Location extends Component {
 
                                 <FormInputs
                                   ncols={["col-md-8"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Country",
                                       type: "text",
@@ -260,7 +260,7 @@ class Location extends Component {
 
                                 <FormInputs
                                   ncols={["col-md-12"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Address",
                                       type: "text",
@@ -274,7 +274,7 @@ class Location extends Component {
 
                                 <FormInputs
                                   ncols={["col-md-12"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Type",
                                       type: "text",
@@ -306,7 +306,7 @@ class Location extends Component {
                               <div className="col-md-6">
                                 <FormInputs
                                   ncols={["col-md-8"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Contact name",
                                       type: "text",
@@ -319,7 +319,7 @@ class Location extends Component {
                                 />
                                 <FormInputs
                                   ncols={["col-md-8"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Contact position",
                                       type: "text",
@@ -332,7 +332,7 @@ class Location extends Component {
                                 />
                                 <FormInputs
                                   ncols={["col-md-12"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Contact phone",
                                       type: "text",
@@ -346,7 +346,7 @@ class Location extends Component {
 
                                 <FormInputs
                                   ncols={["col-md-12"]}
-                                  proprieties={[
+                                  properties={[
                                     {
                                       label: "Contact email",
                                       type: "text",

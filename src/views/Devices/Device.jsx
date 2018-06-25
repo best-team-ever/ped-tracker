@@ -40,7 +40,7 @@ class Device extends Component {
                   <form>
                     <FormInputs
                       ncols={["col-md-6", "col-md-6"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "Serial number",
                           type: "text",
@@ -60,7 +60,7 @@ class Device extends Component {
                     />
                     <FormInputs
                       ncols={["col-md-6", "col-md-6"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "Model",
                           type: "text",
@@ -79,7 +79,7 @@ class Device extends Component {
                     />
                     <FormInputs
                       ncols={["col-md-6", "col-md-6"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "Location",
                           type: "text",
@@ -98,7 +98,7 @@ class Device extends Component {
                     />
                     <FormInputs
                       ncols={["col-md-6", "col-md-6"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "Status",
                           type: "text",

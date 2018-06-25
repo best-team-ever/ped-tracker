@@ -1,8 +1,12 @@
 const db = require("../models/index")
 
 async function getAllLocations(request, result){
+  let conditions = {};
+  if (request.query.fields) {
+    conditions = {...conditions, attributes: request.query.fields.split(",")};
+  }
   return await db.locations
-    .findAll()
+    .findAll(conditions)
     .then(row => result.status(200).send(row))
     .catch(
       error => result.status(400).send(error)
@@ -66,7 +70,6 @@ async function findLocationById(request, result){
     })
     .catch(error => result.status(400).send(error));
 }
-
 
 module.exports = {
   getAllLocations: getAllLocations,

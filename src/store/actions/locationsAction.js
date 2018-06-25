@@ -39,10 +39,18 @@ export const fetchLocationError = error => ({
   payload: { error }
 });
 
-export function fetchLocations() {
+export function fetchLocations(conditions) {
+  let query = "";
+  if (conditions) {
+    query = "?";
+    if (conditions.fields) {
+      query += `fields=${conditions.fields}`;
+    }
+  }
+
   return dispatch => {
     dispatch(fetchLocationsBegin());
-    return fetch(`${BASE_API}locations`)
+    return fetch(`${BASE_API}locations${query}`)
       .then(handleErrors)
       .then(res => res.json())
       .then(json => {
@@ -72,7 +80,6 @@ function handleErrors(response) {
   }
   return response;
 }
-
 
 export const addLocation = (newLocation) => ({
   type: FETCH_LOCATIONS_ADD,
