@@ -33,6 +33,10 @@ class User extends Component {
     this.props.dispatch(fetchLocations({fields: "id,name"}));
   }
 
+  handleChange = (event) => {
+    this.setState({value: event.target.value});
+  }
+
   render() {
     const selectLocations = (this.props.locations.length > 0)
      ? this.props.locations.map(location => ({value: location.id, label: location.name}))
@@ -88,7 +92,8 @@ class User extends Component {
                           componentClass: "select",
                           bsClass: "form-control",
                           options: [{value: "FR", label: "FR"},{value: "EN", label: "EN"}],
-                          defaultValue: this.props.user.language
+                          value: this.props.user.language,
+                          onChange: this.handleChange
                         },
                         // {
                         //   label: "Location",
