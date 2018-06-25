@@ -12,6 +12,7 @@ import Button from 'components/CustomButton/CustomButton';
 import { Card } from "components/Card/Card.jsx";
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { fetchUser, newUser } from "../../store/actions/userAction";
+import { fetchLocations } from "../../store/actions/locationsAction";
 import Events from "../Events/Events";
 
 class User extends Component {
@@ -29,10 +30,15 @@ class User extends Component {
     } else {
       this.props.dispatch(newUser());
     }
+    this.props.dispatch(fetchLocations({fields: "id,name"}));
   }
 
   render() {
-    console.log(this.props);
+    const selectLocations = (this.props.locations.length > 0)
+     ? this.props.locations.map(location => ({value: location.id, label: location.name}))
+     : [];
+    console.log(selectLocations);
+
     return (
       <div className="content">
         <Grid fluid>
@@ -44,13 +50,12 @@ class User extends Component {
                   <form>
                     <FormInputs
                       ncols={["col-md-3", "col-md-3", "col-md-6"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "First name",
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "First name",
-                          defaultValue: "",
                           value: this.props.user.first_name
                         },
                         {
@@ -58,7 +63,6 @@ class User extends Component {
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "Last name",
-                          defaultValue: "",
                           value: this.props.user.last_name
                         },
                         {
@@ -66,64 +70,35 @@ class User extends Component {
                           type: "email",
                           bsClass: "form-control",
                           placeholder: "Email",
-                          defaultValue: this.props.user.email,
                           value: this.props.user.email
                         },
                       ]}
                     />
                     <FormInputs
-                      ncols={["col-md-12"]}
-                      proprieties={[
+                      ncols={["col-md-3", "col-md-3", "col-md-6"]}
+                      properties={[
+                        // {
+                        //   label: "P2PE Agreement",
+                        //   componentClass: "checkbox",
+                        //   bsClass: "form-control",
+                        //   value: this.props.user.p2pe_agreement
+                        // },
                         {
-                          label: "Adress",
-                          type: "text",
+                          label: "Language",
+                          componentClass: "select",
                           bsClass: "form-control",
-                          placeholder: "Home Adress",
-                          defaultValue:
-                            "Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                        }
+                          options: [{value: "FR", label: "FR"},{value: "EN", label: "EN"}],
+                          defaultValue: this.props.user.language
+                        },
+                        // {
+                        //   label: "Location",
+                        //   componentClass: "select",
+                        //   bsClass: "form-control",
+                        //   options: selectLocations,
+                        //   value: this.props.user.location_id
+                        // },
                       ]}
                     />
-                    <FormInputs
-                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
-                      proprieties={[
-                        {
-                          label: "City",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "City",
-                          defaultValue: "Mike"
-                        },
-                        {
-                          label: "Country",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Country",
-                          defaultValue: "Andrew"
-                        },
-                        {
-                          label: "Postal Code",
-                          type: "number",
-                          bsClass: "form-control",
-                          placeholder: "ZIP Code"
-                        }
-                      ]}
-                    />
-
-                    <Row>
-                      <Col md={12}>
-                        <FormGroup controlId="formControlsTextarea">
-                          <ControlLabel>About Me</ControlLabel>
-                          <FormControl
-                            rows="5"
-                            componentClass="textarea"
-                            bsClass="form-control"
-                            placeholder="Here can be your description"
-                            defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo."
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
                     <Button bsStyle="info" pullRight fill type="submit">
                       Update Profile
                     </Button>
@@ -147,7 +122,8 @@ class User extends Component {
 const mapStateToProps = state => ({
   user: state.user.item,
   loading: state.user.loading,
-  error: state.user.error
-});
+  error: state.user.error,
+  locations: state.locations.items
+})
 
 export default connect(mapStateToProps)(User);

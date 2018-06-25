@@ -33,6 +33,9 @@ app.use(function(req, res, next) {
 
 const ROOT_API = "/api/"
 
+/**
+ * API: retrieve one data by id with events associated
+ */
 app.get(`${ROOT_API}locations/:id/events`, (request, result) => {
   eventsController.getAllEventsByLocationId(request, result)
 });
