@@ -202,7 +202,7 @@ class Location extends Component {
 
                               <FormInputs
                                 ncols={["col-md-8"]}
-                                proprieties={[
+                                properties={[
                                   {
                                     label: "Country",
                                     type: "text",
@@ -480,11 +480,12 @@ class Location extends Component {
             </Col>
           </Row>
           <Row>
-            <Col>
-              <Events location_id={this.props.match.params.id} category={`Events of location: ${location.name}`}/>
+            <Col>{(!this.state.new
+              ? <Events location_id={this.props.match.params.id} category={`Events of location: ${location.name}`}/>
+              : "")}
             </Col>
           </Row>
-        </Grid>>
+        </Grid>
       </div>
     );
   }

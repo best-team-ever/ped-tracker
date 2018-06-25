@@ -8,23 +8,28 @@ import {
   FETCH_USER_ADD,
   FETCH_USER_UPDATE,
   FETCH_USER_DELETE,
+  USER_ONCHANGE
 } from "./actionTypes";
 
-export const fetchUsersBegin = () => ({
+export function handleUserChange(id, value) {
+  return dispatch => {dispatch({type: USER_ONCHANGE, payload: {key: id, value: value}})};
+}
+
+const fetchUsersBegin = () => ({
   type: FETCH_USER_BEGIN
 });
 
-export const fetchUsersError = error => ({
+const fetchUsersError = error => ({
   type: FETCH_USER_FAILURE,
   payload: { error }
 });
 
-export const fetchUserSuccess = user => ({
+const fetchUserSuccess = user => ({
   type: FETCH_USER_SUCCESS,
   payload: { user }
 });
 
-export const fetchUsersSuccess = users => ({
+const fetchUsersSuccess = users => ({
   type: FETCH_USERS_SUCCESS,
   payload: { users }
 });

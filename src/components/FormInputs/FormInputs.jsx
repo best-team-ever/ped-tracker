@@ -2,26 +2,30 @@ import React, { Component } from "react";
 import { FormGroup, ControlLabel, FormControl, Row, Checkbox } from "react-bootstrap";
 
 function FieldGroup({ label, ...props }) {
+  const {type, ...fieldProps} = props;
   let formControl = null;
 
-  switch(props.componentClass) {
+  switch(type) {
     case "checkbox" :
-      const {componentClass, ...checkboxProps} = props;
-      formControl = (<Checkbox {...checkboxProps}></Checkbox>);
+      formControl = (<Checkbox {...fieldProps}></Checkbox>);
       break;
 
     case "select" :
-      const {options, ...selectProps} = props;
-      formControl = (options && options.length > 0)
-        ? (<FormControl {...selectProps} >{options.map((option, index) => (
-              <option key={index} value={option.value}>{option.label}</option>
-            ))}
-          </FormControl>)
-        : (<FormControl {...selectProps} />);
+      const {options, ...selectProps} = fieldProps;
+      formControl = (
+        <FormControl componentClass="select" {...selectProps}>
+          {(options && options.length > 0)
+          ? options.map((option, index) => (
+            <option key={index} value={option.value}>
+              {option.label}
+            </option>))
+          : ""}
+        </FormControl>
+      );
       break;
 
     default:
-      formControl = <FormControl {...props} />;
+      formControl = <FormControl {...fieldProps} />;
   }
 
   return (

@@ -3,6 +3,7 @@ import {
   FETCH_USER_SUCCESS,
   FETCH_USER_BEGIN,
   FETCH_USER_NEW,
+  USER_ONCHANGE
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -16,7 +17,7 @@ const initialState = {
     "p2pe_agreement": 0,
     "language": "",
     "role": "",
-    "location_id": null,
+    "location_id": "",
     "createdAt": null,
     "updatedAt": null
   },
@@ -51,6 +52,12 @@ export default (state = initialState, action) => {
         ...state,
         item: initialState.item
       };
+
+    case USER_ONCHANGE:
+    return {
+      ...state,
+      item: {...state.item, [action.payload.key]: action.payload.value}
+    };
 
     default:
       return state;
