@@ -93,7 +93,7 @@ class User extends Component {
                           bsClass: "form-control",
                           options: [{value: "FR", label: "FR"},{value: "EN", label: "EN"}],
                           value: this.props.user.language,
-                          onChange: this.handleChange
+                          change: this.handleChange
                         },
                         // {
                         //   label: "Location",
