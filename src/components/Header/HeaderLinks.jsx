@@ -1,7 +1,16 @@
 import React, { Component } from "react";
 import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import { GoogleLogout } from 'react-google-login';
+import { connect } from "react-redux";
+import { logoutHandler } from "../../store/handlers/loginHandlers";
+import './headerLinks.css';
 
 class HeaderLinks extends Component {
+
+  signOut = () => {
+    this.props.logout();
+  }
+
   render() {
     const notification = (
       <div>
@@ -52,8 +61,13 @@ class HeaderLinks extends Component {
             <MenuItem divider />
             <MenuItem eventKey={2.5}>Separated link</MenuItem>
           </NavDropdown>
-          <NavItem eventKey={3} href="#">
-            Log out
+          <NavItem eventKey={3} href="#" >
+            {/* <NavItem eventKey={3} href="#" onClick={this.signOut}> */}
+            <GoogleLogout
+              buttonText="Logout"
+              onLogoutSuccess={this.signOut}
+              className="nav navbar-default navbar-nav buttonBorder"
+            />
           </NavItem>
         </Nav>
       </div>
@@ -61,4 +75,17 @@ class HeaderLinks extends Component {
   }
 }
 
-export default HeaderLinks;
+const mapStateToProps = (state) => ({
+  signedState: state.login
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logout: () => logoutHandler(dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderLinks);
+
+
+// export default HeaderLinks;

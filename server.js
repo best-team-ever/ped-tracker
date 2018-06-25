@@ -1,15 +1,16 @@
 const express = require("express");
+const fetch = require("node-fetch");
 const eventsController = require("./controllers/eventsController");
 const locationsController = require("./controllers/locationsController");
 const deviceController = require("./controllers/deviceController");
 const userController = require("./controllers/userController");
-
 // if (process.env.NODE_ENV !== "production") {
 //   const path = require("path");
 //   require("dotenv").config({ path: path.resolve(process.cwd(), "config/.env.local") });
 // }
-
 const app = express();
+const {OAuth2Client} = require('google-auth-library');
+
 
 app.use(require("body-parser").urlencoded({ extended: false }));
 app.use(require("body-parser").json());
@@ -22,7 +23,7 @@ app.use(function(req, res, next) {
   //Needed by ExpressJS
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
   next();
 });
@@ -109,6 +110,27 @@ app.get("/api/devices/:id", (request, result) => {
 app.put("/api/devices/:id", (request, result) => {
   locationController.updateDevice(request, result)
 })
+
+/////// GOOGLE Connect back ////////
+app.post('/googleConnectBack', (request, result) => {
+  const tokenId = request.headers.authorization;
+
+  fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${tokenId}`)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.aud === process.env.REACT_APP_API_USER) {
+        userController.findUserByEmail(data.email, result)
+      } else {
+        return "Bad token"
+      }
+    })
+    .catch((error) => {console.warn("Error server: ", error)})
+  }
+);
+/////// GOOGLE Connect back end ////////
+
+
+
 
 
 const port = process.env.PORT || 8000

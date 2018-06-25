@@ -70,10 +70,32 @@ async function findUserById(request, result){
     .catch(error => result.status(400).send(error));
 }
 
+async function findUserByEmail(request, result){
+  return await users
+    .findAll({
+      where: {
+        email: request
+      }})
+    .then(data => {
+      if (!data){
+        return result.status(404).send({
+          message: "location not found"
+        })
+      } else if (data[0].dataValues.role !== "admin") {
+        return result.status(403).send({
+          message: "Not allowed"
+        })
+      }
+      // console.log("zones retournées : ",data);
+      return result.status(200).send(data)
+    })
+    .catch(error => result.status(400).send(error));
+}
 
 module.exports = {
   getAllUsers: getAllUsers,
   createUser: createUser,
   updateUser: updateUser,
-  findUserById: findUserById
+  findUserById: findUserById,
+  findUserByEmail: findUserByEmail
 }

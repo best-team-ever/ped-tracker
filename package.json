@@ -9,6 +9,8 @@
     "chartist": "0.10.1",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "google-auth-library": "^1.6.1",
+    "node-fetch": "^2.1.2",
     "node-sass": "^4.9.0",
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "4.1.2",

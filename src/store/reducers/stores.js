@@ -5,12 +5,15 @@ import deviceReducer from "./deviceReducer";
 import devicesReducer from "./devicesReducer";
 import userReducer from "./userReducer";
 import locationsReducer from "./locationsReducer";
+import loginReducer from "./loginReducer";
 
 let rootReducers = combineReducers({
   device: deviceReducer,
   devices: devicesReducer,
   users: userReducer,
-  locations: locationsReducer
+  locations: locationsReducer,
+  login: loginReducer,
+  msg: loginReducer
 });
 
 let store;
