@@ -131,7 +131,6 @@ class Dashboard extends Component {
   }
 
   render() {
-    console.log("hhh: ",this.props.message.msg);
     return (this.props.signedState.signed
       ?
       <div className="wrapper">
