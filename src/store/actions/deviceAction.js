@@ -5,7 +5,9 @@ import {
   FETCH_DEVICE_SUCCESS,
   FETCH_DEVICES_SUCCESS,
   FETCH_DEVICE_NEW,
-  DEVICE_ONCHANGE
+  FETCH_DEVICE_UPDATE,
+  DEVICE_ONCHANGE,
+  FETCH_STATUS
 } from "./actionTypes";
 
 export function handleDeviceChange(id, value) {
@@ -36,6 +38,16 @@ export const newDevice = (device) => ({
   payload: { device }
 });
 
+export const fetchDeviceUpdated = (device) => ({
+  type: FETCH_DEVICE_UPDATE,
+  payload: { device }
+});
+
+export const fetchStatusSuccess = (status) => ({
+  type: FETCH_STATUS,
+  payload: status
+});
+
 export function fetchDevice(id) {
   return dispatch => {
     dispatch(fetchDeviceBegin);
@@ -59,17 +71,34 @@ export function fetchDevices() {
   };
 }
 
-export function fetchDeviceAdd() {
+export function fetchDeviceUpdate(device) {
+  const params = {
+    url: (device.id === null) ? `${BASE_API}device` : `${BASE_API}devices/${device.id}`,
+    method: (device.id === null) ? "POST" : "PUT"
+  }
   return dispatch => {
-    console.log("fetchDeviceAdd");
-    return null;
+    dispatch(fetchDeviceBegin());
+    return fetch(params.url, {
+      method: params.method,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(device)
+    })
+    .then(res => res.json())
+    .then(json => dispatch(fetchDeviceUpdated(json)))
+    .catch(error => dispatch(fetchDeviceError(error)));
   };
 }
 
-export function fetchDeviceUpdate() {
+export function fetchStatus() {
   return dispatch => {
-    console.log("fetchDeviceUpdate");
-    return null;
+    dispatch(fetchDeviceBegin);
+    return fetch(`${BASE_API}status`)
+      .then(res => res.json())
+      .then(json => dispatch(fetchStatusSuccess(json)))
+      .catch(error => dispatch(fetchDeviceError(error)));
   };
 }
 

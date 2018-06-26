@@ -81,12 +81,12 @@ const dashboardRoutes = [
     component: Help
   },
 
-  {
-    path: "/form",
-    name: "Sample form",
-    icon: "pe-7s-user",
-    component: UserProfile
-  },
+  // {
+  //   path: "/form",
+  //   name: "Sample form",
+  //   icon: "pe-7s-user",
+  //   component: UserProfile
+  // },
   {
     path: "/typography",
     name: "Catalog Typography",
@@ -98,12 +98,12 @@ const dashboardRoutes = [
     name: "Catalog Icons",
     icon: "pe-7s-science",
     component: Icons },
-  {
-    path: "/notifications",
-    name: "Catalog Notifications",
-    icon: "pe-7s-bell",
-    component: Notifications
-  },
+  // {
+  //   path: "/notifications",
+  //   name: "Catalog Notifications",
+  //   icon: "pe-7s-bell",
+  //   component: Notifications
+  // },
   {
     redirect: true,
     path: "/",

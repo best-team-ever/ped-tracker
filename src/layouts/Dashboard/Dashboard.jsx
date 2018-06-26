@@ -41,10 +41,10 @@ class Dashboard extends Component {
       .then((response) => response.json())
       .then((result) => {
         result.message === "Not allowed"
-          ? this.props.setMsg("Not authorized")
-          : this.props.login()
+          ? this.props.setMsg("Not authorized")  // PREVOIR GoogleAuth.signOut()
+          : this.props.login(result[0].id, result[0].first_name)
         })
-      .catch((error) => this.props.setMsg("User not found", error))
+      .catch((error) => this.props.setMsg("User not found", error)) // PREVOIR GoogleAuth.signOut()
   }
 
   handleNotificationClick(position) {
@@ -132,7 +132,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    return (this.props.signedState.signed
+    return (this.props.loginStore.signed
       ?
       <div className="wrapper">
           <NotificationSystem ref="notificationSystem" style={style} />
@@ -179,7 +179,7 @@ class Dashboard extends Component {
 
               <p className="mt-5 mb-3 text-muted">© 2018</p>
               <br/>
-              <p className="mt-5 mb-3 text-muted">{this.props.message.msg}</p>
+              <p className="mt-5 mb-3 text-muted">{this.props.loginStore.msg}</p>
           </div>
           </div>
         )
@@ -188,13 +188,12 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  signedState: state.login,
-  message : state.msg
+  loginStore: state.loginStore
 })
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: () => loginHandler(dispatch),
+    login: (userId, firstName) => loginHandler(dispatch, userId, firstName),
     setMsg: (msg) => setMsgHandler(dispatch, msg)
   }
 }

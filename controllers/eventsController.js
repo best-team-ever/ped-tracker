@@ -38,9 +38,7 @@ async function getAllEventsByLocationId(request, result){
       }]
     })
     .then(data => result.status(200).send(data))
-    .catch(
-      error => result.status(400).send(error)
-    );
+    .catch(error => result.status(400).send(error));
 }
 
 module.exports = {
