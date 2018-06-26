@@ -3,7 +3,8 @@ import {
   FETCH_USER_SUCCESS,
   FETCH_USER_BEGIN,
   FETCH_USER_NEW,
-  USER_ONCHANGE
+  USER_ONCHANGE,
+  FETCH_USER_UPDATE
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -36,8 +37,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        error: action.payload.error,
-        item: initialState.item
+        error: action.payload.error
       };
 
     case FETCH_USER_SUCCESS:
@@ -53,11 +53,17 @@ export default (state = initialState, action) => {
         item: initialState.item
       };
 
+    case FETCH_USER_UPDATE:
+      return {
+        ...state,
+        item: action.payload.user
+      };
+
     case USER_ONCHANGE:
-    return {
-      ...state,
-      item: {...state.item, [action.payload.key]: action.payload.value}
-    };
+      return {
+        ...state,
+        item: {...state.item, [action.payload.key]: action.payload.value}
+      };
 
     default:
       return state;

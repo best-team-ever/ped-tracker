@@ -4,6 +4,7 @@ const eventsController = require("./controllers/eventsController");
 const locationsController = require("./controllers/locationsController");
 const deviceController = require("./controllers/deviceController");
 const userController = require("./controllers/userController");
+const bodyParser = require("body-parser");
 // if (process.env.NODE_ENV !== "production") {
 //   const path = require("path");
 //   require("dotenv").config({ path: path.resolve(process.cwd(), "config/.env.local") });
@@ -14,10 +15,8 @@ const {OAuth2Client} = require('google-auth-library');
 app.use("/static", express.static("./build/static"));
 
 app.use(function(req, res, next) {
-  //Put an origin here, * means everything which is bad.
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
-  //Needed by ExpressJS
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
@@ -25,9 +24,8 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.get("*", (request, result) => {
-//   result.sendFile(path.resolve("./build/index.html"));
-// });
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const ROOT_API = "/api/"
 
@@ -42,6 +40,19 @@ app.get(`${ROOT_API}users/:id/events`, (request, result) => {
 });
 app.get(`${ROOT_API}devices/:id/events`, (request, result) => {
   eventsController.getAllEventsByDeviceId(request, result)
+});
+app.get(`${ROOT_API}status`, (request, result) => {
+  result.status(200).send({
+    active: "Active",
+    wait: "Awaiting deployment",
+    maintenance: "In maintenance",
+    transport: "Waiting transport between sites/locations",
+    stored: "In storage",
+    retired: "Retired/deactivated",
+    lost: "Lost/stolen",
+    forbidden: "Forbidden",
+    refused: "Refused/returned"
+  })
 });
 
 /**
@@ -114,10 +125,7 @@ app.post("/api/user", (request, result) => {
   userController.createUser(request, result)
 });
 app.post("/api/device", (request, result) => {
-  userController.createDevice(request, result)
-});
-app.post("/api/event", (request, result) => {
-  userController.createEvent(request, result)
+  deviceController.createDevice(request, result)
 });
 
 const port = process.env.PORT || 8000;
