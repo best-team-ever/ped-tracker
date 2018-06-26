@@ -132,7 +132,8 @@ class Dashboard extends Component {
 
   render() {
     console.log("hhh: ",this.props.message.msg);
-    return (//this.props.signedState.signed ?
+    return (this.props.signedState.signed
+      ?
       <div className="wrapper">
           <NotificationSystem ref="notificationSystem" style={style} />
           <Sidebar {...this.props} />
@@ -163,25 +164,25 @@ class Dashboard extends Component {
             <Footer />
           </div>
         </div>
-      // : (
-      //     <div className="backgroundPicture">
-      //     <div className="text-center backgroundWhite" >
-      //       <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
-      //         <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-      //         <GoogleLogin
-      //         className="btn btn-primary"
-      //         clientId={this.clientId}
-      //         buttonText="Login"
-      //         onSuccess={this.responseGoogle}
-      //         onFailure={this.responseGoogle}
-      //         />
-      //
-      //         <p className="mt-5 mb-3 text-muted">© 2018</p>
-      //         <br/>
-      //         <p className="mt-5 mb-3 text-muted">{this.props.message.msg}</p>
-      //     </div>
-      //     </div>
-      //   )
+      : (
+          <div className="backgroundPicture">
+          <div className="text-center backgroundWhite" >
+            <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
+              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+              <GoogleLogin
+              className="btn btn-primary"
+              clientId={this.clientId}
+              buttonText="Login"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+              />
+
+              <p className="mt-5 mb-3 text-muted">© 2018</p>
+              <br/>
+              <p className="mt-5 mb-3 text-muted">{this.props.message.msg}</p>
+          </div>
+          </div>
+        )
     );
   }
 }
