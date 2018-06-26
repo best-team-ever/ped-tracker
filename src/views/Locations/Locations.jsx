@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { fetchLocations } from "../../store/actions/locationsAction";
 
 import 'react-table/react-table.css'
-import TableCard from "components/TableCard/TableCard.jsx";
+import TableCard from "../../components/TableCard/TableCard.jsx";
 
 class Locations extends Component {
   getLocations(){

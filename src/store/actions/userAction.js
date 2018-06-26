@@ -5,7 +5,6 @@ import {
   FETCH_USERS_SUCCESS,
   FETCH_USER_FAILURE,
   FETCH_USER_NEW,
-  FETCH_USER_ADD,
   FETCH_USER_UPDATE,
   FETCH_USER_DELETE,
   USER_ONCHANGE
@@ -70,10 +69,20 @@ export function fetchUserAdd() {
   };
 }
 
-export function fetchUserUpdate() {
+export function fetchUserUpdate(user) {
   return dispatch => {
-    console.log("fetchUserUpdate");
-    return null
+    dispatch(fetchUsersBegin);
+    return fetch(`${BASE_API}users/${user.id}`, {
+      method: 'PUT',
+      body: user
+    })
+      .then(handleErrors)
+      .then(res => res.json())
+      .then(json => {
+        console.log(json);
+        return user;
+      })
+      .catch(error => dispatch(fetchUsersError(error)));
   };
 }
 

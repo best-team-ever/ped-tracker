@@ -1,6 +1,6 @@
 const users = require("../models").users;
 const db = require("../models/index");
-
+const bodyParser = require('body-parser');
 
 async function getAllUsers(request, result){
   return await users
@@ -40,6 +40,10 @@ async function updateUser(request, result){
           message: "no user"
         })
       }
+      const jsonParser = bodyParser.json()
+      console.log(jsonParser);
+
+      console.log("updateUser", request.body);
       return data
         .update({
           first_name: request.body.first_name || data.first_name,
@@ -86,7 +90,6 @@ async function findUserByEmail(request, result){
           message: "Not allowed"
         })
       }
-      // console.log("zones retournées : ",data);
       return result.status(200).send(data)
     })
     .catch(error => result.status(400).send(error));

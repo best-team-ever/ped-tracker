@@ -4,7 +4,7 @@ import { Grid, Row, Col, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import 'react-table/react-table.css'
-import TableCard from "components/TableCard/TableCard.jsx";
+import TableCard from "../../components/TableCard/TableCard.jsx";
 
 import { fetchDevices } from "../../store/actions/deviceAction";
 

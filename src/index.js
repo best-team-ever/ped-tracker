@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from './store/reducers/stores';
 
-import indexRoutes from "routes/index.jsx";
+import indexRoutes from "./routes/index.jsx";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/animate.min.css";

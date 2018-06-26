@@ -6,11 +6,14 @@ function FieldGroup({ label, ...props }) {
   let formControl = null;
 
   switch(type) {
-    case "checkbox" :
+    case undefined:
+      break;
+
+    case "checkbox":
       formControl = (<Checkbox {...fieldProps}></Checkbox>);
       break;
 
-    case "select" :
+    case "select":
       const {options, ...selectProps} = fieldProps;
       formControl = (
         <FormControl componentClass="select" {...selectProps}>
@@ -28,12 +31,12 @@ function FieldGroup({ label, ...props }) {
       formControl = <FormControl {...fieldProps} />;
   }
 
-  return (
-    <FormGroup>
+  return formControl
+    ? (<FormGroup>
       <ControlLabel>{label}</ControlLabel>
       {formControl}
-    </FormGroup>
-  );
+    </FormGroup>)
+    : "";
 }
 
 export class FormInputs extends Component {

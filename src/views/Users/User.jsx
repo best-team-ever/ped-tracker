@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
-import Button from 'components/CustomButton/CustomButton';
-import { Card } from "components/Card/Card.jsx";
-import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import { handleUserChange, fetchUser, newUser} from "../../store/actions/userAction";
+import Button from '../../components/CustomButton/CustomButton';
+import { Card } from "../../components/Card/Card.jsx";
+import { FormInputs } from "../../components/FormInputs/FormInputs.jsx";
+import { handleUserChange, fetchUser, newUser, fetchUserUpdate} from "../../store/actions/userAction";
 import { fetchLocations } from "../../store/actions/locationsAction";
 import Events from "../Events/Events";
 
@@ -30,6 +30,11 @@ class User extends Component {
     this.props.dispatch(handleUserChange(event.target.id, event.target.value));
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.dispatch(fetchUserUpdate(this.props.user));
+  }
+
   render() {
     const selectLocations = (this.props.locations.length > 0)
      ? this.props.locations.map(location => ({value: location.id, label: location.name}))
@@ -43,7 +48,7 @@ class User extends Component {
               <Card
                 title={(this.state.new ? "New" : "Edit") + " user"}
                 content={
-                  <form>
+                  <form onSubmit={this.handleSubmit}>
                     <FormInputs
                       ncols={["col-md-3", "col-md-3", "col-md-6"]}
                       properties={[
@@ -80,15 +85,6 @@ class User extends Component {
                       ncols={["col-md-3", "col-md-3", "col-md-6"]}
                       properties={[
                         {
-                          label: "P2PE Agreement",
-                          type: "select",
-                          bsClass: "form-control",
-                          options: [{value: "0", label: "Not validated"},{value: "1", label: "Validated"}],
-                          value: this.props.user.p2pe_agreement,
-                          id: 'p2pe_agreement',
-                          onChange: this.handleUserChange
-                        },
-                        {
                           label: "Language",
                           type: "select",
                           bsClass: "form-control",
@@ -106,6 +102,29 @@ class User extends Component {
                           id: 'location_id',
                           onChange: this.handleUserChange
                         },
+                        {
+                          label: "Role",
+                          type: "select",
+                          bsClass: "form-control",
+                          options: [{value: "cashier", label: "Cashier"},{value: "admin", label: "Administrator"}],
+                          value: this.props.user.role,
+                          id: 'role',
+                          onChange: this.handleUserChange
+                        },
+                      ]}
+                    />
+                    <FormInputs
+                      ncols={["col-md-3", "col-md-3", "col-md-6"]}
+                      properties={[
+                        {
+                          label: "P2PE Agreement",
+                          type: "select",
+                          bsClass: "form-control",
+                          options: [{value: "0", label: "Not validated"},{value: "1", label: "Validated"}],
+                          value: this.props.user.p2pe_agreement,
+                          id: 'p2pe_agreement',
+                          onChange: this.handleUserChange
+                        },
                       ]}
                     />
                     <Button bsStyle="info" pullRight fill type="submit">
@@ -118,8 +137,9 @@ class User extends Component {
             </Col>
           </Row>
           <Row>
-            <Col>
-              <Events user_id={this.props.match.params.id} category={`Events of user: ${this.props.user.first_name} ${this.props.user.last_name}`}/>
+            <Col>{this.props.match.params.id
+              ? <Events user_id={this.props.match.params.id} category={`Events of user: ${this.props.user.first_name} ${this.props.user.last_name}`}/>
+              : null}
             </Col>
           </Row>
         </Grid>

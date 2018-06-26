@@ -3,6 +3,7 @@ import {
   FETCH_DEVICE_BEGIN,
   FETCH_DEVICE_SUCCESS,
   FETCH_DEVICE_NEW,
+  DEVICE_ONCHANGE
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -48,11 +49,17 @@ export default (state = initialState, action) => {
         item: action.payload.device
       };
 
-      case FETCH_DEVICE_NEW:
-        return {
-          ...state,
-          item: initialState.item
-        };
+    case FETCH_DEVICE_NEW:
+      return {
+        ...state,
+        item: initialState.item
+      };
+
+    case DEVICE_ONCHANGE:
+      return {
+        ...state,
+        item: {...state.item, [action.payload.key]: action.payload.value}
+      };
 
     default:
       return state;
