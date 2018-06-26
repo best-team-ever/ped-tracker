@@ -25,11 +25,12 @@ class Dashboard extends Component {
       signed: true
     };
     this.mainPanel = React.createRef();
-    this.clientId = process.env.REACT_APP_API_USER
+    this.clientId = process.env.REACT_APP_API_USER;
+    this.urlServer = process.env.REACT_APP_URL_SERVER;
   }
 
   responseGoogle = (response) => {
-    fetch(`http://localhost:8000/googleConnectBack`, {
+    fetch(`${this.urlServer}/googleConnectBack`, {
       method: "POST",
       headers: {
         'Accept': 'application/json',
