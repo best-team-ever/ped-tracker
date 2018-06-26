@@ -27,7 +27,7 @@ class HeaderLinks extends Component {
             <i className="fa fa-dashboard" />
             <p className="hidden-lg hidden-md">Dashboard</p>
           </NavItem>
-          <NavDropdown
+          {/* <NavDropdown
             eventKey={2}
             title={notification}
             noCaret
@@ -38,17 +38,17 @@ class HeaderLinks extends Component {
             <MenuItem eventKey={2.3}>Notification 3</MenuItem>
             <MenuItem eventKey={2.4}>Notification 4</MenuItem>
             <MenuItem eventKey={2.5}>Another notifications</MenuItem>
-          </NavDropdown>
-          <NavItem eventKey={3} href="#">
+          </NavDropdown> */}
+          {/* <NavItem eventKey={3} href="#">
             <i className="fa fa-search" />
             <p className="hidden-lg hidden-md">Search</p>
-          </NavItem>
+          </NavItem> */}
         </Nav>
         <Nav pullRight>
           <NavItem eventKey={1} href="#">
-            Account
+            {this.props.loginStore.firstName}
           </NavItem>
-          <NavDropdown
+          {/* <NavDropdown
             eventKey={2}
             title="Dropdown"
             id="basic-nav-dropdown-right"
@@ -60,7 +60,7 @@ class HeaderLinks extends Component {
             <MenuItem eventKey={2.5}>Something</MenuItem>
             <MenuItem divider />
             <MenuItem eventKey={2.5}>Separated link</MenuItem>
-          </NavDropdown>
+          </NavDropdown> */}
           <NavItem eventKey={3} href="#" >
             {/* <NavItem eventKey={3} href="#" onClick={this.signOut}> */}
             <GoogleLogout
@@ -76,7 +76,7 @@ class HeaderLinks extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  signedState: state.login
+  loginStore: state.loginStore
 })
 
 const mapDispatchToProps = (dispatch) => {

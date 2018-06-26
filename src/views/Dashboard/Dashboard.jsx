@@ -17,6 +17,7 @@ import {
   responsiveBar,
   legendBar
 } from "../../variables/Variables.jsx";
+import './dashboard.css';
 
 class Dashboard extends Component {
   createLegend(json) {
@@ -36,23 +37,23 @@ class Dashboard extends Component {
           <Row>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-server text-warning" />}
-                statsText="Capacity"
-                statsValue="105GB"
-                statsIcon={<i className="fa fa-refresh" />}
-                statsIconText="Updated now"
+                bigIcon={<i className="pe-7s-keypad green text-warning" />}
+                statsText="Active devices"
+                statsValue="105"
+                statsIcon={<i className="fa fa-clock-o" />} //fa-refresh
+                statsIconText="Last second"
               />
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-wallet text-success" />}
-                statsText="Revenue"
-                statsValue="$1,345"
-                statsIcon={<i className="fa fa-calendar-o" />}
-                statsIconText="Last day"
+                bigIcon={<i className="pe-7s-keypad text-success red" />}
+                statsText="Inactive devices"
+                statsValue="5"
+                statsIcon={<i className="fa fa fa-clock-o" />} //fa-calendar
+                statsIconText="Last second"
               />
             </Col>
-            <Col lg={3} sm={6}>
+            {/* <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-graph1 text-danger" />}
                 statsText="Errors"
@@ -69,10 +70,10 @@ class Dashboard extends Component {
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
-            </Col>
+            </Col> */}
           </Row>
           <Row>
-            <Col md={8}>
+            {/* <Col md={8}>
               <Card
                 statsIcon="fa fa-history"
                 id="chartHours"
@@ -93,13 +94,13 @@ class Dashboard extends Component {
                   <div className="legend">{this.createLegend(legendSales)}</div>
                 }
               />
-            </Col>
-            <Col md={4}>
+            </Col> */}
+            <Col md={12}>
               <Card
                 statsIcon="fa fa-clock-o"
-                title="Email Statistics"
-                category="Last Campaign Performance"
-                stats="Campaign sent 2 days ago"
+                title="Devices status"
+                category="-"
+                stats="last second"
                 content={
                   <div
                     id="chartPreferences"
@@ -115,7 +116,7 @@ class Dashboard extends Component {
             </Col>
           </Row>
 
-          <Row>
+          {/* <Row>
             <Col md={6}>
               <Card
                 id="chartActivity"
@@ -154,7 +155,7 @@ class Dashboard extends Component {
                 }
               />
             </Col>
-          </Row>
+          </Row> */}
         </Grid>
       </div>
     );

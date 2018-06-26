@@ -6,7 +6,9 @@ import {
 
 const initialState = {
   signed: false,
-  msg: ""
+  msg: "",
+  userId: "",
+  firstName: "",
 };
 
 export default (state = initialState, action) => {
@@ -15,13 +17,17 @@ export default (state = initialState, action) => {
       return {
         ...state,
         signed: true,
-        msg: ""
+        msg: "",
+        userId: action.userId,
+        firstName: action.firstName
       };
 
     case SIGNOUT:
       return {
         ...state,
-        signed: false
+        signed: false,
+        userId: "",
+        firstName: ""
       };
 
     case SET_MSG:

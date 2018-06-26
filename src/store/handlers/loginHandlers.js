@@ -5,8 +5,8 @@ import {
 } from "../actions/loginAction";
 
 
-export function loginHandler(dispatch) {
-  dispatch(loginAction());
+export function loginHandler(dispatch, userId, firstName) {
+  dispatch(loginAction(userId, firstName));
 }
 
 export function logoutHandler(dispatch) {
