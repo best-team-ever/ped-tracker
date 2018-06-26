@@ -5,14 +5,14 @@ const locationsController = require("./controllers/locationsController");
 const deviceController = require("./controllers/deviceController");
 const userController = require("./controllers/userController");
 const bodyParser = require("body-parser");
+const path = require("path");
 // if (process.env.NODE_ENV !== "production") {
 //   const path = require("path");
 //   require("dotenv").config({ path: path.resolve(process.cwd(), "config/.env.local") });
 // }
+
 const app = express();
 const {OAuth2Client} = require('google-auth-library');
-
-app.use("/static", express.static("./build/static"));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -26,6 +26,8 @@ app.use(function(req, res, next) {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(express.static("./build"));
 
 const ROOT_API = "/api/"
 
@@ -99,18 +101,18 @@ app.put("/api/devices/:id", (request, result) => {
 
 /////// GOOGLE Connect back ////////
 app.post('/googleConnectBack', (request, result) => {
-  const tokenId = request.headers.authorization;
+    const tokenId = request.headers.authorization;
 
-  fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${tokenId}`)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.aud === process.env.REACT_APP_API_USER) {
-        userController.findUserByEmail(data.email, result)
-      } else {
-        return "Bad token"
-      }
-    })
-    .catch((error) => {console.warn("Error server: ", error)})
+    fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${tokenId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.aud === process.env.REACT_APP_API_USER) {
+          userController.findUserByEmail(data.email, result)
+        } else {
+          return "Bad token"
+        }
+      })
+      .catch((error) => {console.warn("Error server: ", error)})
   }
 );
 /////// GOOGLE Connect back end ////////
@@ -126,6 +128,9 @@ app.post("/api/user", (request, result) => {
 });
 app.post("/api/device", (request, result) => {
   deviceController.createDevice(request, result)
+});
+app.get("*", (request, result) => {
+  result.sendFile(path.resolve("./build/index.html"));
 });
 
 const port = process.env.PORT || 8000;

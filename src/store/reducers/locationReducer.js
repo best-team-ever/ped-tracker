@@ -4,14 +4,16 @@ import {
   FETCH_LOCATION_SUCCESS,
   FETCH_LOCATION_ADD,
   FETCH_LOCATION_UPDATE,
-  FETCH_LOCATION_DELETE
+  FETCH_LOCATION_DELETE, FETCH_LOCATION_NEW
 } from "../actions/actionTypes";
 
 const initialState = {
   loading: false,
   error: null,
   item: {
+    location_type: "",
     name: "",
+    site_id: "",
     address: "",
     country: "",
     contact_name: "",
@@ -62,14 +64,20 @@ export default (state=initialState, action) => {
 
       return {
         ...state,
-        items: [...newArray]
+        item: [...newArray]
       };
 
     case FETCH_LOCATION_DELETE:
       return {
         ...state,
-        items: state.items.filter(({id}) => action.payload.id !== id)
+        item: state.items.filter(({id}) => action.payload.id !== id)
       };
+
+    case FETCH_LOCATION_NEW:
+      return {
+        ...state,
+        item: initialState.item
+      }
     default:
       return state;
   }
