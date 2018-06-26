@@ -11,8 +11,6 @@ const userController = require("./controllers/userController");
 const app = express();
 const {OAuth2Client} = require('google-auth-library');
 
-app.use("/static", express.static("./build/static"));
-
 app.use(function(req, res, next) {
   //Put an origin here, * means everything which is bad.
   res.header("Access-Control-Allow-Origin", "*");
@@ -25,9 +23,9 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.get("*", (request, result) => {
-//   result.sendFile(path.resolve("./build/index.html"));
-// });
+app.use("/static", express.static("./build/static"));
+
+
 
 const ROOT_API = "/api/"
 
@@ -118,6 +116,9 @@ app.post("/api/device", (request, result) => {
 });
 app.post("/api/event", (request, result) => {
   userController.createEvent(request, result)
+});
+app.get("*", (request, result) => {
+  result.sendFile(path.resolve("./build/index.html"));
 });
 
 const port = process.env.PORT || 8000;
