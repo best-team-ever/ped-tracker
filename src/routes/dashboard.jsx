@@ -1,15 +1,17 @@
-import Dashboard from "views/Dashboard/Dashboard";
-import Devices from "views/Devices/Devices";
-import Device from "views/Devices/Device";
+import Dashboard from "../views/Dashboard/Dashboard";
+import Device from "../views/Devices/Device";
+import Devices from "../views/Devices/Devices";
 import Location from "../views/Locations/Location";
-import Locations from "views/Locations/Locations";
-import Users from "views/Users/Users";
-import Help from "views/Help/Help";
+import Locations from "../views/Locations/Locations";
+import User from "../views/Users/User";
+import Users from "../views/Users/Users";
+import Events from "../views/Events/Events";
+import Help from "../views/Help/Help";
 
-import UserProfile from "views/UserProfile/UserProfile";
-import Typography from "views/Typography/Typography";
-import Icons from "views/Icons/Icons";
-import Notifications from "views/Notifications/Notifications";
+import UserProfile from "../views/UserProfile/UserProfile";
+import Typography from "../views/Typography/Typography";
+import Icons from "../views/Icons/Icons";
+import Notifications from "../views/Notifications/Notifications";
 
 const dashboardRoutes = [
   {
@@ -51,10 +53,26 @@ const dashboardRoutes = [
     component: Locations
   },
   {
+    path: "/users/new",
+    component: User,
+    invisible: true
+  },
+  {
+    path: "/users/:id",
+    component: User,
+    invisible: true
+  },
+  {
     path: "/users",
     name: "Users",
     icon: "pe-7s-users",
     component: Users
+  },
+  {
+    path: "/events",
+    name: "Events",
+    icon: "pe-7s-clock",
+    component: Events
   },
   {
     path: "/help",

@@ -98,7 +98,7 @@
 ````
 
 ## create new location:
-[post] /api/locations
+[post] /api/location
 > Request example:
 ```
 location_type:fefef

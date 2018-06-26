@@ -1,13 +1,26 @@
 import {
   FETCH_USER_FAILURE,
   FETCH_USER_SUCCESS,
-  FETCH_USER_BEGIN
+  FETCH_USER_BEGIN,
+  FETCH_USER_NEW,
+  USER_ONCHANGE
 } from "../actions/actionTypes";
 
 const initialState = {
-  items: [],
   loading: false,
-  error: null
+  error: null,
+  item: {
+    "id": null,
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "p2pe_agreement": 0,
+    "language": "",
+    "role": "",
+    "location_id": "",
+    "createdAt": null,
+    "updatedAt": null
+  },
 };
 
 export default (state = initialState, action) => {
@@ -19,20 +32,32 @@ export default (state = initialState, action) => {
         error: null
       };
 
-    case FETCH_USER_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        items: action.payload.users
-      };
-
     case FETCH_USER_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
-        items: []
+        item: initialState.item
       };
+
+    case FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        item: action.payload.user
+      };
+
+    case FETCH_USER_NEW:
+      return {
+        ...state,
+        item: initialState.item
+      };
+
+    case USER_ONCHANGE:
+    return {
+      ...state,
+      item: {...state.item, [action.payload.key]: action.payload.value}
+    };
 
     default:
       return state;

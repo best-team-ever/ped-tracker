@@ -31,6 +31,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+        error: null,
         items: action.payload.devices
       };
 

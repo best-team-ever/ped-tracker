@@ -4,13 +4,23 @@ import logger from "redux-logger";
 import deviceReducer from "./deviceReducer";
 import devicesReducer from "./devicesReducer";
 import userReducer from "./userReducer";
+import usersReducer from "./usersReducer";
+import locationReducer from "./locationReducer";
 import locationsReducer from "./locationsReducer";
+import loginReducer from "./loginReducer";
+import eventsReducer from "./eventsReducer";
+
 
 let rootReducers = combineReducers({
+  login: loginReducer,
+  msg: loginReducer,
+  user: userReducer,
+  users: usersReducer,
+  location: locationReducer,
+  locations: locationsReducer,
   device: deviceReducer,
   devices: devicesReducer,
-  users: userReducer,
-  locations: locationsReducer
+  events: eventsReducer
 });
 
 let store;

@@ -8,12 +8,12 @@ import {
   FormControl
 } from "react-bootstrap";
 
-import { Card } from "components/Card/Card.jsx";
-import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import { UserCard } from "components/UserCard/UserCard.jsx";
-import Button from "components/CustomButton/CustomButton.jsx";
+import { Card } from "../../components/Card/Card.jsx";
+import { FormInputs } from "../../components/FormInputs/FormInputs.jsx";
+import { UserCard } from "../../components/UserCard/UserCard.jsx";
+import Button from "../../components/CustomButton/CustomButton.jsx";
 
-import avatar from "assets/img/default-avatar.png";
+import avatar from "../../assets/img/default-avatar.png";
 
 class UserProfile extends Component {
   render() {
@@ -28,7 +28,7 @@ class UserProfile extends Component {
                   <form>
                     <FormInputs
                       ncols={["col-md-5", "col-md-3", "col-md-4"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "Company (disabled)",
                           type: "text",
@@ -54,7 +54,7 @@ class UserProfile extends Component {
                     />
                     <FormInputs
                       ncols={["col-md-6", "col-md-6"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "First name",
                           type: "text",
@@ -73,7 +73,7 @@ class UserProfile extends Component {
                     />
                     <FormInputs
                       ncols={["col-md-12"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "Adress",
                           type: "text",
@@ -86,7 +86,7 @@ class UserProfile extends Component {
                     />
                     <FormInputs
                       ncols={["col-md-4", "col-md-4", "col-md-4"]}
-                      proprieties={[
+                      properties={[
                         {
                           label: "City",
                           type: "text",

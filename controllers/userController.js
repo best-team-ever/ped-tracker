@@ -1,6 +1,6 @@
 const users = require("../models").users;
 const db = require("../models/index");
-
+const bodyParser = require('body-parser');
 
 async function getAllUsers(request, result){
   return await users
@@ -20,7 +20,6 @@ async function createUser(request, result){
   return await users
     .create({
       first_name: request.body.first_name,
-      name: request.body.name,
       last_name: request.body.last_name,
       email: request.body.email,
       p2pe_agreement: request.body.p2pe_agreement,
@@ -38,9 +37,13 @@ async function updateUser(request, result){
     .then(data => {
       if (!data) {
         return result.status(404).send({
-          message: "no location"
+          message: "no user"
         })
       }
+      const jsonParser = bodyParser.json()
+      console.log(jsonParser);
+
+      console.log("updateUser", request.body);
       return data
         .update({
           first_name: request.body.first_name || data.first_name,
@@ -63,7 +66,7 @@ async function findUserById(request, result){
     .then(data => {
       if (!data){
         return result.status(404).send({
-          message: "location not found"
+          message: "user not found"
         })
       }
       return result.status(200).send(data)
@@ -71,10 +74,31 @@ async function findUserById(request, result){
     .catch(error => result.status(400).send(error));
 }
 
+async function findUserByEmail(request, result){
+  return await users
+    .findAll({
+      where: {
+        email: request
+      }})
+    .then(data => {
+      if (!data){
+        return result.status(404).send({
+          message: "location not found"
+        })
+      } else if (data[0].dataValues.role !== "admin") {
+        return result.status(403).send({
+          message: "Not allowed"
+        })
+      }
+      return result.status(200).send(data)
+    })
+    .catch(error => result.status(400).send(error));
+}
 
 module.exports = {
   getAllUsers: getAllUsers,
   createUser: createUser,
   updateUser: updateUser,
-  findUserById: findUserById
+  findUserById: findUserById,
+  findUserByEmail: findUserByEmail
 }
