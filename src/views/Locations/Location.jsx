@@ -11,8 +11,7 @@ import { connect } from "react-redux";
 import Button from '../../components/CustomButton/CustomButton';
 import { Card } from "../../components/Card/Card.jsx";
 import { FormInputs } from "../../components/FormInputs/FormInputs.jsx";
-import {fetchLocation, newLocation} from "../../store/actions/locationsAction";
-import { handleFetchAddLocation } from "../../store/handlers/locationHandlers";
+import { handleFetchAddLocation, handleGetLocation, handleLocationStatus, handleFetchUpdateLocation } from "../../store/handlers/locationHandlers";
 
 import Events from "../Events/Events";
 
@@ -20,18 +19,10 @@ class Location extends Component {
   constructor(props){
     super(props);
     this.state = {
-      new: props.match.params.id === undefined,
-      newNameLocation: "",
-      newCountryLocation: "",
-      newAddressLocation: "",
-      newTypeLocation: "",
-      newSiteIdLocation: "",
-      newStatus: "",
-      newContactName: "",
-      newContactPosition: "",
-      newContactPhone: "",
-      newContactEmail: ""
-    }
+      new: props.match.params.id === undefined
+    };
+    this.handleChangeValue = this.handleChangeValue.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   getLocation(){
@@ -44,12 +35,7 @@ class Location extends Component {
   }
 
   componentDidMount(){
-    const id = this.props.match.params.id;
-    if (id !== undefined) {
-      this.props.dispatch(fetchLocation(id));
-    }else {
-      this.props.dispatch(newLocation());
-    }
+    handleGetLocation(this.props.match.params.id, this.props.dispatch)
   }
 
   componentWillReceiveProps(nextProps){
@@ -62,90 +48,33 @@ class Location extends Component {
     let oldId = prevProps.match.params.id;
     let newId = this.props.match.params.id;
     if (newId !== oldId)
-      this.props.dispatch(fetchLocation(this.props.match.params.id));
+      handleGetLocation(this.props.match.params.id, this.props.dispatch);
   }
 
   /******************Begin: Handle all new elements******************/
-  handleNewNameLocationChange = (e) => {
-    this.setState({
-      newNameLocation: e.target.value
-    })
-  };
 
-  handleNewSiteIdLocationChange = (e) => {
-    this.setState({
-      newSiteIdLocation: e.target.value
-    })
+  handleChangeValue = (key, value) => {
+    // this.setState({
+    //   [key]: value
+    // })
+    handleLocationStatus(key, value, this.props.dispatch);
   }
 
-  handleNewCountryLocationChange = (e) => {
-    this.setState({
-      newCountryLocation: e.target.value
-    })
-  };
-
-  handleNewAddressLocationChange = (e) => {
-    this.setState({
-      newAddressLocation: e.target.value
-    })
-  }
-
-  handleNewTypeLocationChange = (e) => {
-    this.setState({
-      newTypeLocation: e.target.value
-    })
-  };
-
-  handleNewStatusLocationChange = (e) => {
-    this.setState({
-      newStatus: e.target.value
-    })
-  };
-
-  handleNewContactNameLocationChange = (e) => {
-    this.setState({
-      newContactName: e.target.value
-    })
-  };
-
-  handleNewContactPositionLocationChange = (e) => {
-    this.setState({
-      newContactPosition: e.target.value
-    })
-  };
-
-  handleNewContactPhoneLocationChange = (e) => {
-    this.setState({
-      newContactPhone: e.target.value
-    })
-  };
-
-  handleNewContactEmailLocationChange = (e) => {
-    this.setState({
-      newContactEmail: e.target.value
-    })
-  }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.addLocationFromState({
-      location_type: this.state.newTypeLocation,
-      name: this.state.newNameLocation,
-      site_id: parseInt(this.state.newSiteIdLocation),
-      address: this.state.newAddressLocation,
-      country: this.state.newCountryLocation,
-      status: this.state.newStatus,
-      contact_name: this.state.newContactName,
-      contact_position: this.state.newContactPosition,
-      contact_phone: this.state.newContactPhone,
-      contact_email: this.state.newContactEmail
-    }).then( () => this.props.history.push("/locations"))
+    console.log("this.props :: here ", this.props);
+    this.state.new? (
+      this.props.addLocationFromState(this.props.location).then( () => this.props.history.push("/locations"))
+    ):(
+      this.props.updateLocationFromState(this.props.location).then( () => this.props.history.push("/locations"))
+    )
+    console.log("this.props :: ", this.props);
   }
   /******************Fin: Handle all new elements******************/
 
   render() {
     let location = this.getLocation().location;
-    console.log("this.props: ", this.props);
     return (
       <div className="content">
         <Grid fluid>
@@ -165,8 +94,9 @@ class Location extends Component {
                               type: "text",
                               bsClass: "form-control",
                               placeholder: "name",
+                              id: "name",
                               value: location.name,
-                              onChange: this.handleNewNameLocationChange.bind(this)
+                              onChange: ((e) => this.handleChangeValue(e.target.id, e.target.value))
                             }
                           ]}
                         />
@@ -180,8 +110,9 @@ class Location extends Component {
                               bsClass: "form-control",
                               placeholder: "site_id",
                               defaultValue: "",
+                              id: "site_id",
                               value: location.site_id,
-                              onChange: this.handleNewSiteIdLocationChange.bind(this)
+                              onChange: ((e) => this.handleChangeValue(e.target.id, e.target.value))
                             }
                           ]}
                         />
@@ -196,7 +127,8 @@ class Location extends Component {
                               placeholder: "country",
                               defaultValue: "",
                               value: location.country,
-                              onChange: this.handleNewCountryLocationChange.bind(this)
+                              id: "country",
+                              onChange: ((e) => this.handleChangeValue(e.target.id, e.target.value))
                             }
                           ]}
                         />
@@ -211,17 +143,19 @@ class Location extends Component {
                               placeholder: "address",
                               defaultValue: "",
                               value: location.address,
-                              onChange: this.handleNewAddressLocationChange.bind(this)
+                              id: "address",
+                              onChange: ((e) => this.handleChangeValue(e.target.id, e.target.value))
                             }
                           ]}
                         />
 
                         <ControlLabel>Type</ControlLabel>
                         <FormControl
-                          onChange={this.handleNewTypeLocationChange.bind(this)}
+                          onChange={(e) => this.handleChangeValue(e.target.id, e.target.value)}
                           componentClass="select"
                           placeholder="select one type"
                           value={location.location_type}
+                          id="location_type"
                         >
                           <option value="">select one type</option>
                           <option value="store">store</option>
@@ -230,10 +164,11 @@ class Location extends Component {
 
                         <ControlLabel>Location status</ControlLabel>
                         <FormControl
-                          onChange={this.handleNewStatusLocationChange.bind(this)}
+                          onChange={(e) => this.handleChangeValue(e.target.id, e.target.value)}
                           componentClass="select"
                           placeholder="select one type"
                           value={location.status}
+                          id="status"
                         >
                           <option value="">select one status</option>
                           <option value="1">open</option>
@@ -252,7 +187,8 @@ class Location extends Component {
                               placeholder: "Name",
                               defaultValue: "",
                               value: location.contact_name,
-                              onChange: this.handleNewContactNameLocationChange.bind(this)
+                              id: "contact_name",
+                              onChange: ((e) => this.handleChangeValue(e.target.id, e.target.value))
                             }
                           ]}
                         />
@@ -266,7 +202,8 @@ class Location extends Component {
                               placeholder: "position",
                               defaultValue: "",
                               value: location.contact_position,
-                              onChange: this.handleNewContactPositionLocationChange.bind(this)
+                              id: "contact_position",
+                              onChange: ((e) => this.handleChangeValue(e.target.id, e.target.value))
                             }
                           ]}
                         />
@@ -280,7 +217,8 @@ class Location extends Component {
                               placeholder: "phone",
                               defaultValue: "",
                               value: location.contact_phone,
-                              onChange: this.handleNewContactPhoneLocationChange.bind(this)
+                              id: "contact_phone",
+                              onChange: ((e) => this.handleChangeValue(e.target.id, e.target.value))
                             }
                           ]}
                         />
@@ -295,17 +233,17 @@ class Location extends Component {
                               placeholder: "email",
                               defaultValue: "",
                               value: location.contact_email,
-                              onChange: this.handleNewContactEmailLocationChange.bind(this)
+                              id: "contact_email",
+                              onChange: ((e) => this.handleChangeValue(e.target.id, e.target.value))
                             }
                           ]}
                         />
                       </div>
 
                       <Button bsStyle="info" pullRight fill type="submit">
-                        {this.state.new} ? Add : Update
+                        {(this.state.new ? "Add" : "Update") }
                       </Button>
                     </div>
-
 
                     <div className="clearfix" />
                   </form>
@@ -315,8 +253,8 @@ class Location extends Component {
           </Row>
           <Row>
             {/*<Col>{(!this.state.new*/}
-              {/*? <Events location_id={this.props.match.params.id} category={`Events of location: ${location.name}`}/>*/}
-              {/*: "")}*/}
+            {/*? <Events location_id={this.props.match.params.id} category={`Events of location: ${location.name}`}/>*/}
+            {/*: "")}*/}
             {/*</Col>*/}
           </Row>
         </Grid>
@@ -336,7 +274,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // ...actions,
     dispatch,
-    addLocationFromState: (newLocation) => handleFetchAddLocation(newLocation, dispatch)
+    addLocationFromState: (newLocation) => handleFetchAddLocation(newLocation, dispatch),
+    updateLocationFromState: (updatedLocation) => handleFetchUpdateLocation(updatedLocation, dispatch)
+
   }
 };
 

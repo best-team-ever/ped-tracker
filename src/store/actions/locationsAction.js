@@ -8,7 +8,7 @@ import {
   FETCH_LOCATION_UPDATE,
   FETCH_LOCATION_BEGIN,
   FETCH_LOCATION_SUCCESS,
-  FETCH_LOCATION_FAILURE, FETCH_LOCATION_NEW
+  FETCH_LOCATION_FAILURE, FETCH_LOCATION_NEW, FETCH_LOCATION_STATUS
 } from "./actionTypes";
 
 export const fetchLocationsBegin = () =>  ({
@@ -54,6 +54,15 @@ export const deleteLocation = ( id ) => ({
   payload: { id }
 })
 
+export const newLocation = (location) => ({
+  type: FETCH_LOCATION_NEW,
+  payload: {location}
+})
+
+export const changeLocationStatus = (key, value) => ({
+  type: FETCH_LOCATION_STATUS,
+  payload: {key, value}
+})
 
 export function fetchLocations(conditions) {
   let query = "";
@@ -76,24 +85,6 @@ export function fetchLocations(conditions) {
       .catch(error => dispatch(fetchLocationsError(error)));
   }
 }
-
-export function fetchLocation(id) {
-  return dispatch => {
-    dispatch(fetchLocationBegin());
-    return fetch(`${BASE_API}locations/${id}`)
-      .then(handleErrors)
-      .then(res => res.json())
-      .then(json => {
-        return dispatch(fetchLocationSuccess(json));
-      })
-      .catch(error => dispatch(fetchLocationError(error)));
-  }
-}
-
-export const newLocation = (location) => ({
-  type: FETCH_LOCATION_NEW,
-  payload: {location}
-})
 
 function handleErrors(response) {
   if (!response.ok) {

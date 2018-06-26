@@ -1,6 +1,7 @@
 const db = require("../models/index");
 const devices = require("../models").devices;
 const events = require("../models").events;
+const paramsController = require("./paramsController");
 
 async function getAllDevices(request, result){
   return await devices
@@ -10,22 +11,28 @@ async function getAllDevices(request, result){
           attributes: ["name"],
         }]
       })
+    // .then(row => enrichWithStatus(row))
     .then(row => result.status(200).send(row))
     .catch(error => result.status(400).send(error));
+}
+
+function enrichWithStatus(item) {
+  console.log(item);
+  return {...item, status_label: paramsController.status[item.status]};
 }
 
 async function createDevice(request, result){
   return await devices
     .create({
-      brand: request.body.brand,
-      model: request.body.model,
-      serial_nr: request.body.serial_nr,
-      tid: request.body.tid,
-      location_id: request.body.location_id,
-      till_label: request.body.till_label,
-      status: request.body.status,
-      security_bag_sn: request.body.security_bag_sn,
-      last_inspection_date: request.body.last_inspection_date
+      brand: request.body.device.brand,
+      model: request.body.device.model,
+      serial_nr: request.body.device.serial_nr,
+      tid: request.body.device.tid,
+      location_id: request.body.device.location_id,
+      till_label: request.body.device.till_label,
+      status: request.body.device.status,
+      security_bag_sn: request.body.device.security_bag_sn,
+      last_inspection_date: request.body.device.last_inspection_date
     })
     .then(row => result.status(201).send(row))
     .catch(error => result.status(400).send(error));
@@ -41,24 +48,24 @@ async function updateDevice(request, result){
         })
       }
       data.set({
-        brand: request.body.brand || data.brand,
-        model: request.body.model || data.model,
-        serial_nr: request.body.serial_nr || data.serial_nr,
-        tid: request.body.tid || data.tid,
-        location_id: request.body.location_id || data.location_id,
-        till_label: request.body.till_label || data.till_label,
-        status: request.body.status || data.status,
-        security_bag_sn: request.body.security_bag_sn || data.security_bag_sn,
-        last_inspection_date: request.body.last_inspection_date || data.last_inspection_date
+        brand: request.body.device.brand || data.brand,
+        model: request.body.device.model || data.model,
+        serial_nr: request.body.device.serial_nr || data.serial_nr,
+        tid: request.body.device.tid || data.tid,
+        location_id: request.body.device.location_id || data.location_id,
+        till_label: request.body.device.till_label || data.till_label,
+        status: request.body.device.status || data.status,
+        security_bag_sn: request.body.device.security_bag_sn || data.security_bag_sn,
+        last_inspection_date: request.body.device.last_inspection_date || data.last_inspection_date
       });
 
       const dataChanged = data.changed();
       if (dataChanged.length > 0) {
         const message = dataChanged.map(key => (`${key}:(${data.previous(key)})=>(${data.getDataValue(key)})`));
         db.events.create({
-          location_id: request.body.location_id,
-          device_id: request.body.id,
-          user_id: "40dc09ad-c035-47cf-8587-8622c4319d86",
+          location_id: request.body.device.location_id,
+          device_id: request.body.device.id,
+          user_id: request.body.userId,
           message: message.join(";")
         });
       }
