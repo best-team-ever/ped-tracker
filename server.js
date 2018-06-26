@@ -4,10 +4,9 @@ const eventsController = require("./controllers/eventsController");
 const locationsController = require("./controllers/locationsController");
 const deviceController = require("./controllers/deviceController");
 const userController = require("./controllers/userController");
-// if (process.env.NODE_ENV !== "production") {
-//   const path = require("path");
-//   require("dotenv").config({ path: path.resolve(process.cwd(), "config/.env.local") });
-// }
+
+const path = require("path");
+
 const app = express();
 const {OAuth2Client} = require('google-auth-library');
 
