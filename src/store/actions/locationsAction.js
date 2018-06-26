@@ -8,7 +8,7 @@ import {
   FETCH_LOCATION_UPDATE,
   FETCH_LOCATION_BEGIN,
   FETCH_LOCATION_SUCCESS,
-  FETCH_LOCATION_FAILURE
+  FETCH_LOCATION_FAILURE, FETCH_LOCATION_NEW
 } from "./actionTypes";
 
 export const fetchLocationsBegin = () =>  ({
@@ -89,6 +89,11 @@ export function fetchLocation(id) {
       .catch(error => dispatch(fetchLocationError(error)));
   }
 }
+
+export const newLocation = (location) => ({
+  type: FETCH_LOCATION_NEW,
+  payload: {location}
+})
 
 function handleErrors(response) {
   if (!response.ok) {
