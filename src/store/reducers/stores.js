@@ -12,8 +12,9 @@ import eventsReducer from "./eventsReducer";
 
 
 let rootReducers = combineReducers({
-  login: loginReducer,
-  msg: loginReducer,
+  loginStore: loginReducer,
+  // msg: loginReducer,
+  // userId: loginReducer,
   user: userReducer,
   users: usersReducer,
   location: locationReducer,

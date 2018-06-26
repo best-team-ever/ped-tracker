@@ -6,8 +6,10 @@ import {
 
 const urlApi = "http://localhost:8000/api/";
 
-export const loginAction = () => ({
-    type: SIGNIN
+export const loginAction = (userId, firstName) => ({
+    type: SIGNIN,
+    userId: userId,
+    firstName: firstName
 });
 
 export const logoutAction = () => ({
