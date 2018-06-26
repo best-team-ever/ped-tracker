@@ -5,6 +5,7 @@ const locationsController = require("./controllers/locationsController");
 const deviceController = require("./controllers/deviceController");
 const userController = require("./controllers/userController");
 const paramsController = require("./controllers/paramsController");
+const filesController = require("./controllers/filesController");
 const bodyParser = require("body-parser");
 const path = require("path");
 // if (process.env.NODE_ENV !== "production") {
@@ -13,6 +14,10 @@ const path = require("path");
 // }
 const app = express();
 const {OAuth2Client} = require('google-auth-library');
+
+const multer  = require("multer");
+const upload = multer({ dest: path.join(__dirname, "uploads/") });
+const fs = require('fs');
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -119,6 +124,13 @@ app.post("/api/user", (request, result) => {
 app.post("/api/device", (request, result) => {
   deviceController.createDevice(request, result)
 });
+
+//--- Upload files
+const type = upload.single('file');
+app.post("/upload-devices", type, (request, result) => {
+  filesController.uploadDevice(request, result);
+});
+
 app.get("*", (request, result) => {
   result.sendFile(path.resolve("./build/index.html"));
 });
