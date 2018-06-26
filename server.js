@@ -120,7 +120,7 @@ app.post('/googleConnectBack', (request, result) => {
 /**
  * API: create new data
  */
-app.post("/api/locations", (request, result) => {
+app.post("/api/location", (request, result) => {
   locationsController.createLocation(request, result)
 });
 app.post("/api/user", (request, result) => {

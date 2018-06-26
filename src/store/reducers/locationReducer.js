@@ -4,7 +4,7 @@ import {
   FETCH_LOCATION_SUCCESS,
   FETCH_LOCATION_ADD,
   FETCH_LOCATION_UPDATE,
-  FETCH_LOCATION_DELETE, FETCH_LOCATION_NEW
+  FETCH_LOCATION_DELETE, FETCH_LOCATION_NEW, FETCH_LOCATION_STATUS
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -21,7 +21,8 @@ const initialState = {
     contact_phone: "",
     contact_email: "",
     status: ""
-  }
+  },
+  items: []
 };
 
 export default (state=initialState, action) => {
@@ -53,19 +54,22 @@ export default (state=initialState, action) => {
       };
 
     case FETCH_LOCATION_UPDATE:
-      const newArray = state.items.map((item) => {
-        if (item.id === action.payload.updatedLocation.id){
-          return {
-            item: action.payload.updatedLocation
-          }
-        }
-        return item;
-      })
-
+      // const newArray = state.items.map((item) => {
+      //   if (item.id === action.payload.updatedLocation.id){
+      //     return {
+      //       item: action.payload.updatedLocation
+      //     }
+      //   }
+      //   return item;
+      // });
+      // return {
+      //   ...state,
+      //   item: [...newArray]
+      // };
       return {
         ...state,
-        item: [...newArray]
-      };
+        item: [...state.item, action.payload.updatedLocation]
+      }
 
     case FETCH_LOCATION_DELETE:
       return {
@@ -77,7 +81,14 @@ export default (state=initialState, action) => {
       return {
         ...state,
         item: initialState.item
-      }
+      };
+
+    case FETCH_LOCATION_STATUS:
+      return {
+        ...state,
+        item: {...state.item, [action.payload.key] : action.payload.value}
+      };
+
     default:
       return state;
   }
