@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use("/static", express.static("./build/static"));
+app.use(express.static("./build"));
 
 
 
