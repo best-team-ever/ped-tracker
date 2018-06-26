@@ -20,7 +20,7 @@ const fetchUsersBegin = () => ({
 
 const fetchUsersError = error => ({
   type: FETCH_USER_FAILURE,
-  payload: { error }
+  payload: { error: error }
 });
 
 const fetchUserSuccess = user => ({
@@ -35,6 +35,11 @@ const fetchUsersSuccess = users => ({
 
 export const newUser = (user) => ({
   type: FETCH_USER_NEW,
+  payload: { user }
+});
+
+export const fetchUserUpdated = (user) => ({
+  type: FETCH_USER_UPDATE,
   payload: { user }
 });
 
@@ -74,14 +79,15 @@ export function fetchUserUpdate(user) {
     dispatch(fetchUsersBegin);
     return fetch(`${BASE_API}users/${user.id}`, {
       method: 'PUT',
-      body: user
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
     })
       .then(handleErrors)
       .then(res => res.json())
-      .then(json => {
-        console.log(json);
-        return user;
-      })
+      .then(json => dispatch(fetchUserUpdated(json)))
       .catch(error => dispatch(fetchUsersError(error)));
   };
 }

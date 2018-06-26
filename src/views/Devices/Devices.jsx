@@ -30,9 +30,9 @@ class Devices extends Component {
       { Header: 'Brand', accessor: 'brand'},
       { Header: 'Model', accessor: 'model'},
       { Header: 'TID', accessor: 'tid'},
+      { Header: 'Location', accessor: 'location.name'},
       { Header: 'Till', accessor: 'till_label'},
       { Header: 'Status', accessor: 'status'},
-      { Header: 'Security bag', accessor: 'security_bag_sn'},
       { Header: 'Action',
         Cell: (row)=>(
           <div className="action-right">

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router'
 import { Grid, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import Button from '../../components/CustomButton/CustomButton';
@@ -12,7 +13,8 @@ class User extends Component {
   constructor(props){
     super(props);
     this.state = {
-      new: props.match.params.id === undefined
+      new: props.match.params.id === undefined,
+      redirectAfterSubmit: false
     }
   }
 
@@ -32,10 +34,20 @@ class User extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.dispatch(fetchUserUpdate(this.props.user));
+    this.props.dispatch(fetchUserUpdate(this.props.user))
+    .then((result) => {
+      if (result.payload.error) {
+        console.log("error", result.payload.error);
+      } else {
+        this.setState({ redirectAfterSubmit: true });
+      }
+    });
   }
 
   render() {
+    const { from } = this.props.location.state || '/';
+    const { redirectAfterSubmit } = this.state;
+
     const selectLocations = (this.props.locations.length > 0)
      ? this.props.locations.map(location => ({value: location.id, label: location.name}))
      : [];
@@ -142,6 +154,9 @@ class User extends Component {
               : null}
             </Col>
           </Row>
+          {redirectAfterSubmit && (
+            <Redirect to={from || '/users'}/>
+          )}
         </Grid>
       </div>
     );

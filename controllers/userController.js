@@ -1,6 +1,5 @@
-const users = require("../models").users;
 const db = require("../models/index");
-const bodyParser = require('body-parser');
+const users = require("../models").users;
 
 async function getAllUsers(request, result){
   return await users
@@ -40,10 +39,6 @@ async function updateUser(request, result){
           message: "no user"
         })
       }
-      const jsonParser = bodyParser.json()
-      console.log(jsonParser);
-
-      console.log("updateUser", request.body);
       return data
         .update({
           first_name: request.body.first_name || data.first_name,
