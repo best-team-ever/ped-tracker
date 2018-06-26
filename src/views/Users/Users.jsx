@@ -21,7 +21,6 @@ class Users extends Component {
 
   componentDidMount() {
     this.props.dispatch(fetchUsers());
-    // console.log("les props : ",this.props);
   }
 
 

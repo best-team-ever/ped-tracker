@@ -11,15 +11,12 @@ const userController = require("./controllers/userController");
 const app = express();
 const {OAuth2Client} = require('google-auth-library');
 
-
-app.use(require("body-parser").urlencoded({ extended: false }));
-app.use(require("body-parser").json());
-
 app.use("/static", express.static("./build/static"));
 
 app.use(function(req, res, next) {
   //Put an origin here, * means everything which is bad.
   res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
   //Needed by ExpressJS
   res.header(
     "Access-Control-Allow-Headers",

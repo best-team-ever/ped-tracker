@@ -27,7 +27,6 @@ async function getAllEvents(request, result){
 }
 
 async function getAllEventsByLocationId(request, result){
-  console.log("request.params.id: ",request.params.id);
   return await db.events
     .findAll({
       where: {
