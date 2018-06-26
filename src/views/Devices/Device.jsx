@@ -21,10 +21,8 @@ class Device extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     if (id !== undefined) {
-      console.log("enter here ::: ");
       this.props.dispatch(fetchDevice(id));
     } else {
-      console.log("enter where ::: ");
       this.props.dispatch(newDevice());
     }
     this.props.dispatch(fetchLocations({fields: "id,name"}));
@@ -36,8 +34,9 @@ class Device extends Component {
   }
 
   handleSubmit = (event) => {
+    const userId = localStorage.getItem("userId");
     event.preventDefault();
-    this.props.dispatch(fetchDeviceUpdate(this.props.device))
+    this.props.dispatch(fetchDeviceUpdate(this.props.device, userId))
     .then((result) => {
       if (result.payload.error) {
         console.log("error", result.payload.error);
