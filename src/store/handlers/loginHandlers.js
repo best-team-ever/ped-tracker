@@ -6,10 +6,12 @@ import {
 
 
 export function loginHandler(dispatch, userId, firstName) {
+  localStorage.setItem("userId", userId);
   dispatch(loginAction(userId, firstName));
 }
 
 export function logoutHandler(dispatch) {
+  localStorage.removeItem("userId");
   dispatch(logoutAction());
 }
 

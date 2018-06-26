@@ -4,13 +4,13 @@ const eventsController = require("./controllers/eventsController");
 const locationsController = require("./controllers/locationsController");
 const deviceController = require("./controllers/deviceController");
 const userController = require("./controllers/userController");
+const paramsController = require("./controllers/paramsController");
 const bodyParser = require("body-parser");
 const path = require("path");
 // if (process.env.NODE_ENV !== "production") {
 //   const path = require("path");
 //   require("dotenv").config({ path: path.resolve(process.cwd(), "config/.env.local") });
 // }
-
 const app = express();
 const {OAuth2Client} = require('google-auth-library');
 
@@ -44,17 +44,7 @@ app.get(`${ROOT_API}devices/:id/events`, (request, result) => {
   eventsController.getAllEventsByDeviceId(request, result)
 });
 app.get(`${ROOT_API}status`, (request, result) => {
-  result.status(200).send({
-    active: "Active",
-    wait: "Awaiting deployment",
-    maintenance: "In maintenance",
-    transport: "Waiting transport between sites/locations",
-    stored: "In storage",
-    retired: "Retired/deactivated",
-    lost: "Lost/stolen",
-    forbidden: "Forbidden",
-    refused: "Refused/returned"
-  })
+  paramsController.getStatus(request, result)
 });
 
 /**

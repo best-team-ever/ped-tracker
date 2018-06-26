@@ -71,7 +71,7 @@ export function fetchDevices() {
   };
 }
 
-export function fetchDeviceUpdate(device) {
+export function fetchDeviceUpdate(device, userId) {
   const params = {
     url: (device.id === null) ? `${BASE_API}device` : `${BASE_API}devices/${device.id}`,
     method: (device.id === null) ? "POST" : "PUT"
@@ -84,7 +84,7 @@ export function fetchDeviceUpdate(device) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(device)
+      body: JSON.stringify({device: device, userId: userId})
     })
     .then(res => res.json())
     .then(json => dispatch(fetchDeviceUpdated(json)))

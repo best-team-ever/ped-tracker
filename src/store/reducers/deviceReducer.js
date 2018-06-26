@@ -19,7 +19,7 @@ const initialState = {
     tid: "",
     location_id: null,
     till_label: "",
-    status: "",
+    status: "wait",
     security_bag_sn: "",
     last_inspection_date: null,
     createdAt: null,
