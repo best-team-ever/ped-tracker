@@ -5,7 +5,7 @@ import {
 } from "../actions/actionTypes";
 
 const initialState = {
-  signed: true,
+  signed: false,
   msg: ""
 };
 
