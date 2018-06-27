@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
+import { connect } from "react-redux";
+import {
+  fetchDevicesStatusHandler,
+  fetchActiveDevicesHandler,
+  fetchInActiveDevicesHandler } from "../../store/handlers/dashboardHandlers";
 
 import { Card } from "../../components/Card/Card.jsx";
 import { StatsCard } from "../../components/StatsCard/StatsCard.jsx";
 import { Tasks } from "../../components/Tasks/Tasks.jsx";
 import {
-  dataPie,
-  legendPie,
+  // dataPie,
+  // legendPie,
   dataSales,
   optionsSales,
   responsiveSales,
@@ -19,7 +24,15 @@ import {
 } from "../../variables/Variables.jsx";
 import './dashboard.css';
 
+
 class Dashboard extends Component {
+
+  componentDidMount() {
+    this.props.fetchDevicesStatus();
+    this.props.fetchActiveDevices();
+    this.props.fetchInActiveDevices();
+  }
+
   createLegend(json) {
     var legend = [];
     for (var i = 0; i < json["names"].length; i++) {
@@ -30,6 +43,8 @@ class Dashboard extends Component {
     }
     return legend;
   }
+
+
   render() {
     return (
       <div className="content">
@@ -37,18 +52,22 @@ class Dashboard extends Component {
           <Row>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-keypad green text-warning" />}
+                bigIcon={<i className="pe-7s-keypad text-success" />}
                 statsText="Active devices"
-                statsValue="105"
+                statsValue={this.props.actives}
+                // {this.getStatus()[0].status === "Active"
+                //   ? this.getStatus()[0].count
+                //   : "0"
+                // }
                 statsIcon={<i className="fa fa-clock-o" />} //fa-refresh
                 statsIconText="Last second"
               />
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-keypad text-success red" />}
+                bigIcon={<i className="pe-7s-keypad red" />}
                 statsText="Inactive devices"
-                statsValue="5"
+                statsValue={this.props.inactives}
                 statsIcon={<i className="fa fa fa-clock-o" />} //fa-calendar
                 statsIconText="Last second"
               />
@@ -100,17 +119,17 @@ class Dashboard extends Component {
                 statsIcon="fa fa-clock-o"
                 title="Devices status"
                 category="-"
-                stats="last second"
+                stats="Last second"
                 content={
                   <div
                     id="chartPreferences"
                     className="ct-chart ct-perfect-fourth"
                   >
-                    <ChartistGraph data={dataPie} type="Pie" />
+                    <ChartistGraph data={this.props.dataPies} type="Pie" />
                   </div>
                 }
                 legend={
-                  <div className="legend">{this.createLegend(legendPie)}</div>
+                  <div className="legend">{this.createLegend(this.props.legendPies)}</div>
                 }
               />
             </Col>
@@ -162,4 +181,20 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = state => ({
+  actives: state.deviceStatus.actives,
+  inactives: state.deviceStatus.inactives,
+  devicesStates: state.deviceStatus.devicesStates,
+  dataPies: state.deviceStatus.dataPies,
+  legendPies: state.deviceStatus.legendPies,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchDevicesStatus: () => fetchDevicesStatusHandler(dispatch),
+    fetchActiveDevices: () => fetchActiveDevicesHandler(dispatch),
+    fetchInActiveDevices: () => fetchInActiveDevicesHandler(dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

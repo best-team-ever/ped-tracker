@@ -1,6 +1,7 @@
 const db = require("../models/index");
 const devices = require("../models").devices;
 const events = require("../models").events;
+const sequelize = require('sequelize');
 
 async function getAllDevices(request, result){
   return await devices
@@ -84,10 +85,23 @@ async function findDeviceById(request, result){
     .catch(error => result.status(400).send(error));
 }
 
+async function getCountStatus(request, result){
+  return await devices
+    .findAll({
+        attributes: ['status',[sequelize.fn('COUNT', '*'),'count']],
+        group: 'status',
+        order: [['status', 'ASC']]
+    })
+    .then(row => {
+      console.log(row);
+      result.status(200).send(row)})
+    .catch(error => result.status(400).send(error));
+}
 
 module.exports = {
   getAllDevices: getAllDevices,
   createDevice: createDevice,
   updateDevice: updateDevice,
-  findDeviceById: findDeviceById
+  findDeviceById: findDeviceById,
+  getCountStatus: getCountStatus,
 }
