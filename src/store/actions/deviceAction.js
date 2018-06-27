@@ -71,20 +71,19 @@ export function fetchDevices() {
   };
 }
 
-export function fetchDeviceUpdate(device) {
-  const params = {
-    url: (device.id === null) ? `${BASE_API}device` : `${BASE_API}devices/${device.id}`,
-    method: (device.id === null) ? "POST" : "PUT"
-  }
+export function fetchDeviceUpdate(device, userId) {
+  const url = (device.id === null) ? `${BASE_API}device` : `${BASE_API}devices/${device.id}`;
+  const method = (device.id === null) ? "POST" : "PUT";
+
   return dispatch => {
     dispatch(fetchDeviceBegin());
-    return fetch(params.url, {
-      method: params.method,
+    return fetch(url, {
+      method: method,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(device)
+      body: JSON.stringify({device: device, userId: userId})
     })
     .then(res => res.json())
     .then(json => dispatch(fetchDeviceUpdated(json)))

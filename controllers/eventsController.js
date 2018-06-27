@@ -32,10 +32,17 @@ async function getAllEventsByLocationId(request, result){
       where: {
         location_id: request.params.id
       },
-      include: [{
-        model: db.devices,
-        attributes: ["brand", "model", "serial_nr", "tid", "till_label", "status", "security_bag_sn", "last_inspection_date"],
-      }]
+    })
+    .then(data => result.status(200).send(data))
+    .catch(error => result.status(400).send(error));
+}
+
+async function getAllEventsByDeviceId(request, result){
+  return await db.events
+    .findAll({
+      where: {
+        device_id: request.params.id
+      },
     })
     .then(data => result.status(200).send(data))
     .catch(error => result.status(400).send(error));
@@ -43,5 +50,6 @@ async function getAllEventsByLocationId(request, result){
 
 module.exports = {
   getAllEventsByLocationId: getAllEventsByLocationId,
+  getAllEventsByDeviceId: getAllEventsByDeviceId,
   getAllEvents: getAllEvents
 }

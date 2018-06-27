@@ -4,15 +4,20 @@ const eventsController = require("./controllers/eventsController");
 const locationsController = require("./controllers/locationsController");
 const deviceController = require("./controllers/deviceController");
 const userController = require("./controllers/userController");
+const paramsController = require("./controllers/paramsController");
+const filesController = require("./controllers/filesController");
 const bodyParser = require("body-parser");
 const path = require("path");
 // if (process.env.NODE_ENV !== "production") {
 //   const path = require("path");
 //   require("dotenv").config({ path: path.resolve(process.cwd(), "config/.env.local") });
 // }
-
 const app = express();
 const {OAuth2Client} = require('google-auth-library');
+
+const multer  = require("multer");
+const upload = multer({ dest: path.join(__dirname, "uploads/") });
+const fs = require('fs');
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -27,34 +32,31 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static("./build"));
-
-const ROOT_API = "/api/"
-
 /**
  * API: retrieve one data by id with events associated
  */
-app.get(`${ROOT_API}locations/:id/events`, (request, result) => {
+app.get("/api/locations/:id/events", (request, result) => {
   eventsController.getAllEventsByLocationId(request, result)
 });
-app.get(`${ROOT_API}users/:id/events`, (request, result) => {
+app.get("/api/users/:id/events", (request, result) => {
   eventsController.getAllEventsByUserId(request, result)
 });
-app.get(`${ROOT_API}devices/:id/events`, (request, result) => {
+app.get("/api/devices/:id/events", (request, result) => {
   eventsController.getAllEventsByDeviceId(request, result)
 });
-app.get(`${ROOT_API}status`, (request, result) => {
-  result.status(200).send({
-    active: "Active",
-    wait: "Awaiting deployment",
-    maintenance: "In maintenance",
-    transport: "Waiting transport between sites/locations",
-    stored: "In storage",
-    retired: "Retired/deactivated",
-    lost: "Lost/stolen",
-    forbidden: "Forbidden",
-    refused: "Refused/returned"
-  })
+
+/**
+ * API: retrieve one data by id with devices associated
+ */
+app.get("/api/locations/:id/devices", (request, result) => {
+  deviceController.getAllDevicesByLocationId(request, result)
+});
+
+/**
+ * API: retrieve params
+ */
+app.get("/api/status", (request, result) => {
+  paramsController.getStatus(request, result)
 });
 
 /**
@@ -123,7 +125,7 @@ app.post('/googleConnectBack', (request, result) => {
 /**
  * API: create new data
  */
-app.post("/api/locations", (request, result) => {
+app.post("/api/location", (request, result) => {
   locationsController.createLocation(request, result)
 });
 app.post("/api/user", (request, result) => {
@@ -132,6 +134,18 @@ app.post("/api/user", (request, result) => {
 app.post("/api/device", (request, result) => {
   deviceController.createDevice(request, result)
 });
+
+//--- Upload files
+const type = upload.single('file');
+app.post("/api/upload-devices", type, (request, result) => {
+  filesController.uploadDevices(request, result);
+});
+app.post("/api/upload-locations", type, (request, result) => {
+  filesController.uploadLocations(request, result);
+});
+
+app.use(express.static("./build"));
+
 app.get("*", (request, result) => {
   result.sendFile(path.resolve("./build/index.html"));
 });

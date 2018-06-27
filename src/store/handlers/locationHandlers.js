@@ -1,8 +1,13 @@
-import { addLocation } from "../actions/locationsAction"
-import {BASE_API} from "../actions/actionTypes";
+import {
+  addLocation, changeLocationStates,
+  fetchLocationBegin,
+  fetchLocationError, fetchLocationTypes,
+  fetchLocationSuccess,
+  newLocation, updateLocation, fetchLocationStatus
+} from "../actions/locationsAction"
+import { BASE_API } from "../actions/actionTypes";
 
 export async function handleFetchAddLocation(newLocation, dispatch) {
-
   return await fetch(`${BASE_API}location`, {
     method: 'POST',
     headers: {
@@ -27,5 +32,65 @@ export async function handleFetchAddLocation(newLocation, dispatch) {
       return dispatch(addLocation(json))
     })
     .catch(error => console.log(error));
+}
 
+export function handleLocationStates(key,value,dispatch){
+  return dispatch(changeLocationStates(key, value));
+}
+
+export async function handleFetchUpdateLocation(updatedLocation, dispatch){
+  return await fetch(`${BASE_API}locations/${updatedLocation.id}`, {
+    method: 'PUT',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      location_type: updatedLocation.location_type,
+      name: updatedLocation.name,
+      site_id: updatedLocation.site_id,
+      address: updatedLocation.address,
+      country: updatedLocation.country,
+      contact_name: updatedLocation.contact_name,
+      contact_position: updatedLocation.contact_position,
+      contact_phone: updatedLocation.contact_phone,
+      contact_email: updatedLocation.contact_email,
+      status: updatedLocation.status
+    })
+  })
+    .then(res => res.json())
+    .then(json => {
+      return dispatch(updateLocation(json))
+    })
+    .catch(error => console.log(error));
+}
+
+export function handleGetLocation(id, dispatch){
+  if (id !== undefined) {
+    dispatch(fetchLocationBegin());
+    return fetch(`${BASE_API}locations/${id}`)
+      .then(handleErrors)
+      .then(res => res.json())
+      .then(json => {
+        return dispatch(fetchLocationSuccess(json));
+      })
+      .catch(error => dispatch(fetchLocationError(error)));
+  }else {
+    return dispatch(newLocation());
+  }
+}
+
+export async function handleLocationTypes(dispatch) {
+  return dispatch(fetchLocationTypes());
+}
+
+export async function handleLocationStatus(dispatch) {
+  return dispatch(fetchLocationStatus());
+}
+
+function handleErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
 }

@@ -21,10 +21,8 @@ class Device extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     if (id !== undefined) {
-      console.log("enter here ::: ");
       this.props.dispatch(fetchDevice(id));
     } else {
-      console.log("enter where ::: ");
       this.props.dispatch(newDevice());
     }
     this.props.dispatch(fetchLocations({fields: "id,name"}));
@@ -36,11 +34,12 @@ class Device extends Component {
   }
 
   handleSubmit = (event) => {
+    const userId = localStorage.getItem("userId");
     event.preventDefault();
-    this.props.dispatch(fetchDeviceUpdate(this.props.device))
+    this.props.dispatch(fetchDeviceUpdate(this.props.device, userId))
     .then((result) => {
       if (result.payload.error) {
-        console.log("error", result.payload.error);
+        this.props.handleClick("tc", result.payload.error.toString(), "error", 15);
       } else {
         this.setState({ redirectAfterSubmit: true });
       }
@@ -69,7 +68,7 @@ class Device extends Component {
                 content={
                   <form onSubmit={this.handleSubmit}>
                     <FormInputs
-                      ncols={["col-md-6", "col-md-6"]}
+                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
                       properties={[
                         {
                           label: "Serial number",
@@ -90,11 +89,6 @@ class Device extends Component {
                           id: 'brand',
                           onChange: this.handleChange
                         },
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-6", "col-md-6"]}
-                      properties={[
                         {
                           label: "Model",
                           type: "text",
@@ -103,6 +97,11 @@ class Device extends Component {
                           id: 'model',
                           onChange: this.handleChange
                         },
+                      ]}
+                    />
+                    <FormInputs
+                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
+                      properties={[
                         {
                           label: "TID",
                           type: "text",
@@ -111,11 +110,6 @@ class Device extends Component {
                           id: 'tid',
                           onChange: this.handleChange
                         },
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-6", "col-md-6"]}
-                      properties={[
                         {
                           label: "Location",
                           type: "select",
@@ -137,7 +131,7 @@ class Device extends Component {
                       ]}
                     />
                     <FormInputs
-                      ncols={["col-md-6", "col-md-6"]}
+                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
                       properties={[
                         {
                           label: "Status",
@@ -156,6 +150,14 @@ class Device extends Component {
                           value: this.props.device.security_bag_sn,
                           id: 'security_bag_sn',
                           onChange: this.handleChange
+                        },
+                        {
+                          label: "Creation date",
+                          type: "text",
+                          bsClass: "form-control",
+                          value: this.props.device.createdAt,
+                          id: 'createdAt',
+                          disabled: !this.state.new,
                         },
                       ]}
                     />

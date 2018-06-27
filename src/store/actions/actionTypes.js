@@ -1,5 +1,4 @@
-export const BASE_API = "http://localhost:8000/api/";
-// export const BASE_API = process.env.BASE_API;
+export const BASE_API = process.env.REACT_APP_URL_SERVER + "/api/";
 //export const BASE_API = "https://ped-tracker.herokuapp.com/api/";
 
 export const FETCH_DEVICE_BEGIN = "FETCH_DEVICE_BEGIN";
@@ -35,13 +34,13 @@ export const FETCH_LOCATION_DELETE = "FETCH_LOCATION_DELETE";
 export const FETCH_LOCATION_BEGIN = "FETCH_LOCATION_BEGIN";
 export const FETCH_LOCATION_SUCCESS = "FETCH_LOCATION_SUCCESS";
 export const FETCH_LOCATION_FAILURE = "FETCH_LOCATION_FAILURE";
+export const FETCH_LOCATION_STATES = "FETCH_LOCATION_STATES";
+export const FETCH_LOCATION_STATUS = "FETCH_LOCATION_STATUS";
+export const FETCH_LOCATION_TYPES = "FETCH_LOCATION_TYPES";
 
 export const FETCH_EVENTS_BEGIN = "FETCH_EVENTS_BEGIN";
 export const FETCH_EVENTS_SUCCESS = "FETCH_EVENTS_SUCCESS";
 export const FETCH_EVENTS_FAILURE = "FETCH_EVENTS_FAILURE";
-
-export const FETCH_SIGNIN = "FETCH_SIGNIN";
-export const FETCH_SIGNOUT = "FETCH_SIGNOUT";
 
 export const USER_ONCHANGE = "USER_ONCHANGE";
 export const DEVICE_ONCHANGE = "DEVICE_ONCHANGE";

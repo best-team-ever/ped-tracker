@@ -8,7 +8,6 @@ import Users from "../views/Users/Users";
 import Events from "../views/Events/Events";
 import Help from "../views/Help/Help";
 
-import UserProfile from "../views/UserProfile/UserProfile";
 import Typography from "../views/Typography/Typography";
 import Icons from "../views/Icons/Icons";
 import Notifications from "../views/Notifications/Notifications";
@@ -80,13 +79,6 @@ const dashboardRoutes = [
     icon: "pe-7s-help1",
     component: Help
   },
-
-  // {
-  //   path: "/form",
-  //   name: "Sample form",
-  //   icon: "pe-7s-user",
-  //   component: UserProfile
-  // },
   {
     path: "/typography",
     name: "Catalog Typography",
@@ -98,12 +90,12 @@ const dashboardRoutes = [
     name: "Catalog Icons",
     icon: "pe-7s-science",
     component: Icons },
-  // {
-  //   path: "/notifications",
-  //   name: "Catalog Notifications",
-  //   icon: "pe-7s-bell",
-  //   component: Notifications
-  // },
+  {
+    path: "/notifications",
+    name: "Catalog Notifications",
+    icon: "pe-7s-bell",
+    component: Notifications
+  },
   {
     redirect: true,
     path: "/",

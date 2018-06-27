@@ -37,7 +37,7 @@ class User extends Component {
     this.props.dispatch(fetchUserUpdate(this.props.user))
     .then((result) => {
       if (result.payload.error) {
-        console.log("error", result.payload.error);
+        this.props.handleClick("tc", result.payload.error.toString(), "error", 15);
       } else {
         this.setState({ redirectAfterSubmit: true });
       }
