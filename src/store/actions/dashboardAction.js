@@ -40,12 +40,11 @@ export const fetchDevicesStatus = (status) => {
 
 export const fetchActiveDevices = (status) => {
   return dispatch => {
-    let inActive = 0
     dispatch(fetchDeviceBegin);
     return fetch(`${urlServer}/api/devicesStatus`)
       .then((response) => response.json())
       .then((result) => {
-        result.map(array => {
+        result.forEach(array => {
           if (array.status === status) {
             return dispatch(fetchActiveDevicesSuccess(parseInt(array.count,10)));
           }
@@ -62,7 +61,7 @@ export const fetchInActiveDevices = (status) => {
     return fetch(`${urlServer}/api/devicesStatus`)
       .then((response) => response.json())
       .then((result) => {
-        result.map(array => {
+        result.forEach(array => {
           if (array.status !== status) {
             inActive=inActive+parseInt(array.count,10);
             return dispatch(fetchInActiveDevicesSuccess(inActive));

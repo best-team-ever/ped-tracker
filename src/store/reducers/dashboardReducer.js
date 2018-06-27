@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
         let labels = [];
         let series = [];
         let names = [];
-        action.devicesStates.map((value) => {
+        action.devicesStates.forEach((value) => {
           labels.push(String(Math.round(parseInt(value.count,10)/total*100))+"%");
           series.push(Math.round(parseInt(value.count,10)/total*100));
           names.push(value.status)
