@@ -87,6 +87,9 @@ app.get("/api/devices", (request, result) => {
 app.get("/api/events", (request, result) => {
   eventsController.getAllEvents(request, result)
 });
+app.get("/api/devicesStatus", (request, result) => {
+  deviceController.getCountStatus(request, result);
+});
 
 /**
  * API: update one data by id
