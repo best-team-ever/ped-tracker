@@ -1,9 +1,9 @@
 import {
-  addLocation, changeLocationStatus,
+  addLocation, changeLocationStates,
   fetchLocationBegin,
-  fetchLocationError,
+  fetchLocationError, fetchLocationTypes,
   fetchLocationSuccess,
-  newLocation, updateLocation
+  newLocation, updateLocation, fetchLocationStatus
 } from "../actions/locationsAction"
 import { BASE_API } from "../actions/actionTypes";
 
@@ -34,23 +34,8 @@ export async function handleFetchAddLocation(newLocation, dispatch) {
     .catch(error => console.log(error));
 }
 
-export function handleGetLocation(id, dispatch){
-  if (id !== undefined) {
-    dispatch(fetchLocationBegin());
-    return fetch(`${BASE_API}locations/${id}`)
-      .then(handleErrors)
-      .then(res => res.json())
-      .then(json => {
-        return dispatch(fetchLocationSuccess(json));
-      })
-      .catch(error => dispatch(fetchLocationError(error)));
-  }else {
-    return dispatch(newLocation());
-  }
-}
-
-export function handleLocationStatus(key,value,dispatch){
-  return dispatch(changeLocationStatus(key, value));
+export function handleLocationStates(key,value,dispatch){
+  return dispatch(changeLocationStates(key, value));
 }
 
 export async function handleFetchUpdateLocation(updatedLocation, dispatch){
@@ -78,6 +63,29 @@ export async function handleFetchUpdateLocation(updatedLocation, dispatch){
       return dispatch(updateLocation(json))
     })
     .catch(error => console.log(error));
+}
+
+export function handleGetLocation(id, dispatch){
+  if (id !== undefined) {
+    dispatch(fetchLocationBegin());
+    return fetch(`${BASE_API}locations/${id}`)
+      .then(handleErrors)
+      .then(res => res.json())
+      .then(json => {
+        return dispatch(fetchLocationSuccess(json));
+      })
+      .catch(error => dispatch(fetchLocationError(error)));
+  }else {
+    return dispatch(newLocation());
+  }
+}
+
+export async function handleLocationTypes(dispatch) {
+  return dispatch(fetchLocationTypes());
+}
+
+export async function handleLocationStatus(dispatch) {
+  return dispatch(fetchLocationStatus());
 }
 
 function handleErrors(response) {

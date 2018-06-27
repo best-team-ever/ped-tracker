@@ -8,7 +8,8 @@ import {
   FETCH_LOCATION_UPDATE,
   FETCH_LOCATION_BEGIN,
   FETCH_LOCATION_SUCCESS,
-  FETCH_LOCATION_FAILURE, FETCH_LOCATION_NEW, FETCH_LOCATION_STATUS
+  FETCH_LOCATION_FAILURE, FETCH_LOCATION_NEW, FETCH_LOCATION_STATES, FETCH_LOCATION_STATUS,
+  FETCH_LOCATION_TYPES
 } from "./actionTypes";
 
 export const fetchLocationsBegin = () =>  ({
@@ -59,9 +60,19 @@ export const newLocation = (location) => ({
   payload: {location}
 })
 
-export const changeLocationStatus = (key, value) => ({
-  type: FETCH_LOCATION_STATUS,
+export const changeLocationStates = (key, value) => ({
+  type: FETCH_LOCATION_STATES,
   payload: {key, value}
+})
+
+export const fetchLocationTypes = (typeLocation) => ({
+  type: FETCH_LOCATION_TYPES,
+  payload: {typeLocation}
+});
+
+export const fetchLocationStatus = (statusLocation) => ({
+  type: FETCH_LOCATION_STATUS,
+  payload: {statusLocation}
 })
 
 export function fetchLocations(conditions) {
@@ -72,7 +83,6 @@ export function fetchLocations(conditions) {
       query += `fields=${conditions.fields}`;
     }
   }
-
   return dispatch => {
     dispatch(fetchLocationsBegin());
     return fetch(`${BASE_API}locations${query}`)

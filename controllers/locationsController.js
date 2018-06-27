@@ -18,6 +18,7 @@ async function createLocation(request, result){
     .create({
       location_type: request.body.location_type,
       name: request.body.name,
+      site_id: parseInt(request.body.site_id),
       address: request.body.address,
       country: request.body.country,
       contact_name: request.body.contact_name,
@@ -43,6 +44,7 @@ async function updateLocation(request, result){
         .update({
           location_type: request.body.location_type || data.location_type,
           name: request.body.name || data.name,
+          site_id: parseInt(request.body.site_id) || data.site_id,
           address: request.body.address || data.address,
           country: request.body.country || data.country,
           contact_name: request.body.contact_name || data.contact_name,
