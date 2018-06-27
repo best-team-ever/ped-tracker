@@ -593,5 +593,5 @@ module.exports = {
   dataBar,
   optionsBar,
   responsiveBar,
-  legendBar // For charts (Dashboard view)
+  legendBar // For charts (Login view)
 };
