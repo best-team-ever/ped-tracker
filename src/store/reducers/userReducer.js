@@ -15,9 +15,9 @@ const initialState = {
     "first_name": "",
     "last_name": "",
     "email": "",
-    "p2pe_agreement": 0,
-    "language": "",
-    "role": "",
+    "p2pe_agreement": false,
+    "language": "EN",
+    "role": "cashier",
     "location_id": "",
     "createdAt": null,
     "updatedAt": null

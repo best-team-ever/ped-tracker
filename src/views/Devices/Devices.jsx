@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
-import { Grid, Row, Col, Alert, FormGroup, ControlLabel } from "react-bootstrap";
+import { Grid, Row, Col, FormGroup, ControlLabel, FormControl, Button, HelpBlock } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import 'react-table/react-table.css'
 import TableCard from "../../components/TableCard/TableCard.jsx";
-import { Card } from "../../components/Card/Card.jsx";
 
 import { fetchDevices } from "../../store/actions/deviceAction";
 
@@ -21,23 +20,16 @@ class Devices extends Component {
     this.props.dispatch(fetchDevices());
   }
 
-  alert = (error) => {
-    if (error) {
-      return (
-        <Alert bsStyle="danger">
-          <button type="button" aria-hidden="true" className="close">&#x2715;</button>
-          <span><b>ERROR: </b>{error.toString()}</span>
-        </Alert>
-      );
-    }
-  }
-
   onFileSubmit = event => {
     event.preventDefault();
     this.fileUpload(this.state.file)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
+    .then(res => res.json())
+    .then(response => {
+      this.props.dispatch(fetchDevices())
+      .then(() => {
+        window.scrollTo(0, 0);
+        this.props.handleClick("tc", response, "info", 5);
+      })
     });
   }
 
@@ -51,7 +43,7 @@ class Devices extends Component {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("random_value", "42");
-    return fetch("http://localhost:8000/upload-devices", {
+    return fetch(process.env.REACT_APP_URL_SERVER + "/api/upload-devices", {
       method: "POST",
       body: formData
     });
@@ -86,11 +78,6 @@ class Devices extends Component {
         <Grid fluid>
           <Row>
             <Col>
-              {this.alert(this.props.error)}
-            </Col>
-          </Row>
-          <Row>
-            <Col>
               <TableCard
                 elementToShow="devices"
                 title="Devices"
@@ -116,10 +103,19 @@ class Devices extends Component {
           <Row>
             <Col>
               <FormGroup>
-                <ControlLabel>Device File Upload</ControlLabel>
                 <form onSubmit={this.onFileSubmit}>
-                  <input type="file" onChange={this.onFileChange} />
-                  <button type="submit">Upload</button>
+                  <Row>
+                    <Col className="col-md-8">
+                      <FormGroup controlId="upload">
+                        <ControlLabel>Device File Upload</ControlLabel>
+                        <FormControl type="file" onChange={this.onFileChange} />
+                        <HelpBlock>select a file to upload devices with format: <i>brand,model,serial_nr,tid,location_name,location_id,till_label,status</i></HelpBlock>
+                      </FormGroup>
+                    </Col>
+                    <Col className="col-md-4">
+                      <Button type="submit">Upload</Button>
+                    </Col>
+                  </Row>
                 </form>
               </FormGroup>
             </Col>

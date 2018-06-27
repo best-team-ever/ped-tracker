@@ -127,10 +127,10 @@ app.post("/api/device", (request, result) => {
 
 //--- Upload files
 const type = upload.single('file');
-app.post("/upload-devices", type, (request, result) => {
+app.post("/api/upload-devices", type, (request, result) => {
   filesController.uploadDevices(request, result);
 });
-app.post("/upload-locations", type, (request, result) => {
+app.post("/api/upload-locations", type, (request, result) => {
   filesController.uploadLocations(request, result);
 });
 
