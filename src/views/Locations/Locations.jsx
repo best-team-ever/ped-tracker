@@ -9,6 +9,24 @@ import 'react-table/react-table.css'
 import TableCard from "../../components/TableCard/TableCard.jsx";
 
 class Locations extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      file: null
+    };
+  }
+
+  alert = (error) => {
+    if (error) {
+      return (
+        <Alert bsStyle="danger">
+          <button type="button" aria-hidden="true" className="close">&#x2715;</button>
+          <span><b>ERROR: </b>{error.toString()}</span>
+        </Alert>
+      );
+    }
+  }
+
   getLocations(){
     let { error, loading, locations } = this.props;
     return {
@@ -20,6 +38,31 @@ class Locations extends Component {
 
   componentDidMount(){
     this.props.dispatch(fetchLocations());
+  }
+
+  onFileSubmit = event => {
+    event.preventDefault();
+    this.fileUpload(this.state.file)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    });
+  }
+
+  onFileChange = event => {
+    this.setState({
+      file: event.target.files[0]
+    });
+  }
+
+  fileUpload(file){
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("random_value", "42");
+    return fetch("http://localhost:8000/upload-locations", {
+      method: "POST",
+      body: formData
+    });
   }
 
   render() {
@@ -54,26 +97,48 @@ class Locations extends Component {
 
     return (
       <div className="content">
-        <TableCard
-          elementToShow="locations"
-          title="Locations"
-          category="list of locations"
-          ctTableFullWidth
-          ctTableResponsive
-          addButton="New location"
-          content={
-            <ReactTable
-              noDataText="Empty list!"
-              columns={rthArray}
-              data={rtdArray}
-              defaultPageSize={10}
-              className="-striped -highlight"
-              defaultSorted={[{ id: "name", desc: true}]}
-              filterable
-              defaultFilterMethod={(filter, row) => row[filter.id].startsWith(filter.value)}
-            />
-          }
-        />
+        <Grid fluid>
+          <Row>
+            <Col>
+              {this.alert(this.props.error)}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <TableCard
+                elementToShow="locations"
+                title="Locations"
+                category="list of locations"
+                ctTableFullWidth
+                ctTableResponsive
+                addButton="New location"
+                content={
+                  <ReactTable
+                    noDataText="Empty list!"
+                    columns={rthArray}
+                    data={rtdArray}
+                    defaultPageSize={10}
+                    className="-striped -highlight"
+                    defaultSorted={[{ id: "name", desc: true}]}
+                    filterable
+                    defaultFilterMethod={(filter, row) => row[filter.id].startsWith(filter.value)}
+                  />
+                }
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormGroup>
+                <ControlLabel>Locations File Upload</ControlLabel>
+                <form onSubmit={this.onFileSubmit}>
+                  <input type="file" onChange={this.onFileChange} />
+                  <button type="submit">Upload</button>
+                </form>
+              </FormGroup>
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }
