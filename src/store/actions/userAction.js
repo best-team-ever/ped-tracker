@@ -6,7 +6,6 @@ import {
   FETCH_USER_FAILURE,
   FETCH_USER_NEW,
   FETCH_USER_UPDATE,
-  // FETCH_USER_DELETE,
   USER_ONCHANGE
 } from "./actionTypes";
 
@@ -75,10 +74,13 @@ export function fetchUserAdd() {
 }
 
 export function fetchUserUpdate(user) {
+  const url = (user.id === null) ? `${BASE_API}user` : `${BASE_API}users/${user.id}`;
+  const method = (user.id === null) ? "POST" : "PUT";
+
   return dispatch => {
     dispatch(fetchUsersBegin);
-    return fetch(`${BASE_API}users/${user.id}`, {
-      method: 'PUT',
+    return fetch(url, {
+      method: method,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

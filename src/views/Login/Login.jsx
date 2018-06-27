@@ -18,8 +18,6 @@ class Login extends Component {
 
   constructor(props) {
     super(props);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.handleNotificationClick = this.handleNotificationClick.bind(this);
     this.state = {
       _notificationSystem: null,
       signed: true,
@@ -51,39 +49,17 @@ class Login extends Component {
       .catch((error) => this.props.setMsg("User not found", error)) // PREVOIR GoogleAuth.signOut()
   }
 
-  handleNotificationClick(position) {
-    var color = Math.floor(Math.random() * 4 + 1);
-    var level;
-    switch (color) {
-      case 1:
-        level = "success";
-        break;
-      case 2:
-        level = "warning";
-        break;
-      case 3:
-        level = "error";
-        break;
-      case 4:
-        level = "info";
-        break;
-      default:
-        break;
-    }
+  handleNotificationClick = (position, message = "no message", level = "info", autoDismiss = 10) => {
     this.state._notificationSystem.addNotification({
-      title: <span data-notify="icon" className="pe-7s-gift" />,
-      message: (
-        <div>
-          Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
-          every web developer.
-        </div>
-      ),
+      title: <span data-notify="icon" className="pe-7s-info" />,
+      message: <div>{message}</div>,
       level: level,
       position: position,
-      autoDismiss: 15
+      autoDismiss: autoDismiss
     });
   }
-  componentDidMount() {
+
+  componentDidMount = () => {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
     // var _notificationSystem = this.refs.notificationSystem;
     // var color = Math.floor(Math.random() * 4 + 1);
@@ -206,14 +182,15 @@ class Login extends Component {
               <br/>
               <p className="mt-5 mb-3 text-muted">{this.props.loginStore.msg}</p>
           </div>
-          </div>
-        )
-    );
+        </div>
+      );
+    }
   }
 }
 
 const mapStateToProps = (state) => ({
-  loginStore: state.loginStore
+  loginStore: state.loginStore,
+  _notificationSystem: state._notificationSystem
 })
 
 const mapDispatchToProps = (dispatch) => {
