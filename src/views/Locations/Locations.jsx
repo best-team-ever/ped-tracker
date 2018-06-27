@@ -33,7 +33,11 @@ class Locations extends Component {
       { Header: 'Contact position', accessor: 'contact_position', style: { 'white-space': 'unset' }},
       { Header: 'Contact phone', accessor: 'contact_phone', style: { 'white-space': 'unset' }},
       { Header: 'Contact email', accessor: 'contact_email', style: { 'white-space': 'unset' }},
-      { Header: 'Status', accessor: 'status', style: { 'white-space': 'unset' }, className: "center"},
+      { Header: 'Status', accessor: 'status', style: { 'white-space': 'unset' }, className: "center",
+        Cell: (row) => (
+          (row.original.status === "1")? "Active" : "Inactive"
+        )
+      },
       { Header: 'Action',
         Cell: (row)=>(
           <div className="action-right">

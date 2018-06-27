@@ -2,16 +2,21 @@ import React, { Component } from "react";
 import {
   Grid,
   Row,
-  Col,
-  ControlLabel,
-  FormControl
+  Col
 } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import Button from '../../components/CustomButton/CustomButton';
 import { Card } from "../../components/Card/Card.jsx";
 import { FormInputs } from "../../components/FormInputs/FormInputs.jsx";
-import { handleFetchAddLocation, handleGetLocation, handleLocationStatus, handleFetchUpdateLocation } from "../../store/handlers/locationHandlers";
+import {
+  handleFetchAddLocation,
+  handleGetLocation,
+  handleLocationStates,
+  handleLocationStatus,
+  handleFetchUpdateLocation,
+  handleLocationTypes
+} from "../../store/handlers/locationHandlers";
 
 import Events from "../Events/Events";
 
@@ -35,7 +40,9 @@ class Location extends Component {
   }
 
   componentDidMount(){
-    handleGetLocation(this.props.match.params.id, this.props.dispatch)
+    handleGetLocation(this.props.match.params.id, this.props.dispatch);
+    handleLocationTypes(this.props.dispatch);
+    handleLocationStatus(this.props.dispatch);
   }
 
   componentWillReceiveProps(nextProps){
@@ -54,27 +61,29 @@ class Location extends Component {
   /******************Begin: Handle all new elements******************/
 
   handleChangeValue = (key, value) => {
-    // this.setState({
-    //   [key]: value
-    // })
-    handleLocationStatus(key, value, this.props.dispatch);
+    handleLocationStates(key, value, this.props.dispatch);
   }
 
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("this.props :: here ", this.props);
     this.state.new? (
       this.props.addLocationFromState(this.props.location).then( () => this.props.history.push("/locations"))
     ):(
       this.props.updateLocationFromState(this.props.location).then( () => this.props.history.push("/locations"))
     )
-    console.log("this.props :: ", this.props);
   }
   /******************Fin: Handle all new elements******************/
 
   render() {
     let location = this.getLocation().location;
+
+    const selectLocationType = Object.keys(this.props.typeLocation)
+      .map(key => ({value: key, label: this.props.typeLocation[key]}));
+
+    const selectLocationStatus = Object.keys(this.props.statusLocation)
+      .map(key => ({value: key, label: this.props.statusLocation[key]}));
+
     return (
       <div className="content">
         <Grid fluid>
@@ -86,6 +95,22 @@ class Location extends Component {
                   <form onSubmit={this.handleSubmit.bind(this)}>
                     <div className="form-group col-md-12">
                       <div className="col-md-6">
+                        <FormInputs
+                          ncols={["col-md-8"]}
+                          properties={[
+                            {
+                              label: "Type",
+                              type: "select",
+                              bsClass: "form-control",
+                              options: selectLocationType,
+                              defaultValue: "select your type",
+                              value: location.location_type,
+                              id: 'location_type',
+                              onChange: ((e) => this.handleChangeValue(e.target.id, e.target.value))
+                            }
+                          ]}
+                        />
+
                         <FormInputs
                           ncols={["col-md-8"]}
                           properties={[
@@ -109,7 +134,6 @@ class Location extends Component {
                               type: "text",
                               bsClass: "form-control",
                               placeholder: "site_id",
-                              defaultValue: "",
                               id: "site_id",
                               value: location.site_id,
                               onChange: ((e) => this.handleChangeValue(e.target.id, e.target.value))
@@ -149,31 +173,21 @@ class Location extends Component {
                           ]}
                         />
 
-                        <ControlLabel>Type</ControlLabel>
-                        <FormControl
-                          onChange={(e) => this.handleChangeValue(e.target.id, e.target.value)}
-                          componentClass="select"
-                          placeholder="select one type"
-                          value={location.location_type}
-                          id="location_type"
-                        >
-                          <option value="">select one type</option>
-                          <option value="store">store</option>
-                          <option value="supplier">supplier</option>
-                        </FormControl>
-
-                        <ControlLabel>Location status</ControlLabel>
-                        <FormControl
-                          onChange={(e) => this.handleChangeValue(e.target.id, e.target.value)}
-                          componentClass="select"
-                          placeholder="select one type"
-                          value={location.status}
-                          id="status"
-                        >
-                          <option value="">select one status</option>
-                          <option value="1">open</option>
-                          <option value="0">closed</option>
-                        </FormControl>
+                        <FormInputs
+                          ncols={["col-md-8"]}
+                          properties={[
+                            {
+                              label: "Location status",
+                              type: "select",
+                              bsClass: "form-control",
+                              options: selectLocationStatus,
+                              defaultValue: "select your status",
+                              value: location.status,
+                              id: 'status',
+                              onChange: ((e) => this.handleChangeValue(e.target.id, e.target.value))
+                            }
+                          ]}
+                        />
                       </div>
 
                       <div className="col-md-6">
@@ -252,10 +266,10 @@ class Location extends Component {
             </Col>
           </Row>
           <Row>
-            {/*<Col>{(!this.state.new*/}
-            {/*? <Events location_id={this.props.match.params.id} category={`Events of location: ${location.name}`}/>*/}
-            {/*: "")}*/}
-            {/*</Col>*/}
+            <Col>{(!this.state.new
+            ? <Events location_id={this.props.match.params.id} category={`Events of location: ${location.name}`}/>
+            : "")}
+            </Col>
           </Row>
         </Grid>
       </div>
@@ -266,17 +280,16 @@ class Location extends Component {
 const mapStateToProps = state => ({
   location: state.location.item,
   loading: state.location.loading,
-  error: state.location.error
+  error: state.location.error,
+  typeLocation: state.location.typeLocation,
+  statusLocation: state.location.statusLocation
 });
 
 const mapDispatchToProps = (dispatch) => {
-  // let actions = bindActionCreators({ addLocation }, dispatch);
   return {
-    // ...actions,
     dispatch,
     addLocationFromState: (newLocation) => handleFetchAddLocation(newLocation, dispatch),
     updateLocationFromState: (updatedLocation) => handleFetchUpdateLocation(updatedLocation, dispatch)
-
   }
 };
 
