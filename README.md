@@ -18,7 +18,7 @@
 
 >1.First page for <span style="color:red; font-family:Georgia; font-size:2em;">admin user</span>.
 
-![avatar](public/images/readme/mockup/Dashboard.png)
+![avatar](public/images/readme/mockup/Login.png)
 
 >2.Second tab for list of devices, we can search each element with filter block, in the action, we can edit or delete row.
 
