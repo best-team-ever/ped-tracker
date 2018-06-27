@@ -49,21 +49,6 @@ class Devices extends Component {
     });
   }
 
-  onFileSubmit = event => {
-    event.preventDefault();
-    this.fileUpload(this.state.file)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-    });
-  }
-
-  onFileChange = event => {
-    this.setState({
-      file: event.target.files[0]
-    });
-  }
-
   render() {
     const rthArray = [
       { Header: 'SerialNr', accessor: 'serial_nr', maxWidth: 100},

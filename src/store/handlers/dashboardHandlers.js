@@ -9,9 +9,9 @@ export function fetchDevicesStatusHandler(dispatch) {
 }
 
 export function fetchActiveDevicesHandler(dispatch) {
-  dispatch(fetchActiveDevices("Active"));
+  dispatch(fetchActiveDevices("active"));
 }
 
 export function fetchInActiveDevicesHandler(dispatch) {
-  dispatch(fetchInActiveDevices("Active"));
+  dispatch(fetchInActiveDevices("active"));
 }

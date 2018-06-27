@@ -102,7 +102,6 @@ async function getCountStatus(request, result){
         order: [['status', 'ASC']]
     })
     .then(row => {
-      console.log(row);
       result.status(200).send(row)})
     .catch(error => result.status(400).send(error));
 }

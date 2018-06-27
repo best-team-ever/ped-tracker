@@ -48,7 +48,6 @@ function addLocation(data) {
 }
 
 function addDevice(data) {
-  console.log(data);
   if (data[2]) {
     db.locations.findOne({
       where: {name: data[4], site_id: data[5]},
