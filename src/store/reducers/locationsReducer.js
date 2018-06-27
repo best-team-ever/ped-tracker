@@ -1,7 +1,7 @@
 import {
   FETCH_LOCATIONS_BEGIN,
   FETCH_LOCATIONS_FAILURE,
-  FETCH_LOCATIONS_SUCCESS,
+  FETCH_LOCATIONS_SUCCESS
 } from "../actions/actionTypes";
 
 const initialState = {
