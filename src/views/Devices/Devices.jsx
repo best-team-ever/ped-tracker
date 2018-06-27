@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
-import { Grid, Row, Col, Alert } from "react-bootstrap";
+import { Grid, Row, Col, Alert, FormGroup, ControlLabel } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import 'react-table/react-table.css'
@@ -115,15 +115,13 @@ class Devices extends Component {
           </Row>
           <Row>
             <Col>
-              <Card
-                title="Device File Upload"
-                content={
-                  <form onSubmit={this.onFileSubmit}>
-                    <input type="file" onChange={this.onFileChange} />
-                    <button type="submit">Upload</button>
-                  </form>
-                }
-              />
+              <FormGroup>
+                <ControlLabel>Device File Upload</ControlLabel>
+                <form onSubmit={this.onFileSubmit}>
+                  <input type="file" onChange={this.onFileChange} />
+                  <button type="submit">Upload</button>
+                </form>
+              </FormGroup>
             </Col>
           </Row>
         </Grid>
