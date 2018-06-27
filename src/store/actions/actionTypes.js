@@ -1,5 +1,4 @@
-export const BASE_API = "http://localhost:8000/api/";
-// export const BASE_API = process.env.BASE_API;
+export const BASE_API = process.env.REACT_APP_URL_SERVER + "/api/";
 //export const BASE_API = "https://ped-tracker.herokuapp.com/api/";
 
 export const FETCH_DEVICE_BEGIN = "FETCH_DEVICE_BEGIN";

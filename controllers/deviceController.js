@@ -91,7 +91,6 @@ async function findDeviceById(request, result){
     .catch(error => result.status(400).send(error));
 }
 
-
 module.exports = {
   getAllDevices: getAllDevices,
   createDevice: createDevice,

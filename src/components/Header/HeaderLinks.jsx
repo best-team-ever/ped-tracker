@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import { NavItem, Nav, /*NavDropdown, MenuItem*/ } from "react-bootstrap";
 import { GoogleLogout } from 'react-google-login';
 import { connect } from "react-redux";
 import { logoutHandler } from "../../store/handlers/loginHandlers";
@@ -12,14 +12,14 @@ class HeaderLinks extends Component {
   }
 
   render() {
-    const notification = (
-      <div>
-        <i className="fa fa-globe" />
-        <b className="caret" />
-        <span className="notification">5</span>
-        <p className="hidden-lg hidden-md">Notification</p>
-      </div>
-    );
+    // const notification = (
+    //   <div>
+    //     <i className="fa fa-globe" />
+    //     <b className="caret" />
+    //     <span className="notification">5</span>
+    //     <p className="hidden-lg hidden-md">Notification</p>
+    //   </div>
+    // );
     return (
       <div>
         <Nav>
