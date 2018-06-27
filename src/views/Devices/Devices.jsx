@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import 'react-table/react-table.css'
 import TableCard from "../../components/TableCard/TableCard.jsx";
-import { Card } from "../../components/Card/Card.jsx";
 
 import { fetchDevices } from "../../store/actions/deviceAction";
 
@@ -62,16 +61,6 @@ class Devices extends Component {
   onFileChange = event => {
     this.setState({
       file: event.target.files[0]
-    });
-  }
-
-  fileUpload(file){
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("random_value", "42");
-    return fetch("http://localhost:8000/upload-devices", {
-      method: "POST",
-      body: formData
     });
   }
 

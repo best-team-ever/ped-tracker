@@ -91,9 +91,21 @@ async function findDeviceById(request, result){
     .catch(error => result.status(400).send(error));
 }
 
+async function getAllDevicesByLocationId(request, result){
+  return await db.devices
+    .findAll({
+      where: {
+        location_id: request.params.id
+      }
+    })
+    .then(data => result.status(200).send(data))
+    .catch(error => result.status(400).send(error));
+}
+
 module.exports = {
   getAllDevices: getAllDevices,
   createDevice: createDevice,
   updateDevice: updateDevice,
-  findDeviceById: findDeviceById
+  findDeviceById: findDeviceById,
+  getAllDevicesByLocationId: getAllDevicesByLocationId,
 }
