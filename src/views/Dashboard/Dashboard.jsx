@@ -4,20 +4,13 @@ import { Grid, Row, Col } from "react-bootstrap";
 
 import { Card } from "../../components/Card/Card.jsx";
 import { StatsCard } from "../../components/StatsCard/StatsCard.jsx";
-import { Tasks } from "../../components/Tasks/Tasks.jsx";
 import {
   dataPie,
-  legendPie,
-  dataSales,
-  optionsSales,
-  responsiveSales,
-  legendSales,
-  dataBar,
-  optionsBar,
-  responsiveBar,
-  legendBar
+  legendPie
 } from "../../variables/Variables.jsx";
 import './dashboard.css';
+import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
 class Dashboard extends Component {
   createLegend(json) {
@@ -31,6 +24,8 @@ class Dashboard extends Component {
     return legend;
   }
   render() {
+    console.log("this.props: ::::  ", this.props);
+
     return (
       <div className="content">
         <Grid fluid>
@@ -162,4 +157,8 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  loginStore: state.loginStore
+})
+
+export default withRouter(connect(mapStateToProps)(Dashboard));

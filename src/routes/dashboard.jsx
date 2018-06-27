@@ -7,11 +7,12 @@ import User from "../views/Users/User";
 import Users from "../views/Users/Users";
 import Events from "../views/Events/Events";
 import Help from "../views/Help/Help";
+import Authorization from "../views/Login/Authorization";
 
-import UserProfile from "../views/UserProfile/UserProfile";
+// import UserProfile from "../views/UserProfile/UserProfile";
 import Typography from "../views/Typography/Typography";
 import Icons from "../views/Icons/Icons";
-import Notifications from "../views/Notifications/Notifications";
+// import Notifications from "../views/Notifications/Notifications";
 
 const dashboardRoutes = [
   {
@@ -108,7 +109,20 @@ const dashboardRoutes = [
     redirect: true,
     path: "/",
     to: "/dashboard",
-    name: "Dashboard" }
+    name: "Dashboard"
+  },
+  {
+    path: "/auth",
+    name: "Authorization",
+    component: Authorization
+  }
 ];
 
 export default dashboardRoutes;
+
+// const mapStateToProps = (state) => ({
+//   loginStore: state.loginStore
+// })
+//
+//
+// export default connect(mapStateToProps)(dashboardRoutes);

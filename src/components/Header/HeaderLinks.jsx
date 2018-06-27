@@ -1,31 +1,33 @@
 import React, { Component } from "react";
-import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import { NavItem, Nav } from "react-bootstrap";
 import { GoogleLogout } from 'react-google-login';
 import { connect } from "react-redux";
 import { logoutHandler } from "../../store/handlers/loginHandlers";
 import './headerLinks.css';
+import {withRouter} from "react-router-dom";
 
 class HeaderLinks extends Component {
 
   signOut = () => {
-    this.props.logout();
+    this.props.logout()
+      .then(this.props.history.push("/"));
   }
 
   render() {
-    const notification = (
-      <div>
-        <i className="fa fa-globe" />
-        <b className="caret" />
-        <span className="notification">5</span>
-        <p className="hidden-lg hidden-md">Notification</p>
-      </div>
-    );
+    // const notification = (
+    //   <div>
+    //     <i className="fa fa-globe" />
+    //     <b className="caret" />
+    //     <span className="notification">5</span>
+    //     <p className="hidden-lg hidden-md">Notification</p>
+    //   </div>
+    // );
     return (
       <div>
         <Nav>
           <NavItem eventKey={1} href="#">
             <i className="fa fa-dashboard" />
-            <p className="hidden-lg hidden-md">Dashboard</p>
+            <p className="hidden-lg hidden-md">Ped tracker</p>
           </NavItem>
           {/* <NavDropdown
             eventKey={2}
@@ -85,7 +87,7 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HeaderLinks);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderLinks));
 
 
 // export default HeaderLinks;

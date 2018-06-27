@@ -6,7 +6,7 @@ import {
   FETCH_USER_FAILURE,
   FETCH_USER_NEW,
   FETCH_USER_UPDATE,
-  FETCH_USER_DELETE,
+  // FETCH_USER_DELETE,
   USER_ONCHANGE
 } from "./actionTypes";
 

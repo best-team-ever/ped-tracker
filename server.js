@@ -5,6 +5,7 @@ const locationsController = require("./controllers/locationsController");
 const deviceController = require("./controllers/deviceController");
 const userController = require("./controllers/userController");
 const paramsController = require("./controllers/paramsController");
+const loginController = require("./controllers/loginController");
 const bodyParser = require("body-parser");
 const path = require("path");
 // if (process.env.NODE_ENV !== "production") {
@@ -91,20 +92,20 @@ app.put("/api/devices/:id", (request, result) => {
 
 /////// GOOGLE Connect back ////////
 app.post('/googleConnectBack', (request, result) => {
-    const tokenId = request.headers.authorization;
+  const tokenId = request.headers.authorization;
 
-    fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${tokenId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.aud === process.env.REACT_APP_API_USER) {
-          userController.findUserByEmail(data.email, result)
-        } else {
-          return "Bad token"
-        }
-      })
-      .catch((error) => {console.warn("Error server: ", error)})
-  }
-);
+  fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${tokenId}`)
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.aud === process.env.REACT_APP_API_USER) {
+        userController.findUserByEmail(data.email, result)
+      } else {
+        return "Bad token"
+      }
+    })
+    .catch((error) => {console.warn("Error server: ", error)})
+
+});
 /////// GOOGLE Connect back end ////////
 
 /**
