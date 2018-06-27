@@ -32,23 +32,30 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(express.static("./build"));
-
-const ROOT_API = "/api/"
-
 /**
  * API: retrieve one data by id with events associated
  */
-app.get(`${ROOT_API}locations/:id/events`, (request, result) => {
+app.get("/api/locations/:id/events", (request, result) => {
   eventsController.getAllEventsByLocationId(request, result)
 });
-app.get(`${ROOT_API}users/:id/events`, (request, result) => {
+app.get("/api/users/:id/events", (request, result) => {
   eventsController.getAllEventsByUserId(request, result)
 });
-app.get(`${ROOT_API}devices/:id/events`, (request, result) => {
+app.get("/api/devices/:id/events", (request, result) => {
   eventsController.getAllEventsByDeviceId(request, result)
 });
-app.get(`${ROOT_API}status`, (request, result) => {
+
+/**
+ * API: retrieve one data by id with devices associated
+ */
+app.get("/api/locations/:id/devices", (request, result) => {
+  deviceController.getAllDevicesByLocationId(request, result)
+});
+
+/**
+ * API: retrieve params
+ */
+app.get("/api/status", (request, result) => {
   paramsController.getStatus(request, result)
 });
 
@@ -133,6 +140,8 @@ app.post("/api/upload-devices", type, (request, result) => {
 app.post("/api/upload-locations", type, (request, result) => {
   filesController.uploadLocations(request, result);
 });
+
+app.use(express.static("./build"));
 
 app.get("*", (request, result) => {
   result.sendFile(path.resolve("./build/index.html"));
