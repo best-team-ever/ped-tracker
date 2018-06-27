@@ -9,7 +9,13 @@ import {
 
 import { Card } from "../../components/Card/Card.jsx";
 import { StatsCard } from "../../components/StatsCard/StatsCard.jsx";
+import {
+  dataPie,
+  legendPie
+} from "../../variables/Variables.jsx";
 import './dashboard.css';
+import {withRouter} from "react-router-dom";
+import {connect} from "react-redux";
 
 
 class Dashboard extends Component {
@@ -33,6 +39,8 @@ class Dashboard extends Component {
 
 
   render() {
+    console.log("this.props: ::::  ", this.props);
+
     return (
       <div className="content">
         <Grid fluid>
@@ -173,7 +181,7 @@ const mapStateToProps = state => ({
   inactives: state.deviceStatus.inactives,
   devicesStates: state.deviceStatus.devicesStates,
   dataPies: state.deviceStatus.dataPies,
-  legendPies: state.deviceStatus.legendPies,
+  legendPies: state.deviceStatus.legendPies
 });
 
 const mapDispatchToProps = (dispatch) => {
