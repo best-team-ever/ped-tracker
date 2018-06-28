@@ -3,16 +3,16 @@ import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import NotificationSystem from "react-notification-system";
 import { GoogleLogin } from 'react-google-login';
 
-import Header from "../components/Header/Header";
-import Footer from "../components/Footer/Footer";
-import Sidebar from "../components/Sidebar/Sidebar";
-import { style } from "../variables/Variables.jsx";
-import dashboardRoutes from "../routes/dashboard.jsx";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import { style } from "../../variables/Variables.jsx";
+import dashboardRoutes from "../../routes/dashboard.jsx";
 
 import { connect } from "react-redux";
-import { loginHandler, setMsgHandler } from "../store/handlers/loginHandlers";
+import { loginHandler, setMsgHandler } from "../../store/handlers/loginHandlers";
 import './dashboard.css';
-import Authorization from "../views/Login/Authorization";
+import Authorization from "../../views/Login/Authorization";
 
 class Dashboard extends Component {
 
