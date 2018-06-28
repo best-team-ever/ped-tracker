@@ -9,7 +9,7 @@ class Ped extends Component {
   constructor(props){
     super(props);
     this.state = {
-      userLocationId: localStorage.getItem("userLocationId")
+      userLocationId: localStorage.getItem("userLocationId"),
     }
   }
 
@@ -24,15 +24,30 @@ class Ped extends Component {
   }
 
   handleSubmit = (event) => {
-    const userId = localStorage.getItem("userId");
     event.preventDefault();
-    this.props.dispatch(fetchDeviceUpdate(this.props.devices[event.target.id], userId))
+
+    const device = this.props.devices[event.target.id];
+    this.dispatchSaveDevice(device);
+  }
+
+  handleValidate = (event) => {
+    event.preventDefault();
+    const currentDate = new Date();
+    const stringDate = currentDate.toString();
+    const ids = event.target.id.split(".");
+    const device = {...this.props.devices[ids], last_inspection_date: stringDate};
+    this.dispatchSaveDevice(device);
+    this.props.dispatch(handleDevicesChange(device.id, "last_inspection_date", stringDate));
+  }
+
+  dispatchSaveDevice = (device) => {
+    const userId = localStorage.getItem("userId");
+    this.props.dispatch(fetchDeviceUpdate(device, userId))
     .then((result) => {
       if (result.payload.error) {
         this.props.handleClick("tc", result.payload.error.toString(), "error", 15);
       } else {
-
-        this.props.handleClick("tc", `PED ${result.payload.device.serial_nr} updated`, "info", 15);
+        this.props.handleClick("tc", `PED ${result.payload.device.serial_nr} updated`, "info", 5);
       }
     });
   }
@@ -65,7 +80,9 @@ class Ped extends Component {
                 <Col xs={12}>
                   <p>Brand: <b>{row.brand}</b></p>
                   <p>Model: <b>{row.model}</b></p>
-                  <p>Last inspection date: <b>{row.last_inspection_date}</b></p>
+                  <p>Last inspection date: <b>
+                    <span id={`${row.id}.last_inspection_date`}>{row.last_inspection_date}</span></b>
+                  </p>
                   <p>Last update: <b>{row.updatedAt}</b></p>
                 </Col>
               </Row>
@@ -100,17 +117,20 @@ class Ped extends Component {
                   </FormGroup>
                 </Col>
               </Row>
-              <Row className="show-grid">
+              <Row className="show-grid text-center">
                 <Col xs={4}>
                   <Button bsStyle="primary" type="submit">
                     Update
                   </Button>
                 </Col>
-                <Col xs={6}>
+                <Col xs={4}>
+                  <Button bsStyle="success" id={index} onClick={this.handleValidate}>
+                    Validate
+                  </Button>
                 </Col>
-                <Col xs={2}>
-                  <Link to={`/events?device_id=${row.id}`}>
-                    <Button bsStyle="info" pullRight>History</Button>
+                <Col xs={4}>
+                  <Link to={`/events?device_id=${row.id}&location_id=${this.state.userLocationId}`}>
+                    <Button bsStyle="info">History</Button>
                   </Link>
                 </Col>
               </Row>
@@ -122,6 +142,9 @@ class Ped extends Component {
 
     return (
       <div className="content">
+        <div className="header">
+          <p className="category">PED of my store</p>
+        </div>
         <Grid fluid>
           <Row>
             <Col>
@@ -140,7 +163,8 @@ const mapStateToProps = state => ({
   devices: state.devices.items,
   loading: state.devices.loading,
   error: state.devices.error,
-  status: state.device.status
+  status: state.device.status,
+  location: state.location.item
 });
 
 export default connect(mapStateToProps)(Ped);

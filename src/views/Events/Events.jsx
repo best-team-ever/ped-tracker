@@ -1,43 +1,64 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
-import { Grid, Row, Col, Alert } from "react-bootstrap";
+import { Grid, Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import TableCard from "../../components/TableCard/TableCard.jsx";
 import 'react-table/react-table.css'
 
 import { fetchEvents } from "../../store/actions/eventAction";
 
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) === variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+}
+
 class Events extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      device_id: getQueryVariable("device_id"),
+      location_id: getQueryVariable("location_id"),
+      user_id: getQueryVariable("user_id"),
+    }
+  }
+
   componentDidMount() {
-    const {location_id, device_id, user_id} = this.props;
-    this.props.dispatch(fetchEvents({
+    let device_id = this.state.device_id;
+    let location_id = this.state.location_id;
+    let user_id = this.state.user_id;
+
+    if (this.props.device_id) {
+      device_id = this.props.device_id;
+    }
+    if (this.props.location_id) {
+      location_id = this.props.location_id;
+    }
+    if (this.props.user_id) {
+      user_id = this.props.user_id;
+    }
+    const where = {
       location_id: location_id,
       device_id: device_id,
       user_id: user_id
-    }));
-  }
-
-  alert = (error) => {
-    if (error) {
-      return (
-        <Alert bsStyle="danger">
-          <button type="button" aria-hidden="true" className="close">&#x2715;</button>
-          <span><b>ERROR: </b>{error.toString()}</span>
-        </Alert>
-      );
-    }
+    };
+    this.props.dispatch(fetchEvents(where));
   }
 
   render() {
-    console.log(this.props);
     let thArray = [];
-    if (!this.props.device_id) {
+    if (!this.props.device_id && !this.state.device_id) {
       thArray.push({ Header: 'PED', accessor: 'device.serial_nr'});
     }
-    if (!this.props.location_id) {
+    if (!this.props.location_id && !this.state.location_id) {
       thArray.push({ Header: 'Location', accessor: 'location.name'});
     }
-    if (!this.props.user_id) {
+    if (!this.props.user_id && !this.state.user_id) {
       thArray.push({ Header: 'User', Cell: (row)=>(`${row.original.user.first_name} ${row.original.user.last_name}`)});
     }
     thArray = [...thArray,
@@ -52,11 +73,6 @@ class Events extends Component {
     return (
       <div className="content">
         <Grid fluid>
-          <Row>
-            <Col>
-              {this.alert(this.props.error)}
-            </Col>
-          </Row>
           <Row>
             <Col>
               <TableCard
@@ -89,7 +105,7 @@ class Events extends Component {
 const mapStateToProps = state => ({
   events: state.events.items,
   loading: state.events.loading,
-  error: state.events.error
+  error: state.events.error,
 });
 
 export default connect(mapStateToProps)(Events);

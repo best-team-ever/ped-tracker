@@ -16,7 +16,7 @@ import Notifications from "../views/Notifications/Notifications";
 const dashboardRoutes = [
   {
     path: "/ped",
-    name: "PED",
+    name: "myPED",
     icon: "pe-7s-cash",
     component: PED
   },

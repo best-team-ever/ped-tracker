@@ -105,7 +105,7 @@ class Device extends Component {
                           label: "TID",
                           type: "text",
                           bsClass: "form-control",
-                          value: this.props.device.tid,
+                          value: this.props.device.tid || "",
                           id: 'tid',
                           onChange: this.handleChange
                         },
@@ -114,30 +114,30 @@ class Device extends Component {
                           type: "select",
                           bsClass: "form-control",
                           options: selectLocations,
-                          value: this.props.device.location_id,
+                          value: this.props.device.location_id || "",
                           id: 'location_id',
-                          onChange: this.handleChange
+                          onChange: this.handleChange,
                         },
                         {
                           label: "Till label",
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "Till label",
-                          value: this.props.device.till_label,
+                          value: this.props.device.till_label || "",
                           id: 'till_label',
-                          onChange: this.handleChange
+                          onChange: this.handleChange,
                         },
                       ]}
                     />
                     <FormInputs
-                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
+                      ncols={["col-md-3", "col-md-3", "col-md-3", "col-md-3"]}
                       properties={[
                         {
                           label: "Status",
                           type: "select",
                           bsClass: "form-control",
                           options: selectStatus,
-                          value: this.props.device.status,
+                          value: this.props.device.status || "",
                           id: 'status',
                           onChange: this.handleChange
                         },
@@ -146,17 +146,23 @@ class Device extends Component {
                           type: "text",
                           bsClass: "form-control",
                           placeholder: "security bag sn",
-                          value: this.props.device.security_bag_sn,
+                          value: this.props.device.security_bag_sn || "",
                           id: 'security_bag_sn',
                           onChange: this.handleChange
+                        },
+                        {
+                          label: "Last inspection date",
+                          type: "text",
+                          bsClass: "form-control",
+                          value: this.props.device.last_inspection_date || "",
+                          disabled: true,
                         },
                         {
                           label: "Creation date",
                           type: "text",
                           bsClass: "form-control",
-                          value: this.props.device.createdAt,
-                          id: 'createdAt',
-                          disabled: !this.state.new,
+                          value: this.props.device.createdAt || "",
+                          disabled: true,
                         },
                       ]}
                     />
