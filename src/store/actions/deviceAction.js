@@ -15,8 +15,11 @@ export function handleDeviceChange(id, value) {
   return dispatch => {dispatch({type: DEVICE_ONCHANGE, payload: {key: id, value: value}})};
 }
 
-export function handleDevicesChange(id, value) {
-  return dispatch => {dispatch({type: DEVICES_ONCHANGE, payload: {key: id, value: value}})};
+export function handleDevicesChange(id, field, value) {
+  return dispatch => {dispatch({
+    type: DEVICES_ONCHANGE,
+    payload: {id: id, field: field, value: value}})
+  };
 }
 
 const fetchDeviceBegin = () => ({

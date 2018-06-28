@@ -171,7 +171,6 @@ class Dashboard extends Component {
                 onSuccess={this.responseGoogle}
                 onFailure={this.responseGoogle}
               />
-
               <p className="mt-5 mb-3 text-muted">© 2018</p>
               <br/>
               <p className="mt-5 mb-3 text-muted">{this.props.loginStore.msg}</p>
