@@ -1,7 +1,7 @@
 import {
   SIGNIN,
   SIGNOUT,
-  SET_MSG,
+  SET_MSG
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -9,6 +9,7 @@ const initialState = {
   msg: "",
   userId: "",
   firstName: "",
+  p2pe_agreement: ""
 };
 
 export default (state = initialState, action) => {
@@ -19,7 +20,8 @@ export default (state = initialState, action) => {
         signed: true,
         msg: "",
         userId: action.userId,
-        firstName: action.firstName
+        firstName: action.firstName,
+        p2pe_agreement: action.p2pe_agreement
       };
 
     case SIGNOUT:
@@ -27,7 +29,8 @@ export default (state = initialState, action) => {
         ...state,
         signed: false,
         userId: "",
-        firstName: ""
+        firstName: "",
+        msg: ""
       };
 
     case SET_MSG:
@@ -35,7 +38,6 @@ export default (state = initialState, action) => {
         ...state,
         msg: action.msg
       };
-
 
     default:
       return state;

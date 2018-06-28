@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 
 import HeaderLinks from "../Header/HeaderLinks.jsx";
 
@@ -7,6 +7,7 @@ import imagine from "../../assets/img/sidebar-4.jpg";
 import logo from "../../assets/img/decathlon-appli.png";
 
 import dashboardRoutes from "../../routes/dashboard.jsx";
+import {connect} from "react-redux";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -88,4 +89,9 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+const mapStateToProps = (state) => ({
+  loginStore: state.loginStore
+})
+
+export default withRouter(connect(mapStateToProps)(Sidebar));
+// export default Sidebar;
