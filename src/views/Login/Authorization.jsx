@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import {fetchUser, fetchUserUpdate, handleUserChange} from "../../store/actions/userAction";
 import Button from '../../components/CustomButton/CustomButton';
-import { logoutHandler } from "../../store/handlers/loginHandlers";
+import {loginHandler, logoutHandler} from "../../store/handlers/loginHandlers";
 import { FormGroup, Radio, Modal, FormControl } from "react-bootstrap";
 import { Agreement } from "./Agreement";
 
@@ -30,7 +30,7 @@ class Authorization extends Component{
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.dispatch(fetchUserUpdate(this.props.user))
-      .then(() => logoutHandler(this.props.dispatch).then(this.props.history.push("/")));
+      .then(() => loginHandler(this.props.dispatch, this.state.signedUserId, this.props.user.first_name, this.state.statusTemporal)).then(this.props.history.push("/"));
       // .then(() => (this.props.history.push("/dashboard")));
   }
 
@@ -82,9 +82,9 @@ class Authorization extends Component{
             {
               (this.state.statusTemporal === "0")?
                 (
-                  <Button onClick={this.handleSubmit.bind(this)} type="submit" bsStyle="primary" disabled>Save changes, back to login</Button>
+                  <Button onClick={this.handleSubmit.bind(this)} type="submit" bsStyle="primary" disabled>Save</Button>
                 ):(
-                  <Button onClick={this.handleSubmit.bind(this)} type="submit" bsStyle="primary">Save changes, back to login</Button>
+                  <Button onClick={this.handleSubmit.bind(this)} type="submit" bsStyle="primary">Save</Button>
                 )
             }
           </Modal.Footer>
