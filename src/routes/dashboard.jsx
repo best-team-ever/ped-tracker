@@ -7,25 +7,20 @@ import User from "../views/Users/User";
 import Users from "../views/Users/Users";
 import Events from "../views/Events/Events";
 import Help from "../views/Help/Help";
-import PED from "../views/Ped/Ped";
-import Cashier from "../views/Ped/Ped";
-
-import Typography from "../views/Typography/Typography";
-import Icons from "../views/Icons/Icons";
-import Notifications from "../views/Notifications/Notifications";
+import Ped from "../views/Ped/Ped";
 
 const dashboardRoutes = [
-  {
-    path: "/ped",
-    name: "myPED",
-    icon: "pe-7s-cash",
-    component: PED
-  },
   {
     path: "/dashboard",
     name: "Dashboard",
     icon: "pe-7s-graph",
     component: Dashboard
+  },
+  {
+    path: "/ped",
+    name: "myPED",
+    icon: "pe-7s-cash",
+    component: Ped
   },
   {
     path: "/devices/new",
@@ -87,41 +82,12 @@ const dashboardRoutes = [
     icon: "pe-7s-help1",
     component: Help
   },
-  // {
-  //   path: "/typography",
-  //   name: "Catalog Typography",
-  //   icon: "pe-7s-news-paper",
-  //   component: Typography
-  // },
-  // {
-  //   path: "/icons",
-  //   name: "Catalog Icons",
-  //   icon: "pe-7s-science",
-  //   component: Icons },
-  // {
-  //   path: "/notifications",
-  //   name: "Catalog Notifications",
-  //   icon: "pe-7s-bell",
-  //   component: Notifications
-  // },
   {
     redirect: true,
     path: "/",
     to: "/dashboard",
     name: "Dashboard"
   },
-  // {
-  //   path: "/auth",
-  //   name: "Authorization",
-  //   component: Authorization
-  // }
 ];
 
 export default dashboardRoutes;
-
-// const mapStateToProps = (state) => ({
-//   loginStore: state.loginStore
-// })
-//
-//
-// export default connect(mapStateToProps)(dashboardRoutes);
