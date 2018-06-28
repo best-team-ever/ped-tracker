@@ -10,9 +10,9 @@ import Help from "../views/Help/Help";
 import PED from "../views/Ped/Ped";
 import Cashier from "../views/Ped/Ped";
 
-import Typography from "../views/Typography/Typography";
-import Icons from "../views/Icons/Icons";
-import Notifications from "../views/Notifications/Notifications";
+// import Typography from "../views/Typography/Typography";
+// import Icons from "../views/Icons/Icons";
+// import Notifications from "../views/Notifications/Notifications";
 
 const dashboardRoutes = [
   {

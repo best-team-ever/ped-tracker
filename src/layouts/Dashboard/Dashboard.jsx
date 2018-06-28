@@ -40,14 +40,14 @@ class Dashboard extends Component {
       }
     })
       .then((response) => response.json())
-      .then((result) =>
-        // (result[0].p2pe_agreement === "1")
-        //   ? this.props.login(result[0].id, result[0].first_name)
-        //   : this.props.setMsg("You are not authorized", this.props.dispatch).then(() => this.props.history.push("/auth"))
-        this.props.login(result[0].id, result[0].first_name, String(result[0].p2pe_agreement), result[0].location_id, result[0].role)
-          .then(() => this.setState({ lgShow: true }))
-      )
-      .catch((error) => this.props.setMsg("User not found", error)) // PREVOIR GoogleAuth.signOut()
+      .then((result) => {
+        result.message === "Not allowed"
+          ? this.props.setMsg("You are not authorized")
+          : this.props.login(result[0].id, result[0].first_name, String(result[0].p2pe_agreement), result[0].location_id, result[0].role)
+      })
+      .then(() => this.setState({ lgShow: true }))
+      .catch((error) => {
+        this.props.setMsg("User not found", error)}) // PREVOIR GoogleAuth.signOut()
   }
 
   handleNotificationClick = (position, message = "no message", level = "info", autoDismiss = 10) => {
@@ -173,7 +173,10 @@ class Dashboard extends Component {
               />
               <p className="mt-5 mb-3 text-muted">© 2018</p>
               <br/>
-              <p className="mt-5 mb-3 text-muted">{this.props.loginStore.msg}</p>
+              {this.props.loginStore.msg
+                ? <p className="mt-5 mb-3 text-muted alert alert-danger" role="danger">{this.props.loginStore.msg}</p>
+                : null
+              }
             </div>
           </div>
         )
