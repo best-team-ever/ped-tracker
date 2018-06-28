@@ -85,9 +85,13 @@ class Dashboard extends Component {
 
     let dashboardRuledRoutes = dashboardRoutes.map(row => {
       let newRow = row;
-      if (this.props.loginStore.userRole === "cashier"
-        && !["/dashboard", "/ped", "/events", "/help"].includes(row.path)) {
-        newRow.invisible = true;
+      if (this.props.loginStore.userRole === "cashier") {
+        if (!["/dashboard", "/ped", "/events", "/help"].includes(row.path)) {
+          newRow.invisible = true;
+        }
+        if (row.redirect === true) {
+          newRow = {...row, to: "/ped", name: "myPED"};
+        }
       }
       return newRow;
     });
@@ -158,7 +162,10 @@ class Dashboard extends Component {
             />
             <p className="mt-5 mb-3 text-muted">© 2018</p>
             <br/>
-            <p className="mt-5 mb-3 text-muted">{this.props.loginStore.msg}</p>
+            {this.props.loginStore.msg
+                ? <p className="mt-5 mb-3 text-muted alert alert-danger" role="danger">{this.props.loginStore.msg}</p>
+                : null
+            }
           </div>
         </div>
       )
