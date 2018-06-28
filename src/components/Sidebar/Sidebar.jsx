@@ -58,29 +58,58 @@ class Sidebar extends Component {
           <ul className="nav">
             {this.state.width <= 991 ? <HeaderLinks /> : null}
             {dashboardRoutes.map((prop, key) => {
-              if(prop.invisible)
+              if(this.props.loginStore.userRole === "hotesse"){
+                if (prop.invisible)
+                  return null;
+                else if (!prop.redirect ){
+                  if (prop.path === "/dashboard" || prop.path === "/ped" || prop.path === "/events" || prop.path === "/help"){
+                    return (
+                      <li
+                        className={
+                          prop.upgrade
+                            ? "active active-pro"
+                            : this.activeRoute(prop.path)
+                        }
+                        key={key}
+                      >
+                        <NavLink
+                          to={prop.path}
+                          className="nav-link"
+                          activeClassName="active"
+                        >
+                          <i className={prop.icon} />
+                          <p>{prop.name}</p>
+                        </NavLink>
+                      </li>
+                    );
+                  }
+                }
                 return null;
-              else if (!prop.redirect)
-                return (
-                  <li
-                    className={
-                      prop.upgrade
-                        ? "active active-pro"
-                        : this.activeRoute(prop.path)
-                    }
-                    key={key}
-                  >
-                    <NavLink
-                      to={prop.path}
-                      className="nav-link"
-                      activeClassName="active"
+              }else {
+                if(prop.invisible)
+                  return null;
+                else if (!prop.redirect)
+                  return (
+                    <li
+                      className={
+                        prop.upgrade
+                          ? "active active-pro"
+                          : this.activeRoute(prop.path)
+                      }
+                      key={key}
                     >
-                      <i className={prop.icon} />
-                      <p>{prop.name}</p>
-                    </NavLink>
-                  </li>
-                );
-              return null;
+                      <NavLink
+                        to={prop.path}
+                        className="nav-link"
+                        activeClassName="active"
+                      >
+                        <i className={prop.icon} />
+                        <p>{prop.name}</p>
+                      </NavLink>
+                    </li>
+                  );
+                return null;
+              }
             })}
           </ul>
         </div>

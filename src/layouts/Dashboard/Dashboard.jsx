@@ -44,7 +44,7 @@ class Dashboard extends Component {
         // (result[0].p2pe_agreement === "1")
         //   ? this.props.login(result[0].id, result[0].first_name)
         //   : this.props.setMsg("You are not authorized", this.props.dispatch).then(() => this.props.history.push("/auth"))
-        this.props.login(result[0].id, result[0].first_name, String(result[0].p2pe_agreement), result[0].location_id)
+        this.props.login(result[0].id, result[0].first_name, String(result[0].p2pe_agreement), result[0].location_id, result[0].role)
           .then(() => this.setState({ lgShow: true }))
       )
       .catch((error) => this.props.setMsg("User not found", error)) // PREVOIR GoogleAuth.signOut()
@@ -95,21 +95,42 @@ class Dashboard extends Component {
                   <Header {...this.props} />
                   <Switch>
                     {dashboardRoutes.map((prop, key) => {
-                      if (prop.redirect) {
-                        return <Redirect from={prop.path} to={prop.to} key={key} />;
-                      } else {
-                        return (
-                          <Route
-                            path={prop.path}
-                            key={key}
-                            render={routeProps => (
-                              <prop.component
-                                {...routeProps}
-                                handleClick={this.handleNotificationClick}
+                      if(this.props.loginStore.userRole === "hotesse"){
+                        if (prop.redirect) {
+                          return <Redirect from={prop.path} to={prop.to} key={key} />;
+                        } else {
+                          if (prop.path === "/dashboard" || prop.path === "/ped" || prop.path === "/events" || prop.path === "/help"){
+                            return (
+                              <Route
+                                path={prop.path}
+                                key={key}
+                                render={routeProps => (
+                                  <prop.component
+                                    {...routeProps}
+                                    handleClick={this.handleNotificationClick}
+                                  />
+                                )}
                               />
-                            )}
-                          />
-                        );
+                            )
+                          }
+                        }
+                      }else {
+                        if (prop.redirect) {
+                          return <Redirect from={prop.path} to={prop.to} key={key} />;
+                        } else {
+                          return (
+                            <Route
+                              path={prop.path}
+                              key={key}
+                              render={routeProps => (
+                                <prop.component
+                                  {...routeProps}
+                                  handleClick={this.handleNotificationClick}
+                                />
+                              )}
+                            />
+                          );
+                        }
                       }
                     })}
                   </Switch>
@@ -168,7 +189,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (userId, firstName, p2pe_agreement, location_id) => loginHandler(dispatch, userId, firstName, p2pe_agreement, location_id),
+    login: (userId, firstName, p2pe_agreement, location_id, userRole) => loginHandler(dispatch, userId, firstName, p2pe_agreement, location_id, userRole),
     setMsg: (msg) => setMsgHandler(dispatch, msg)
   }
 }
