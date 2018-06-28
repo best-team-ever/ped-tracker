@@ -40,7 +40,7 @@ class Dashboard extends Component {
       .then((result) => {
         result.message === "Not allowed"
           ? this.props.setMsg("Not authorized")  // PREVOIR GoogleAuth.signOut()
-          : this.props.login(result[0].id, result[0].first_name)
+          : this.props.login(result[0].id, result[0].first_name, result[0].location_id)
         })
       .catch((error) => this.props.setMsg("User not found", error)) // PREVOIR GoogleAuth.signOut()
   }
@@ -122,7 +122,6 @@ class Dashboard extends Component {
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
               />
-
               <p className="mt-5 mb-3 text-muted">© 2018</p>
               <br/>
               <p className="mt-5 mb-3 text-muted">{this.props.loginStore.msg}</p>
@@ -140,7 +139,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (userId, firstName) => loginHandler(dispatch, userId, firstName),
+    login: (userId, firstName, location_id) => loginHandler(dispatch, userId, firstName, location_id),
     setMsg: (msg) => setMsgHandler(dispatch, msg)
   }
 }

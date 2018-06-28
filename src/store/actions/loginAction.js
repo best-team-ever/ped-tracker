@@ -4,10 +4,11 @@ import {
   SET_MSG,
 } from "./actionTypes";
 
-export const loginAction = (userId, firstName) => ({
+export const loginAction = (userId, firstName, userLocationId) => ({
     type: SIGNIN,
     userId: userId,
-    firstName: firstName
+    firstName: firstName,
+    userLocationId: userLocationId
 });
 
 export const logoutAction = () => ({

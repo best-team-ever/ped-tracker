@@ -5,9 +5,10 @@ import {
 } from "../actions/loginAction";
 
 
-export function loginHandler(dispatch, userId, firstName) {
+export function loginHandler(dispatch, userId, firstName, userLocationId) {
   localStorage.setItem("userId", userId);
-  dispatch(loginAction(userId, firstName));
+  localStorage.setItem("userLocationId", userLocationId);
+  dispatch(loginAction(userId, firstName, userLocationId));
 }
 
 export function logoutHandler(dispatch) {
