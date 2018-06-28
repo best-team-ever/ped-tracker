@@ -34,7 +34,7 @@ module.exports = {
       {id: "f14b2e9e-e06d-4cbe-9f32-4819a4a8e699",
       location_type: "store",
       name: "SHEFFIELD",
-      site_id: 240,
+      site_id: 340,
       address: " 199 Eyre St, Sheffield, South Yorkshire S1 3HU",
       country: "UK",
       contact_name: "Goddart Liz",

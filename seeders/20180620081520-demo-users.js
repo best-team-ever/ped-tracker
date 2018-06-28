@@ -31,7 +31,7 @@ module.exports = {
       email: "olivier.masurel@decathlon.com",
       p2pe_agreement: 0,
       language: "en",
-      role: "hotesse",
+      role: "admin",
       location_id: "16213c8f-ba02-4120-a1cc-0e735a12d81a",
       createdAt: new Date(),
       updatedAt: new Date()
