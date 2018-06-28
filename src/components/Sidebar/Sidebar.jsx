@@ -6,7 +6,6 @@ import HeaderLinks from "../Header/HeaderLinks.jsx";
 import imagine from "../../assets/img/sidebar-4.jpg";
 import logo from "../../assets/img/decathlon-appli.png";
 
-import dashboardRoutes from "../../routes/dashboard.jsx";
 import {connect} from "react-redux";
 
 class Sidebar extends Component {
@@ -57,59 +56,30 @@ class Sidebar extends Component {
         <div className="sidebar-wrapper">
           <ul className="nav">
             {this.state.width <= 991 ? <HeaderLinks /> : null}
-            {dashboardRoutes.map((prop, key) => {
-              if(this.props.loginStore.userRole === "cashier"){
-                if (prop.invisible)
-                  return null;
-                else if (!prop.redirect ){
-                  if (prop.path === "/dashboard" || prop.path === "/ped" || prop.path === "/events" || prop.path === "/help"){
-                    return (
-                      <li
-                        className={
-                          prop.upgrade
-                            ? "active active-pro"
-                            : this.activeRoute(prop.path)
-                        }
-                        key={key}
-                      >
-                        <NavLink
-                          to={prop.path}
-                          className="nav-link"
-                          activeClassName="active"
-                        >
-                          <i className={prop.icon} />
-                          <p>{prop.name}</p>
-                        </NavLink>
-                      </li>
-                    );
-                  }
-                }
+            {this.props.dashboardRoutes.map((prop, key) => {
+              if(prop.invisible)
                 return null;
-              }else {
-                if(prop.invisible)
-                  return null;
-                else if (!prop.redirect)
-                  return (
-                    <li
-                      className={
-                        prop.upgrade
-                          ? "active active-pro"
-                          : this.activeRoute(prop.path)
-                      }
-                      key={key}
+              else if (!prop.redirect)
+                return (
+                  <li
+                    className={
+                      prop.upgrade
+                        ? "active active-pro"
+                        : this.activeRoute(prop.path)
+                    }
+                    key={key}
+                  >
+                    <NavLink
+                      to={prop.path}
+                      className="nav-link"
+                      activeClassName="active"
                     >
-                      <NavLink
-                        to={prop.path}
-                        className="nav-link"
-                        activeClassName="active"
-                      >
-                        <i className={prop.icon} />
-                        <p>{prop.name}</p>
-                      </NavLink>
-                    </li>
-                  );
-                return null;
-              }
+                      <i className={prop.icon} />
+                      <p>{prop.name}</p>
+                    </NavLink>
+                  </li>
+                );
+              return null;
             })}
           </ul>
         </div>
