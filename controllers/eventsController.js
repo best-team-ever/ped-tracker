@@ -48,8 +48,20 @@ async function getAllEventsByDeviceId(request, result){
     .catch(error => result.status(400).send(error));
 }
 
+async function getAllEventsByUserId(request, result){
+  return await db.events
+    .findAll({
+      where: {
+        user_id: request.params.id
+      },
+    })
+    .then(data => result.status(200).send(data))
+    .catch(error => result.status(400).send(error));
+}
+
 module.exports = {
   getAllEventsByLocationId: getAllEventsByLocationId,
   getAllEventsByDeviceId: getAllEventsByDeviceId,
+  getAllEventsByUserId: getAllEventsByUserId,
   getAllEvents: getAllEvents
 }

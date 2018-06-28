@@ -5,10 +5,10 @@ import {
 } from "../actions/loginAction";
 
 
-export function loginHandler(dispatch, userId, firstName, p2pe_agreement, userLocationId) {
+export function loginHandler(dispatch, userId, firstName, p2pe_agreement, userLocationId, userRole) {
   localStorage.setItem("userId", userId);
   localStorage.setItem("userLocationId", userLocationId);
-  dispatch(loginAction(userId, firstName, p2pe_agreement, userLocationId));
+  dispatch(loginAction(userId, firstName, p2pe_agreement, userLocationId, userRole));
 }
 
 export function logoutHandler(dispatch) {
