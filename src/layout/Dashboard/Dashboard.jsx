@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { loginHandler, setMsgHandler } from "../../store/handlers/loginHandlers";
 import './dashboard.css';
 import Authorization from "../../views/Login/Authorization";
+import logo from "../../assets/img/decathlon-appli.png";
 
 class Dashboard extends Component {
 
@@ -167,11 +168,16 @@ class Dashboard extends Component {
 
         : (
           <div className="backgroundPicture">
-            <div className="text-center backgroundWhite" >
-              <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
+            <div className="form text-center " >
+              <div className="logo-img">
+                <img src={logo} width="50" height="50" alt="logo_image" />
+                <h2>PED-Tracker</h2>
+              </div>
               <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+              <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
+              <br/>
               <GoogleLogin
-                className="btn btn-primary"
+                className="btn btn-primary buttonGoogle"
                 clientId={this.clientId}
                 buttonText="Login"
                 onSuccess={this.responseGoogle}
