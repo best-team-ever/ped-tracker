@@ -50,15 +50,15 @@ async function updateDevice(request, result){
         })
       }
       data.set({
-        brand: request.body.device.brand || data.brand,
-        model: request.body.device.model || data.model,
-        serial_nr: request.body.device.serial_nr || data.serial_nr,
-        tid: request.body.device.tid || data.tid,
-        location_id: request.body.device.location_id || data.location_id,
-        till_label: request.body.device.till_label || data.till_label,
-        status: request.body.device.status || data.status,
-        security_bag_sn: request.body.device.security_bag_sn || data.security_bag_sn,
-        last_inspection_date: request.body.device.last_inspection_date || data.last_inspection_date
+        brand: (request.body.device.brand === undefined) ? data.brand : request.body.device.brand,
+        model: (request.body.device.model === undefined) ? data.model : request.body.device.model,
+        serial_nr: (request.body.device.serial_nr === undefined) ? data.serial_nr : request.body.device.serial_nr,
+        tid: (request.body.device.tid === undefined) ? data.tid : request.body.device.tid,
+        location_id: (request.body.device.location_id === undefined) ? data.location_id : request.body.device.location_id,
+        till_label: (request.body.device.till_label === undefined) ? data.till_label : request.body.device.till_label,
+        status: (request.body.device.status === undefined) ? data.status : request.body.device.status,
+        security_bag_sn: (request.body.device.security_bag_sn === undefined) ? data.security_bag_sn : request.body.device.security_bag_sn,
+        last_inspection_date: (request.body.device.last_inspection_date === undefined) ? data.last_inspection_date : request.body.device.last_inspection_date,
       });
 
       const dataChanged = data.changed();

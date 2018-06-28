@@ -85,9 +85,13 @@ class Dashboard extends Component {
 
     let dashboardRuledRoutes = dashboardRoutes.map(row => {
       let newRow = row;
-      if (this.props.loginStore.userRole === "cashier"
-        && !["/dashboard", "/ped", "/events", "/help"].includes(row.path)) {
-        newRow.invisible = true;
+      if (this.props.loginStore.userRole === "cashier") {
+        if (!["/dashboard", "/ped", "/events", "/help"].includes(row.path)) {
+          newRow.invisible = true;
+        }
+        if (row.redirect === true) {
+          newRow = {...row, to: "/ped", name: "myPED"};
+        }
       }
       return newRow;
     });
