@@ -80,34 +80,34 @@ const dashboardRoutes = [
     icon: "pe-7s-help1",
     component: Help
   },
-  {
-    path: "/typography",
-    name: "Catalog Typography",
-    icon: "pe-7s-news-paper",
-    component: Typography
-  },
-  {
-    path: "/icons",
-    name: "Catalog Icons",
-    icon: "pe-7s-science",
-    component: Icons },
-  {
-    path: "/notifications",
-    name: "Catalog Notifications",
-    icon: "pe-7s-bell",
-    component: Notifications
-  },
+  // {
+  //   path: "/typography",
+  //   name: "Catalog Typography",
+  //   icon: "pe-7s-news-paper",
+  //   component: Typography
+  // },
+  // {
+  //   path: "/icons",
+  //   name: "Catalog Icons",
+  //   icon: "pe-7s-science",
+  //   component: Icons },
+  // {
+  //   path: "/notifications",
+  //   name: "Catalog Notifications",
+  //   icon: "pe-7s-bell",
+  //   component: Notifications
+  // },
   {
     redirect: true,
     path: "/",
     to: "/dashboard",
     name: "Dashboard"
   },
-  {
-    path: "/auth",
-    name: "Authorization",
-    component: Authorization
-  }
+  // {
+  //   path: "/auth",
+  //   name: "Authorization",
+  //   component: Authorization
+  // }
 ];
 
 export default dashboardRoutes;

@@ -62,7 +62,7 @@ class Authorization extends Component{
                   value="1"
                   id="p2pe_agreement"
                 >
-                  Agree
+                  I Agree
                 </Radio>{' '}
                 <Radio
                   name="radioGroup"
@@ -71,7 +71,7 @@ class Authorization extends Component{
                   value="0"
                   id="p2pe_agreement"
                 >
-                  Disagree
+                  I Disagree
                 </Radio>
               </FormGroup>
             </form>
