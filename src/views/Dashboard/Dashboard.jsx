@@ -9,12 +9,12 @@ import {
 
 import { Card } from "../../components/Card/Card.jsx";
 import { StatsCard } from "../../components/StatsCard/StatsCard.jsx";
-import {
-  dataPie,
-  legendPie
-} from "../../variables/Variables.jsx";
+// import {
+//   dataPie,
+//   legendPie
+// } from "../../variables/Variables.jsx";
 import './dashboard.css';
-import {withRouter} from "react-router-dom";
+// import {withRouter} from "react-router-dom";
 
 
 class Dashboard extends Component {
