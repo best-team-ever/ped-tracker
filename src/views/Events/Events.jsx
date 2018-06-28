@@ -29,6 +29,7 @@ class Events extends Component {
   }
 
   render() {
+    console.log(this.props);
     let thArray = [];
     if (!this.props.device_id) {
       thArray.push({ Header: 'PED', accessor: 'device.serial_nr'});

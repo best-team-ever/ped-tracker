@@ -5,7 +5,6 @@ import {
   FETCH_DEVICE_NEW,
   FETCH_DEVICE_UPDATE,
   DEVICE_ONCHANGE,
-  DEVICES_ONCHANGE,
   FETCH_STATUS
 } from "../actions/actionTypes";
 
@@ -69,12 +68,6 @@ export default (state = initialState, action) => {
         ...state,
         item: {...state.item, [action.payload.key]: action.payload.value}
       };
-
-      case DEVICES_ONCHANGE:
-        return {
-          ...state,
-          items: {...state.items, [action.payload.key]: action.payload.value}
-        };
 
     case FETCH_STATUS:
       return {
