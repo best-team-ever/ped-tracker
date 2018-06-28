@@ -7,11 +7,16 @@ import {
   FETCH_DEVICE_NEW,
   FETCH_DEVICE_UPDATE,
   DEVICE_ONCHANGE,
+  DEVICES_ONCHANGE,
   FETCH_STATUS
 } from "./actionTypes";
 
 export function handleDeviceChange(id, value) {
   return dispatch => {dispatch({type: DEVICE_ONCHANGE, payload: {key: id, value: value}})};
+}
+
+export function handleDevicesChange(id, value) {
+  return dispatch => {dispatch({type: DEVICES_ONCHANGE, payload: {key: id, value: value}})};
 }
 
 const fetchDeviceBegin = () => ({
@@ -105,5 +110,18 @@ export function fetchDeviceDelete() {
   return dispatch => {
     console.log("fetchDeviceDelete");
     return null;
+  };
+}
+
+export function fetchLocationDevices(id) {
+  return dispatch => {
+    dispatch(fetchDeviceBegin);
+    return fetch(`${BASE_API}locations/${id}/devices`)
+      .then(res => res.json())
+      .then(json => {
+        const sorted = json.sort( (a, b) => (a.till_label.localeCompare(b.till_label)));
+        return dispatch(fetchDevicesSuccess(sorted));
+      })
+      .catch(error => dispatch(fetchDeviceError(error)));
   };
 }
