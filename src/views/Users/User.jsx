@@ -118,7 +118,7 @@ class User extends Component {
                           label: "Role",
                           type: "select",
                           bsClass: "form-control",
-                          options: [{value: "cashier", label: "Cashier"},{value: "rim", label: "RIM"},{value: "admin", label: "Administrator"}],
+                          options: [{value: "cashier", label: "Cashier"},{value: "client", label: "Client"},{value: "admin", label: "Administrator"}],
                           value: this.props.user.role,
                           id: 'role',
                           onChange: this.handleUserChange
