@@ -95,7 +95,7 @@ class Dashboard extends Component {
                   <Header {...this.props} />
                   <Switch>
                     {dashboardRoutes.map((prop, key) => {
-                      if(this.props.loginStore.userRole === "hotesse"){
+                      if(this.props.loginStore.userRole === "cashier"){
                         if (prop.redirect) {
                           return <Redirect from={prop.path} to={prop.to} key={key} />;
                         } else {

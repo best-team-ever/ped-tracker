@@ -80,7 +80,7 @@ async function findUserByEmail(request, result){
         return result.status(404).send({
           message: "location not found"
         })
-      } else if (data[0].dataValues.role !== "admin" && data[0].dataValues.role !== "hotesse") {
+      } else if (data[0].dataValues.role !== "admin" && data[0].dataValues.role !== "cashier") {
         return result.status(403).send({
           message: "Not allowed"
         })
