@@ -10,7 +10,8 @@ const initialState = {
   userId: "",
   firstName: "",
   p2pe_agreement: "",
-  userLocationId: ""
+  userLocationId: "",
+  userRole: ""
 };
 
 export default (state = initialState, action) => {
@@ -23,7 +24,8 @@ export default (state = initialState, action) => {
         userId: action.userId,
         firstName: action.firstName,
         p2pe_agreement: action.p2pe_agreement,
-        userLocationId: action.userLocationId
+        userLocationId: action.userLocationId,
+        userRole: action.userRole
       };
 
     case SIGNOUT:
@@ -32,7 +34,8 @@ export default (state = initialState, action) => {
         signed: false,
         userId: "",
         firstName: "",
-        msg: ""
+        msg: "",
+        userRole: ""
       };
 
     case SET_MSG:
