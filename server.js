@@ -5,6 +5,7 @@ const locationsController = require("./controllers/locationsController");
 const deviceController = require("./controllers/deviceController");
 const userController = require("./controllers/userController");
 const paramsController = require("./controllers/paramsController");
+const filesController = require("./controllers/filesController");
 const bodyParser = require("body-parser");
 const path = require("path");
 // if (process.env.NODE_ENV !== "production") {

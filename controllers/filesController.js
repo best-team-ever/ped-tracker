@@ -64,7 +64,7 @@ function addDevice(data) {
           model: data[1],
           serial_nr: data[2],
           tid: data[3],
-          location_id: location ? location.id : "",
+          location_id: location ? location.id : null,
           till_label: data[6],
           status: data[7] ? data[7].toLowerCase() : "wait",
         }
