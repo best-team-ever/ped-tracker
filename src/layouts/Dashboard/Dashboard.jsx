@@ -11,7 +11,7 @@ import dashboardRoutes from "../../routes/dashboard.jsx";
 
 import { connect } from "react-redux";
 import { loginHandler, setMsgHandler } from "../../store/handlers/loginHandlers";
-import './dashboard.css';
+import '../../layouts/Dashboard/dashboard.css';
 import Authorization from "../../views/Login/Authorization";
 
 class Dashboard extends Component {
@@ -43,7 +43,7 @@ class Dashboard extends Component {
         // (result[0].p2pe_agreement === "1")
         //   ? this.props.login(result[0].id, result[0].first_name)
         //   : this.props.setMsg("You are not authorized", this.props.dispatch).then(() => this.props.history.push("/auth"))
-        this.props.login(result[0].id, result[0].first_name, String(result[0].p2pe_agreement))
+        this.props.login(result[0].id, result[0].first_name, String(result[0].p2pe_agreement), result[0].location_id)
           .then(() => this.setState({ lgShow: true }))
       )
       .catch((error) => this.props.setMsg("User not found", error)) // PREVOIR GoogleAuth.signOut()
@@ -57,42 +57,11 @@ class Dashboard extends Component {
       position: position,
       autoDismiss: autoDismiss
     });
-  }
+  };
 
   componentDidMount = () => {
     this.setState({ _notificationSystem: this.refs.notificationSystem });
-    // var _notificationSystem = this.refs.notificationSystem;
-    // var color = Math.floor(Math.random() * 4 + 1);
-    // var level;
-    // switch (color) {
-    //   case 1:
-    //     level = "success";
-    //     break;
-    //   case 2:
-    //     level = "warning";
-    //     break;
-    //   case 3:
-    //     level = "error";
-    //     break;
-    //   case 4:
-    //     level = "info";
-    //     break;
-    //   default:
-    //     break;
-    // }
-    // _notificationSystem.addNotification({
-    //   title: <span data-notify="icon" className="pe-7s-gift" />,
-    //   message: (
-    //     <div>
-    //       Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
-    //       every web developer.
-    //     </div>
-    //   ),
-    //   level: level,
-    //   position: "tr",
-    //   autoDismiss: 15
-    // });
-  }
+  };
 
   componentDidUpdate(e) {
     if (
@@ -125,7 +94,9 @@ class Dashboard extends Component {
                   <Header {...this.props} />
                   <Switch>
                     {dashboardRoutes.map((prop, key) => {
-                      if (prop.name === "Notifications")
+                      if (prop.redirect) {
+                        return <Redirect from={prop.path} to={prop.to} key={key} />;
+                      } else {
                         return (
                           <Route
                             path={prop.path}
@@ -138,11 +109,7 @@ class Dashboard extends Component {
                             )}
                           />
                         );
-                      if (prop.redirect)
-                        return <Redirect from={prop.path} to={prop.to} key={key} />;
-                      return (
-                        <Route path={prop.path} component={prop.component} key={key} />
-                      );
+                      }
                     })}
                   </Switch>
                   <Footer />
@@ -195,7 +162,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (userId, firstName, p2pe_agreement) => loginHandler(dispatch, userId, firstName, p2pe_agreement),
+    login: (userId, firstName, p2pe_agreement, location_id) => loginHandler(dispatch, userId, firstName, p2pe_agreement, location_id),
     setMsg: (msg) => setMsgHandler(dispatch, msg)
   }
 }

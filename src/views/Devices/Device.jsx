@@ -54,7 +54,6 @@ class Device extends Component {
       ? this.props.locations.map(location => ({value: location.id, label: location.name}))
       : [];
 
-    console.log(this.props.status);
     const selectStatus = Object.keys(this.props.status)
       .map(key => ({value: key, label: this.props.status[key]}));
 

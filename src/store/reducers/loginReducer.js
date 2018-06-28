@@ -9,7 +9,8 @@ const initialState = {
   msg: "",
   userId: "",
   firstName: "",
-  p2pe_agreement: ""
+  p2pe_agreement: "",
+  userLocationId: ""
 };
 
 export default (state = initialState, action) => {
@@ -21,7 +22,8 @@ export default (state = initialState, action) => {
         msg: "",
         userId: action.userId,
         firstName: action.firstName,
-        p2pe_agreement: action.p2pe_agreement
+        p2pe_agreement: action.p2pe_agreement,
+        userLocationId: action.userLocationId
       };
 
     case SIGNOUT:

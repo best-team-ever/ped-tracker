@@ -7,13 +7,19 @@ import User from "../views/Users/User";
 import Users from "../views/Users/Users";
 import Events from "../views/Events/Events";
 import Help from "../views/Help/Help";
-import Authorization from "../views/Login/Authorization";
+import Cashier from "../views/Ped/Ped";
 
 import Typography from "../views/Typography/Typography";
 import Icons from "../views/Icons/Icons";
 import Notifications from "../views/Notifications/Notifications";
 
 const dashboardRoutes = [
+  {
+    path: "/ped",
+    name: "PED",
+    icon: "pe-7s-cash",
+    component: Cashier
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
