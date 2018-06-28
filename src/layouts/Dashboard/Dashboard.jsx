@@ -16,7 +16,6 @@ import Authorization from "../../views/Login/Authorization";
 import logo from "../../assets/img/decathlon-appli.png";
 
 class Dashboard extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +65,7 @@ class Dashboard extends Component {
 
   componentDidUpdate(e) {
     if (
-      window.innerWidth < 993 &&
+      window.innerWidth < 900 &&
       e.history.location.pathname !== e.location.pathname &&
       document.documentElement.className.indexOf("nav-open") !== -1
     ) {
@@ -84,102 +83,85 @@ class Dashboard extends Component {
   render() {
     let lgClose = () => this.setState({ lgShow: false });
 
-    return (this.props.loginStore.signed ?
-        (
-          (this.props.loginStore.p2pe_agreement === "1")?
-            (
-              <div className="wrapper">
-                <NotificationSystem ref="notificationSystem" style={style} />
-                <Sidebar {...this.props} />
-                <div id="main-panel" className="main-panel" ref={this.mainPanel}>
-                  <Header {...this.props} />
-                  <Switch>
-                    {dashboardRoutes.map((prop, key) => {
-                      if(this.props.loginStore.userRole === "hotesse"){
-                        if (prop.redirect) {
-                          return <Redirect from={prop.path} to={prop.to} key={key} />;
-                        } else {
-                          if (prop.path === "/dashboard" || prop.path === "/ped" || prop.path === "/events" || prop.path === "/help"){
-                            return (
-                              <Route
-                                path={prop.path}
-                                key={key}
-                                render={routeProps => (
-                                  <prop.component
-                                    {...routeProps}
-                                    handleClick={this.handleNotificationClick}
-                                  />
-                                )}
-                              />
-                            )
-                          }
-                        }
-                      }else {
-                        if (prop.redirect) {
-                          return <Redirect from={prop.path} to={prop.to} key={key} />;
-                        } else {
-                          return (
-                            <Route
-                              path={prop.path}
-                              key={key}
-                              render={routeProps => (
-                                <prop.component
-                                  {...routeProps}
-                                  handleClick={this.handleNotificationClick}
-                                />
-                              )}
-                            />
-                          );
-                        }
-                      }
-                    })}
-                  </Switch>
-                  <Footer />
-                </div>
-              </div>
-            )
-            :
-            (
-              <div className="backgroundPicture">
-                <div className="text-center backgroundWhite" >
-                  <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
-                  <h1 className="h3 mb-3 font-weight-normal">You are not authorized</h1>
-                  <Authorization
-                    signedUserId={this.props.loginStore.userId}
-                    show={this.state.lgShow}
-                    onHide={lgClose}
-                  />
-                </div>
-              </div>
-            )
-        )
+    let dashboardRuledRoutes = dashboardRoutes.map(row => {
+      let newRow = row;
+      if (this.props.loginStore.userRole === "cashier"
+        && !["/dashboard", "/ped", "/events", "/help"].includes(row.path)) {
+        newRow.invisible = true;
+      }
+      return newRow;
+    });
 
-        : (
-          <div className="backgroundPicture">
-            <div className="form text-center " >
-              <div className="logo-img">
-                <img src={logo} width="50" height="50" alt="logo_image" />
-                <h2>PED-Tracker</h2>
-              </div>
-              <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-              <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
-              <br/>
-              <GoogleLogin
-                className="btn btn-primary buttonGoogle"
-                clientId={this.clientId}
-                buttonText="Login"
-                onSuccess={this.responseGoogle}
-                onFailure={this.responseGoogle}
-              />
-              <p className="mt-5 mb-3 text-muted">© 2018</p>
-              <br/>
-              {this.props.loginStore.msg
-                ? <p className="mt-5 mb-3 text-muted alert alert-danger" role="danger">{this.props.loginStore.msg}</p>
-                : null
-              }
+    return (this.props.loginStore.signed
+      ? (this.props.loginStore.p2pe_agreement === "1")
+        ? (
+          <div className="wrapper">
+            <NotificationSystem ref="notificationSystem" style={style} />
+            <Sidebar dashboardRoutes={dashboardRuledRoutes} {...this.props} />
+            <div id="main-panel" className="main-panel" ref={this.mainPanel}>
+              <Header {...this.props} />
+              <Switch>
+                {dashboardRuledRoutes.map((prop, key) => {
+                  if (prop.redirect) {
+                    return <Redirect from={prop.path} to={prop.to} key={key} />;
+                  } else {
+                    return (
+                      <Route
+                        path={prop.path}
+                        key={key}
+                        render={routeProps => (
+                          <prop.component
+                            {...routeProps}
+                            handleClick={this.handleNotificationClick}
+                          />
+                        )}
+                      />
+                    );
+                  }
+                })}
+              </Switch>
+              <Footer />
             </div>
           </div>
         )
+        : (
+          <div className="backgroundPicture">
+            <NotificationSystem ref="notificationSystem" style={style} />
+            <div className="text-center backgroundWhite" >
+              <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
+              <h1 className="h3 mb-3 font-weight-normal">You are not authorized</h1>
+              <Authorization
+                signedUserId={this.props.loginStore.userId}
+                show={this.state.lgShow}
+                onHide={lgClose}
+              />
+            </div>
+          </div>
+        )
+      : (
+        <div className="backgroundPicture">
+          <NotificationSystem ref="notificationSystem" style={style} />
+          <div className="form text-center " >
+            <div className="logo-img">
+              <img src={logo} width="50" height="50" alt="logo_image" />
+              <h2>PED-Tracker</h2>
+            </div>
+            <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <img src="./images/logoGoogle.png" width="72" height="72" alt="sign in"/>
+            <br/>
+            <GoogleLogin
+              className="btn btn-primary buttonGoogle"
+              clientId={this.clientId}
+              buttonText="Login"
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+            />
+            <p className="mt-5 mb-3 text-muted">© 2018</p>
+            <br/>
+            <p className="mt-5 mb-3 text-muted">{this.props.loginStore.msg}</p>
+          </div>
+        </div>
+      )
     );
   }
 }

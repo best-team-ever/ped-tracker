@@ -35,7 +35,9 @@ export default (state = initialState, action) => {
         userId: "",
         firstName: "",
         msg: "",
-        userRole: ""
+        userRole: "",
+        p2pe_agreement: "",
+        userLocationId: "",
       };
 
     case SET_MSG:
