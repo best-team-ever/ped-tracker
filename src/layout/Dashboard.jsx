@@ -3,18 +3,18 @@ import { Route, Switch, Redirect, withRouter } from "react-router-dom";
 import NotificationSystem from "react-notification-system";
 import { GoogleLogin } from 'react-google-login';
 
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import { style } from "../../variables/Variables.jsx";
-import dashboardRoutes from "../../routes/dashboard.jsx";
+import Header from "../components/Header/Header";
+import Footer from "../components/Footer/Footer";
+import Sidebar from "../components/Sidebar/Sidebar";
+import { style } from "../variables/Variables.jsx";
+import dashboardRoutes from "../routes/dashboard.jsx";
 
 import { connect } from "react-redux";
-import { loginHandler, setMsgHandler } from "../../store/handlers/loginHandlers";
-import './login.css';
-import Authorization from "./Authorization";
+import { loginHandler, setMsgHandler } from "../store/handlers/loginHandlers";
+import './dashboard.css';
+import Authorization from "../views/Login/Authorization";
 
-class Login extends Component {
+class Dashboard extends Component {
 
   constructor(props) {
     super(props);
@@ -84,7 +84,7 @@ class Login extends Component {
     //   title: <span data-notify="icon" className="pe-7s-gift" />,
     //   message: (
     //     <div>
-    //       Welcome to <b>Light Bootstrap Login</b> - a beautiful freebie for
+    //       Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for
     //       every web developer.
     //     </div>
     //   ),
@@ -200,4 +200,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard));

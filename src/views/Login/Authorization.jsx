@@ -30,7 +30,8 @@ class Authorization extends Component{
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.dispatch(fetchUserUpdate(this.props.user))
-      .then(() => logoutHandler(this.props.dispatch).then(this.props.history.push("/")));
+      // .then(() => logoutHandler(this.props.dispatch).then(this.props.history.push("/")));
+      .then(() => (this.props.history.push("/dashboard")));
   }
 
 
