@@ -58,7 +58,7 @@ class Sidebar extends Component {
           <ul className="nav">
             {this.state.width <= 991 ? <HeaderLinks /> : null}
             {dashboardRoutes.map((prop, key) => {
-              if(this.props.loginStore.userRole === "hotesse"){
+              if(this.props.loginStore.userRole === "cashier"){
                 if (prop.invisible)
                   return null;
                 else if (!prop.redirect ){
