@@ -4,12 +4,12 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('users', [
       {id: "40dc09ad-c035-47cf-8587-8622c4319d86",
-      first_name: "Jeanphilippe",
+      first_name: "Jean-Philippe",
       last_name: "Bornier",
       email: "jeanphilippe.bornier@decathlon.com",
       p2pe_agreement: 1,
       language: "en",
-      role: "cashier",
+      role: "client",
       location_id: "16213c8f-ba02-4120-a1cc-0e735a12d81a",
       createdAt: new Date(),
       updatedAt: new Date()
@@ -19,8 +19,8 @@ module.exports = {
       last_name: "Deng",
       email: "yuanqin.deng@decathlon.com",
       p2pe_agreement: 1,
-      language: "en",
-      role: "admin",
+      language: "fr",
+      role: "cashier",
       location_id: "16213c8f-ba02-4120-a1cc-0e735a12d81a",
       createdAt: new Date(),
       updatedAt: new Date()
@@ -41,8 +41,8 @@ module.exports = {
       last_name: "Delimeux",
       email: "frederic.delimeux@decathlon.com",
       p2pe_agreement: 0,
-      language: "en",
-      role: "rim",
+      language: "fr",
+      role: "cashier",
       location_id: "6f76b910-912a-4c92-bf18-e742aff30737",
       createdAt: new Date(),
       updatedAt: new Date()
