@@ -9,7 +9,7 @@ module.exports = {
       email: "jeanphilippe.bornier@decathlon.com",
       p2pe_agreement: 1,
       language: "en",
-      role: "hotesse",
+      role: "cashier",
       location_id: "16213c8f-ba02-4120-a1cc-0e735a12d81a",
       createdAt: new Date(),
       updatedAt: new Date()
@@ -42,7 +42,7 @@ module.exports = {
       email: "frederic.delimeux@decathlon.com",
       p2pe_agreement: 0,
       language: "en",
-      role: "admin",
+      role: "rim",
       location_id: "6f76b910-912a-4c92-bf18-e742aff30737",
       createdAt: new Date(),
       updatedAt: new Date()
