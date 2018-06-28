@@ -28,9 +28,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         signed: false,
-        // userId: "",
-        // firstName: "",
-        // p2pe_agreement: ""
+        userId: "",
+        firstName: "",
+        msg: ""
       };
 
     case SET_MSG:
